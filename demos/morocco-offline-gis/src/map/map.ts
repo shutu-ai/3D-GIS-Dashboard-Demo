@@ -442,7 +442,7 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         filter: ["all", ["==", ["get", "kind"], "peak"], ["<=", ["coalesce", ["get", "rank"], 9], 3]],
         minzoom: 9,
         layout: {
-          "text-field": ["concat", "▲ ", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
+          "text-field": ["concat", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
           "text-font": [FONT_STACK],
           "text-size": ["interpolate", ["linear"], ["zoom"], 9, 10.5, 13, 12.5],
           "symbol-sort-key": ["coalesce", ["get", "rank"], 9],
@@ -464,7 +464,7 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         filter: ["all", ["==", ["get", "kind"], "peak"], [">", ["coalesce", ["get", "rank"], 9], 3]],
         minzoom: 10.5,
         layout: {
-          "text-field": ["concat", "▲ ", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
+          "text-field": ["concat", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
           "text-font": [FONT_STACK],
           "text-size": ["interpolate", ["linear"], ["zoom"], 10.5, 10, 13, 11.5],
           "symbol-sort-key": ["coalesce", ["get", "rank"], 9],

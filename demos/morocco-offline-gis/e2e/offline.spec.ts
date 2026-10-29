@@ -110,9 +110,23 @@ test('elevation query returns DEM value and stays constant across exaggeration c
 test('contour layer toggles and interval label updates', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
+  // The MVT encoder fix means contour features must actually RENDER — query
+  // the rendered line layer so a parse regression (e.g. "unknown command 0")
+  // fails here instead of silently showing no contours.
+  await page.waitForTimeout(5000);
+  const contourCount = await page.evaluate(() => {
+    const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => Array<{ layer: { id: string } }> } } };
+    return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length;
+  });
+  expect(contourCount, 'major contour features must be visible at boot zoom').toBeGreaterThan(0);
   const contourToggle = page.getByText(/等高线|Contours?/i).first();
   await contourToggle.click();
   await page.waitForTimeout(1500);
+  const hiddenCount = await page.evaluate(() => {
+    const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
+    return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length;
+  });
+  expect(hiddenCount).toBe(0);
   await contourToggle.click();
   await page.waitForTimeout(1500);
 });
