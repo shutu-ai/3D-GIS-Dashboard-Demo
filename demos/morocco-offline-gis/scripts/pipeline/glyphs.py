@@ -20,6 +20,7 @@ distance to the glyph outline with ~8 px spread.
 from __future__ import annotations
 
 import os
+import struct
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -174,3 +175,107 @@ def generate_glyph_pbf(
     with open(out_path, "wb") as f:
         f.write(bytes(msg))
     return count
+
+
+# --------------------------------------------------------------------------
+# cmap presence check (stdlib only - fontTools is not a dependency).
+#
+# PIL/FreeType render .notdef for missing codepoints, so getbbox() cannot
+# prove a glyph exists.  Parse the TTF cmap subtables directly and resolve
+# the glyph id; gid > 0 means the character is actually mapped.
+# --------------------------------------------------------------------------
+
+def _cmap_subtables(data: bytes, cmap_off: int) -> list[tuple[int, int, int, int]]:
+    n = struct.unpack_from(">H", data, cmap_off + 2)[0]
+    out = []
+    for i in range(n):
+        pid, eid, off = struct.unpack_from(">HHI", data, cmap_off + 4 + 8 * i)
+        fmt = struct.unpack_from(">H", data, cmap_off + off)[0]
+        out.append((pid, eid, cmap_off + off, fmt))
+    return out
+
+
+def _gid_from_format4(data: bytes, soff: int, cp: int) -> int | None:
+    if cp > 0xFFFF:
+        return None
+    seg_count_x2 = struct.unpack_from(">H", data, soff + 6)[0]
+    seg_count = seg_count_x2 // 2
+    end_off = soff + 14
+    start_off = end_off + seg_count_x2 + 2
+    delta_off = start_off + seg_count_x2
+    range_off = delta_off + seg_count_x2
+    for i in range(seg_count):
+        end_code = struct.unpack_from(">H", data, end_off + 2 * i)[0]
+        start_code = struct.unpack_from(">H", data, start_off + 2 * i)[0]
+        if start_code <= cp <= end_code:
+            id_delta = struct.unpack_from(">h", data, delta_off + 2 * i)[0]
+            id_range_offset = struct.unpack_from(">H", data, range_off + 2 * i)[0]
+            if id_range_offset == 0:
+                return (cp + id_delta) & 0xFFFF
+            addr = range_off + 2 * i + id_range_offset + 2 * (cp - start_code)
+            if addr + 2 > len(data):
+                return None
+            return struct.unpack_from(">H", data, addr)[0]
+    return None
+
+
+def _gid_from_format12(data: bytes, soff: int, cp: int) -> int | None:
+    n_groups = struct.unpack_from(">I", data, soff + 12)[0]
+    for g in range(n_groups):
+        start_c, end_c, start_gid = struct.unpack_from(">III", data, soff + 16 + 12 * g)
+        if start_c <= cp <= end_c:
+            return start_gid + (cp - start_c)
+    return None
+
+
+def ttf_covers(ttf_path: str, codepoints) -> set[int]:
+    """Return the subset of `codepoints` that the TTF cmap actually maps."""
+    import contextlib
+
+    with open(ttf_path, "rb") as f:
+        data = f.read()
+    num_tables = struct.unpack_from(">H", data, 4)[0]
+    cmap_off = None
+    for i in range(num_tables):
+        rec = 12 + 16 * i
+        tag = data[rec : rec + 4]
+        off = struct.unpack_from(">I", data, rec + 8)[0]
+        if tag == b"cmap":
+            cmap_off = off
+    if cmap_off is None:
+        return set()
+
+    subs = _cmap_subtables(data, cmap_off)
+
+    def pick(pred):
+        for pid, eid, soff, fmt in subs:
+            if pred(pid, eid, fmt):
+                return soff, fmt
+        return None
+
+    # preference: unicode/windows full repertoire first, BMP formats after
+    order = [
+        (lambda p, e, f: f == 12 and (p, e) in ((3, 10), (0, 4), (0, 6))),
+        (lambda p, e, f: f == 12),
+        (lambda p, e, f: f == 4 and (p, e) in ((3, 1), (0, 3))),
+        (lambda p, e, f: f == 4),
+    ]
+    chosen = None
+    for pred in order:
+        chosen = pick(pred)
+        if chosen:
+            break
+    if chosen is None:
+        return set()
+    soff, fmt = chosen
+
+    found = set()
+    for cp in codepoints:
+        with contextlib.suppress(Exception):
+            if fmt == 12:
+                gid = _gid_from_format12(data, soff, cp)
+            else:
+                gid = _gid_from_format4(data, soff, cp)
+            if gid:
+                found.add(cp)
+    return found

@@ -4,7 +4,9 @@ Wire format hand-encoded per vector_tile.proto:
   Layer: version(15), name(19 as bytes), features(18), extent(20 MessageInt)
   Feature: id(1), tags(2 packed varints), type(3 MessageInt enum), geometry(4 packed)
   Value: string(1) | float(2) | double(3) | int64(4) | uint64(5) | sint64(6) | bool(7)
-Geometry commands: MoveTo=1, LineTo=2; parameters are zigzag varints.
+Geometry commands: MoveTo=1, LineTo=2; the command integer is
+  (id & 0x7) | (count << 3) where count = number of commands (points);
+  parameters are zigzag varints, 2 per point.
 """
 
 from __future__ import annotations
@@ -120,11 +122,16 @@ def encode_tile(layers: list["Layer"]) -> bytes:
 
 
 def _encode_commands(coords: list[tuple[int, int]]) -> list[int]:
-    """MoveTo(1) then LineTo(2) command stream, cursor-relative zigzag deltas."""
+    """MoveTo(1) then LineTo(2) command stream, cursor-relative zigzag deltas.
+
+    Per MVT v2 spec the command integer's count field is the NUMBER OF
+    COMMANDS (= points), each consuming exactly 2 parameter varints —
+    MapLibre's parser throws "unknown command" otherwise.
+    """
     cmds: list[int] = []
     cx, cy = 0, 0
     x0, y0 = coords[0]
-    cmds.append((2 << 3) | 1)  # MoveTo, 2 parameters
+    cmds.append((1 << 3) | 1)  # MoveTo, 1 command (2 parameters)
     cmds.append(zigzag(x0 - cx))
     cmds.append(zigzag(y0 - cy))
     cx, cy = x0, y0
@@ -137,7 +144,7 @@ def _encode_commands(coords: list[tuple[int, int]]) -> list[int]:
         j = i
         while j < len(run) and j - i < 8191:
             j += 1
-        cmds.append(((2 * (j - i)) << 3) | 2)  # LineTo with 2*(j-i) parameters
+        cmds.append(((j - i) << 3) | 2)  # LineTo with (j - i) commands
         for dx, dy in run[i:j]:
             cmds.append(zigzag(dx))
             cmds.append(zigzag(dy))

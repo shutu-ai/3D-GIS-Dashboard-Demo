@@ -239,19 +239,27 @@ def tile_fraction_to_lonlat(z, fx, fy):
     return lon, lat
 
 
-def build_contour_tile(z: int, x: int, y: int, interval: float) -> bytes:
+def build_contour_tile(z: int, x: int, y: int, interval: float, sampler=None) -> bytes:
     """MVT bytes (uncompressed) with one 'contour' layer for this tile.
+
+    `sampler`: callable(lons, lats) -> elevation array.  Defaults to the
+    synthetic analytic model (unchanged v1.0.0 behaviour); the real-DEM build
+    passes a pyramid-filtered Copernicus GLO-30 sampler (see prepare_data.py).
+    The sampler must be deterministic per zoom so neighbouring tiles (which
+    share this lattice through the margin ring) seam-match.
 
     Lattice nodes: k = 0 .. steps+2 at fraction (tile + (k-1)/steps), so
     node k=1 is the tile's left/top edge — shared with the neighbour's
     k=steps+1, which makes boundary vertices identical across tiles.
     """
+    if sampler is None:
+        sampler = elevation  # synthetic default (v1.0.0 behaviour)
     steps = STEPS_PER_TILE
     xs = x + np.arange(-1, steps + 2) / steps  # (steps+3,)
     ys = y + np.arange(-1, steps + 2) / steps
     gx, gy = np.meshgrid(xs, ys)  # gx[r,c] = xs[c], gy[r,c] = ys[r]
     lons, lats = tile_fraction_to_lonlat(z, gx, gy)
-    grid = elevation(lons, lats)
+    grid = np.asarray(sampler(lons, lats), dtype=np.float64)
 
     lo = float(grid.min())
     hi = float(grid.max())
