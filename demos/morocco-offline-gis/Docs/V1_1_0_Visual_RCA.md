@@ -81,7 +81,7 @@
 ## 3. 本轮基线重跑记录（追加）
 
 - 2026-10-29：typecheck PASS；validate_data 43/43 PASS（synthetic）。
-- Playwright 基线（`verify-offline.ps1 -Port 17842`，本机 17841 被 Hyper-V 保留）：结果待本轮 acceptance 汇总时一并记录。
+- Playwright 基线重跑（`verify-offline.ps1 -Port 17842`，本机 17841 被 Hyper-V 保留）：**[PASS] PMTILES_RANGE (206, header 128 bytes)；16/16 passed (7.9m)；[PASS] E2E suite** ——与 v1.0.0 验收记录一致，基线可信。
 - 真实 DEM 源数据：6 幅 Copernicus GLO-30 COG 已下载并校验（EPSG:4326、30 m、float32，SHA256 记录于 `data_sources/copernicus-glo30/SHA256SUMS.txt`）。
 
 ## 4. 修复责任映射
