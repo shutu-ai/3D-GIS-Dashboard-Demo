@@ -1,0 +1,10 @@
+# Data / build artifacts (regenerable, large)
+demos/morocco-offline-gis/.data/
+demos/morocco-offline-gis/dist/
+demos/morocco-offline-gis/node_modules/
+demos/morocco-offline-gis/public/data/*.pmtiles
+demos/morocco-offline-gis/Docs/e2e-report/
+demos/morocco-offline-gis/playwright-report/
+demos/morocco-offline-gis/test-results/
+*.log
+*.tsbuildinfo
