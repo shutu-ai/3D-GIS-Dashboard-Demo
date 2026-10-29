@@ -5,7 +5,8 @@
 
 param(
     [int]$Port = 17841,
-    [string]$Root = ""
+    [string]$Root = "",
+    [switch]$NoBrowser
 )
 
 $ErrorActionPreference = "Stop"
@@ -36,12 +37,28 @@ $mime = @{
 }
 
 $rootFull = [IO.Path]::GetFullPath($Root)
+$reqPort = $Port
 
+# Bind the requested port; if it is unavailable (in use, or inside a Hyper-V /
+# WinNAT reserved range - pid 4 "System"), fall forward to the next candidates
+# so a clean-machine cold start never dies on a port collision.
 $listener = New-Object System.Net.HttpListener
-$listener.Prefixes.Add("http://127.0.0.1:${Port}/")
-try { $listener.Start() } catch {
-    Write-Host "ERROR: cannot bind 127.0.0.1:${Port} - port in use? Use -Port to change." -ForegroundColor Red
+$maxPortAttempts = 10
+$bound = $false
+for ($attempt = 0; $attempt -lt $maxPortAttempts; $attempt++) {
+    $Port = $reqPort + $attempt
+    $listener.Prefixes.Clear()
+    $listener.Prefixes.Add("http://127.0.0.1:${Port}/")
+    try { $listener.Start(); $bound = $true; break } catch {
+        Write-Host "  [WARN] port 127.0.0.1:${Port} unavailable ($($_.Exception.Message)), trying next..." -ForegroundColor Yellow
+    }
+}
+if (-not $bound) {
+    Write-Host "ERROR: cannot bind 127.0.0.1:${reqPort}-$($reqPort + $maxPortAttempts - 1). Free a port or pass -Port <n>." -ForegroundColor Red
     exit 1
+}
+if ($Port -ne $reqPort) {
+    Write-Host "  [INFO] default port $reqPort was reserved/in use - using $Port instead." -ForegroundColor Yellow
 }
 
 Write-Host ""
@@ -52,6 +69,14 @@ Write-Host "  Range   : supported (206 partial content, required by PMTiles)"
 Write-Host "  Offline : the server makes no external requests."
 Write-Host "  Press Ctrl+C to stop."
 Write-Host ""
+
+# Open the default browser at the ACTUALLY bound port (may differ from the
+# requested one when the default was reserved, e.g. by Hyper-V/WinNAT).
+if (-not $NoBrowser) {
+    try { Start-Process "http://127.0.0.1:${Port}/" } catch {
+        Write-Host "  [WARN] could not launch browser automatically: open http://127.0.0.1:${Port}/ manually" -ForegroundColor Yellow
+    }
+}
 
 # Preflight self-test runs as a background job: the request it makes must be served
 # by the main loop below, so it cannot run synchronously (would deadlock on GetContext).
