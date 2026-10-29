@@ -1,0 +1,137 @@
+{
+  "simulated": true,
+  "seed": 20261029,
+  "bbox": [
+    -8.2,
+    30.9,
+    -7.1,
+    31.5
+  ],
+  "coverage": [
+    -8.4,
+    30.85,
+    -6.95,
+    31.55
+  ],
+  "dem": {
+    "file": "dem-terrarium.pmtiles",
+    "encoding": "terrarium",
+    "zooms": [
+      7,
+      12
+    ],
+    "tile_size": 512,
+    "vertical_datum": "synthetic - no datum (SIMULATED)",
+    "nominal_resolution_m": "~30 (simulated analytic model)",
+    "source": "SIMULATED TERRAIN - programmatically generated, not survey data"
+  },
+  "contours": {
+    "file": "contours.pmtiles",
+    "layer": "contour",
+    "intervals_by_zoom": {
+      "6-8": 500,
+      "9-11": 100,
+      "12+": 50
+    },
+    "source": "generated from the same analytic elevation model as the DEM"
+  },
+  "hypso": {
+    "file": "hypso.pmtiles",
+    "legend": [
+      {
+        "elev_m": 400,
+        "color": "#3f7f63"
+      },
+      {
+        "elev_m": 600,
+        "color": "#5f9160"
+      },
+      {
+        "elev_m": 900,
+        "color": "#8ba05e"
+      },
+      {
+        "elev_m": 1200,
+        "color": "#b3a75c"
+      },
+      {
+        "elev_m": 1600,
+        "color": "#c99f63"
+      },
+      {
+        "elev_m": 2000,
+        "color": "#bd8b5b"
+      },
+      {
+        "elev_m": 2400,
+        "color": "#a97a5c"
+      },
+      {
+        "elev_m": 2800,
+        "color": "#98705f"
+      },
+      {
+        "elev_m": 3200,
+        "color": "#8a6d6a"
+      },
+      {
+        "elev_m": 3550,
+        "color": "#8f8b93"
+      },
+      {
+        "elev_m": 3850,
+        "color": "#bfc0c8"
+      },
+      {
+        "elev_m": 4050,
+        "color": "#eceef2"
+      },
+      {
+        "elev_m": 4160,
+        "color": "#ffffff"
+      }
+    ]
+  },
+  "glyphs": {
+    "fontstack": "Noto Sans Regular",
+    "license": "SIL Open Font License 1.1"
+  },
+  "scenes": [
+    {
+      "name": "Toubkal Peak",
+      "lng": -7.9146,
+      "lat": 31.0595,
+      "zoom": 10.8,
+      "pitch": 68,
+      "bearing": 150
+    },
+    {
+      "name": "High Atlas Ridges",
+      "lng": -7.75,
+      "lat": 31.12,
+      "zoom": 10.8,
+      "pitch": 60,
+      "bearing": 30
+    },
+    {
+      "name": "Tizi n'Tichka Pass",
+      "lng": -7.4167,
+      "lat": 31.25,
+      "zoom": 10.8,
+      "pitch": 65,
+      "bearing": -30
+    },
+    {
+      "name": "Mountain Road",
+      "lng": -7.55,
+      "lat": 31.17,
+      "zoom": 10.8,
+      "pitch": 62,
+      "bearing": 75
+    }
+  ],
+  "ran": {
+    "file": "simulated-ran.geojson",
+    "note": "SIMULATED NETWORK DATA - no real operator data involved"
+  }
+}

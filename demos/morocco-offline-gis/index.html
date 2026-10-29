@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morocco High Atlas — Offline 3D GIS Lab</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="map"></div>
+
+    <header id="topbar">
+      <div class="brand">
+        <span class="title">High Atlas · Offline 3D GIS Lab</span>
+        <span class="badge badge-offline" title="All runtime resources are local">OFFLINE GIS DEMO</span>
+        <span class="badge badge-sim" title="Terrain is programmatically generated (user decision), not survey data">SIMULATED TERRAIN</span>
+        <span class="badge badge-sim hidden" id="ran-banner">SIMULATED NETWORK DATA</span>
+      </div>
+      <div class="topbar-actions">
+        <button id="btn-copy-view" title="复制当前视图链接（仅本地参数）">复制视图链接</button>
+        <button id="btn-fullscreen" title="全屏">全屏</button>
+        <button id="btn-reset" title="复位视角">复位</button>
+      </div>
+    </header>
+
+    <aside id="panel-left" class="panel">
+      <div class="panel-head">
+        <span>控制面板</span>
+        <button class="btn-collapse" data-target="panel-left" title="折叠/展开">‹</button>
+      </div>
+      <div class="panel-body">
+        <section class="group" id="grp-view">
+          <h3>视图 / View</h3>
+          <div class="row">
+            <button id="btn-2d" class="seg">2D</button><button id="btn-3d" class="seg active">3D</button>
+          </div>
+          <label class="lbl">倾斜角 Pitch: <span id="pitch-val">60°</span></label>
+          <input id="pitch-slider" type="range" min="0" max="70" step="1" value="60" />
+          <label class="lbl">地形夸张 Exaggeration <span class="hint" title="仅视觉，不改变原始海拔数值">(visual only)</span></label>
+          <div class="row">
+            <button class="seg ex" data-ex="1.0">1.0</button><button class="seg ex active" data-ex="1.2">1.2</button><button class="seg ex" data-ex="1.5">1.5</button>
+          </div>
+        </section>
+
+        <section class="group" id="grp-scenes">
+          <h3>场景 / Fly-to</h3>
+          <div id="scenes" class="col"></div>
+        </section>
+
+        <section class="group" id="grp-layers">
+          <h3>图层 / Layers</h3>
+          <label><input type="checkbox" id="ly-hypso" checked /> 高程着色 Hypsometric</label>
+          <label><input type="checkbox" id="ly-hillshade" checked /> 山体阴影 Hillshade</label>
+          <label><input type="checkbox" id="ly-contours" checked /> 等高线 Contours <span id="contour-interval" class="hint"></span></label>
+          <label><input type="checkbox" id="ly-osm" checked /> 道路/山峰/地名 Features</label>
+          <label><input type="checkbox" id="ly-ran" /> 模拟无线 overlay <span class="badge badge-sim mini">SIM</span></label>
+        </section>
+
+        <section class="group" id="grp-legend">
+          <h3>海拔色标 / Elevation (m)</h3>
+          <div id="legend-hypso" class="legend-bar"></div>
+          <div id="legend-ran" class="legend-bar hidden"></div>
+        </section>
+      </div>
+    </aside>
+
+    <aside id="panel-right" class="panel">
+      <div class="panel-head">
+        <span>分析 / Analysis</span>
+        <button class="btn-collapse" data-target="panel-right" title="折叠/展开">›</button>
+      </div>
+      <div class="panel-body">
+        <section class="group">
+          <h3>模式</h3>
+          <div class="row">
+            <button id="btn-mode-query" class="seg active">海拔查询</button><button id="btn-mode-profile" class="seg">A-B 剖面</button>
+          </div>
+        </section>
+        <section class="group" id="query-card">
+          <h3>海拔查询 / Elevation</h3>
+          <div id="query-result" class="kv">点击地图任意位置查询 DEM 原始海拔</div>
+        </section>
+        <section class="group hidden" id="profile-card">
+          <h3>地形剖面 / Profile</h3>
+          <div id="profile-status" class="kv">依次点击地图选择 A、B 两点</div>
+          <canvas id="profile-chart" width="360" height="170"></canvas>
+          <div id="profile-stats" class="kv"></div>
+          <div id="profile-los" class="los">
+            <h4>视距 LOS <span class="hint">(terrain-only approximation)</span></h4>
+            <label>A 天线高 <input id="ant-a" type="number" value="10" min="0" max="200" /> m</label>
+            <label>B 天线高 <input id="ant-b" type="number" value="10" min="0" max="200" /> m</label>
+            <label>频率 <select id="los-freq"><option value="900">900 MHz</option><option value="1800">1800 MHz</option><option value="2600">2600 MHz</option></select></label>
+            <div id="los-result" class="kv"></div>
+          </div>
+          <button id="btn-clear-profile">清除剖面</button>
+        </section>
+      </div>
+    </aside>
+
+    <footer id="attribution"></footer>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

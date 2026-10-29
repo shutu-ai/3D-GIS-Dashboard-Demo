@@ -6,5 +6,8 @@ demos/morocco-offline-gis/public/data/*.pmtiles
 demos/morocco-offline-gis/Docs/e2e-report/
 demos/morocco-offline-gis/playwright-report/
 demos/morocco-offline-gis/test-results/
+demos/morocco-offline-gis/releases/
+demos/morocco-offline-gis/**/__pycache__/
+demos/morocco-offline-gis/**/*.pyc
 *.log
 *.tsbuildinfo

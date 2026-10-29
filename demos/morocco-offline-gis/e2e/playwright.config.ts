@@ -5,6 +5,9 @@ import { defineConfig } from '@playwright/test';
 // blocked per-test via context.route in the tests themselves.
 export default defineConfig({
   testDir: '.',
+  // The offline DEM is intentionally large; serial WebGL contexts keep the
+  // two viewport projects from competing for the same headless GPU process.
+  workers: 1,
   timeout: 90_000,
   expect: { timeout: 15_000 },
   reporter: [

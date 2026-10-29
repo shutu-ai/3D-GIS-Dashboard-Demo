@@ -10,10 +10,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@expo-google-fonts/noto-sans": "^0.4.2",
     "maplibre-gl": "^5.9.0",
     "pmtiles": "^4.3.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "typescript": "^5.9.3",
     "vite": "^7.1.0"
   },

@@ -15,6 +15,16 @@ if (-not (Test-Path (Join-Path $Dist "index.html"))) {
     exit 1
 }
 
+# guard: a stale server on this port would answer requests with the WRONG root
+# and poison the acceptance result. Refuse to run until the port is free.
+$stale = Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue
+if ($stale) {
+    $spid = ($stale | Select-Object -First 1).OwningProcess
+    Write-Host "ERROR: port $Port already in use (pid $spid) - stop the stale server first:" -ForegroundColor Red
+    Write-Host "       Stop-Process -Id $spid -Force"
+    exit 1
+}
+
 # 1. Start the offline server against dist (same server the end user runs)
 $server = Start-Process powershell -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $Dist 'start-offline.ps1'),'-Port',$Port -PassThru -WindowStyle Hidden
 Start-Sleep 3
