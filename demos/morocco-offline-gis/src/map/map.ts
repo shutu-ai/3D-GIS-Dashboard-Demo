@@ -11,6 +11,20 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 /** Single shared archive handle (range-request reader) for elevation queries. */
 export const demArchive = new PMTiles("/data/dem-terrarium.pmtiles");
 
+/** Default 3D pitch (was 60; v1.1.0 calmer terrain framing). */
+export const DEFAULT_PITCH = 50;
+
+/**
+ * Shrink a bbox by a margin (degrees) on every side so free-flight camera
+ * centres stay over real terrain tiles instead of the archive edge.
+ */
+function shrinkBounds(b: [number, number, number, number], marginDeg = 0.05): [[number, number], [number, number]] {
+  return [
+    [b[0] + marginDeg, b[1] + marginDeg],
+    [b[2] - marginDeg, b[3] - marginDeg],
+  ];
+}
+
 export interface ViewState {
   lng: number;
   lat: number;
@@ -44,11 +58,15 @@ export class MapApp {
       maxPitch: 70,
       hash: false,
       attributionControl: false,
+      // keep free flight inside the real DEM coverage so the camera never
+      // hovers past the "floating rectangle" data edge (C1)
+      maxBounds: shrinkBounds(meta.coverage, 0.05),
     });
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "bottom-right");
     map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: "metric" }), "bottom-left");
     const app = new MapApp(map, meta);
     map.on("moveend", () => app.writeHash());
+    app.wireBoundaryHint(initial);
     return app;
   }
 
@@ -115,11 +133,86 @@ export class MapApp {
     this.map.flyTo({
       center: [v.lng, v.lat],
       zoom: v.zoom,
-      pitch: 60,
+      pitch: DEFAULT_PITCH,
       bearing: 0,
       duration: 2400,
       essential: true,
     });
+  }
+
+  // ------------------------------------------------- data-boundary hint (C2)
+  private boundaryTimer: number | null = null;
+  private boundaryShown = false;
+  private boundarySticky = false;
+
+  /**
+   * On moveend (debounced), warn when the camera centre sits outside the DEM
+   * coverage bbox or below the first terrain zoom — the point where rendered
+   * terrain/labels run out. Non-blocking toast, bottom-centre, with a Reset
+   * shortcut. Only shown when the condition actually holds.
+   *
+   * `bootView` is the raw hash-derived initial view: maxBounds clamps the
+   * actual camera, so a far-outside share link must be detected before the
+   * clamp erases the evidence.
+   */
+  private wireBoundaryHint(bootView: ViewState | null) {
+    const check = () => {
+      if (this.boundarySticky) return; // boot-latched hint stays until Reset
+      const c = this.map.getCenter();
+      const [minLon, minLat, maxLon, maxLat] = this.meta.coverage;
+      const outside =
+        c.lng < minLon || c.lng > maxLon || c.lat < minLat || c.lat > maxLat;
+      const tooZoomedOut = this.map.getZoom() < this.meta.dem.zooms[0];
+      if (outside || tooZoomedOut) this.showBoundaryHint();
+      else this.hideBoundaryHint();
+    };
+    this.map.on("moveend", () => {
+      if (this.boundaryTimer !== null) window.clearTimeout(this.boundaryTimer);
+      this.boundaryTimer = window.setTimeout(check, 250);
+    });
+    if (bootView) {
+      const [minLon, minLat, maxLon, maxLat] = this.meta.coverage;
+      const bootOutside =
+        bootView.lng < minLon ||
+        bootView.lng > maxLon ||
+        bootView.lat < minLat ||
+        bootView.lat > maxLat ||
+        bootView.zoom < this.meta.dem.zooms[0];
+      if (bootOutside) {
+        // latch: maxBounds already clamped the camera, and the initial load's
+        // own moveend would otherwise clear the toast before it is read
+        this.boundarySticky = true;
+        this.showBoundaryHint();
+        return;
+      }
+    }
+    check();
+  }
+
+  private showBoundaryHint() {
+    let toast = document.getElementById("boundary-hint");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "boundary-hint";
+      toast.className = "boundary-hint";
+      toast.innerHTML =
+        `<span>Outside offline terrain coverage — data ends here</span>` +
+        `<button id="boundary-reset" type="button">Reset</button>`;
+      toast.querySelector("#boundary-reset")?.addEventListener("click", () => {
+        this.boundarySticky = false;
+        this.hideBoundaryHint();
+        this.resetView();
+      });
+      document.getElementById("app")!.appendChild(toast);
+    }
+    toast.classList.add("visible");
+    this.boundaryShown = true;
+  }
+
+  private hideBoundaryHint() {
+    if (!this.boundaryShown) return;
+    document.getElementById("boundary-hint")?.classList.remove("visible");
+    this.boundaryShown = false;
   }
 }
 
@@ -137,7 +230,7 @@ function fitBoundsView(meta: AppMetadata): ViewState {
   const spanLon = (maxLon - minLon) * Math.cos((lat * Math.PI) / 180);
   const spanLat = maxLat - minLat;
   const zoom = Math.min(11.2, Math.log2(360 / Math.max(spanLon, spanLat * 1.6)) - 0.4);
-  return { lng, lat, zoom: Math.max(zoom, 8.5), pitch: 60, bearing: 0, ex: 1.2 };
+  return { lng, lat, zoom: Math.max(zoom, 8.5), pitch: DEFAULT_PITCH, bearing: 0, ex: 1.2 };
 }
 
 function readHash(): ViewState | null {
@@ -212,23 +305,32 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
       {
         id: "background",
         type: "background",
-        paint: { "background-color": "#101820" },
+        // dark slate tuned to the hypsometric ramp's lowest band so the
+        // terrain edge never reads as a hard rectangle against the void
+        paint: { "background-color": "#1c2822" },
       },
       {
         id: LAYER_IDS.hypso,
         type: "raster",
         source: "hypso",
-        paint: { "raster-opacity": 0.9, "raster-fade-duration": 150 },
+        // opacity 1.0: 0.9 let background bleed through and produced washed
+        // seams between adjacent raster tiles
+        paint: { "raster-opacity": 1.0, "raster-fade-duration": 150 },
       },
       {
         id: LAYER_IDS.hillshade,
         type: "hillshade",
         source: "demHillshade",
         paint: {
-          "hillshade-exaggeration": 0.45,
-          "hillshade-shadow-color": "#0a1018",
-          "hillshade-highlight-color": "#ffffff",
-          "hillshade-accent-color": "#3a4a5a",
+          // NW illumination (315°) is standard cartographic practice; the
+          // softened palette keeps relief readable without the "plastic
+          // wrinkled paper" look of near-black shadows on white highlights.
+          "hillshade-illumination-direction": 315,
+          "hillshade-illumination-anchor": "map",
+          "hillshade-exaggeration": 0.35,
+          "hillshade-shadow-color": "#1a2430",
+          "hillshade-highlight-color": "#f5f2e8",
+          "hillshade-accent-color": "#3e4a42",
         },
       },
       // --- contours (minor under major) ---
@@ -263,15 +365,39 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         minzoom: 9,
         layout: {
           "symbol-placement": "line",
-          "symbol-spacing": 260,
+          "symbol-spacing": 300,
+          "text-padding": 4,
           "text-field": ["concat", ["to-string", ["get", "ele"]], " m"],
           "text-font": [FONT_STACK],
-          "text-size": ["interpolate", ["linear"], ["zoom"], 9, 10, 13, 13],
+          "text-size": ["interpolate", ["linear"], ["zoom"], 9, 9.5, 13, 12],
         },
         paint: {
           "text-color": "#f2e3bd",
-          "text-halo-color": "rgba(10, 16, 24, 0.85)",
-          "text-halo-width": 1.6,
+          "text-halo-color": "rgba(14, 20, 28, 0.8)",
+          "text-halo-width": 1.4,
+        },
+      },
+      // minor contour labels only appear zoomed in (z>=11.5) so the label
+      // density ladder reads: fewer numbers zoomed out, more when in
+      {
+        id: LAYER_IDS.contoursLabelMinor,
+        type: "symbol",
+        source: "contours",
+        "source-layer": "contour",
+        filter: ["!", ["get", "major"]],
+        minzoom: 11.5,
+        layout: {
+          "symbol-placement": "line",
+          "symbol-spacing": 280,
+          "text-padding": 4,
+          "text-field": ["concat", ["to-string", ["get", "ele"]], " m"],
+          "text-font": [FONT_STACK],
+          "text-size": ["interpolate", ["linear"], ["zoom"], 11.5, 9.5, 13, 11],
+        },
+        paint: {
+          "text-color": "rgba(233, 214, 172, 0.85)",
+          "text-halo-color": "rgba(14, 20, 28, 0.8)",
+          "text-halo-width": 1.4,
         },
       },
       // --- roads / peaks / places ---
@@ -305,23 +431,52 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
           "circle-stroke-width": 1.2,
         },
       },
+      // Peak labels split by rank: named summits (rank<=3) resolve from z9,
+      // the rest from z10.5. Collision is left to the default global symbol
+      // placement (no text-allow-overlap anywhere) with sort-key priority
+      // peaks > passes > places > contours.
+      {
+        id: LAYER_IDS.peakLabelsTop,
+        type: "symbol",
+        source: "osm",
+        filter: ["all", ["==", ["get", "kind"], "peak"], ["<=", ["coalesce", ["get", "rank"], 9], 3]],
+        minzoom: 9,
+        layout: {
+          "text-field": ["concat", "▲ ", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
+          "text-font": [FONT_STACK],
+          "text-size": ["interpolate", ["linear"], ["zoom"], 9, 10.5, 13, 12.5],
+          "symbol-sort-key": ["coalesce", ["get", "rank"], 9],
+          "text-padding": 8,
+          "text-max-width": 7,
+          "text-offset": [0, 1.1],
+          "text-anchor": "top",
+        },
+        paint: {
+          "text-color": "#f7f0da",
+          "text-halo-color": "rgba(18, 26, 36, 0.72)",
+          "text-halo-width": 1.2,
+        },
+      },
       {
         id: LAYER_IDS.peakLabels,
         type: "symbol",
         source: "osm",
-        filter: ["==", ["get", "kind"], "peak"],
+        filter: ["all", ["==", ["get", "kind"], "peak"], [">", ["coalesce", ["get", "rank"], 9], 3]],
+        minzoom: 10.5,
         layout: {
-          "text-field": ["concat", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
+          "text-field": ["concat", "▲ ", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
           "text-font": [FONT_STACK],
-          "text-size": 11,
+          "text-size": ["interpolate", ["linear"], ["zoom"], 10.5, 10, 13, 11.5],
+          "symbol-sort-key": ["coalesce", ["get", "rank"], 9],
+          "text-padding": 8,
+          "text-max-width": 7,
           "text-offset": [0, 1.1],
           "text-anchor": "top",
-          "text-max-width": 8,
         },
         paint: {
           "text-color": "#f7f0da",
-          "text-halo-color": "rgba(10, 16, 24, 0.9)",
-          "text-halo-width": 1.5,
+          "text-halo-color": "rgba(18, 26, 36, 0.72)",
+          "text-halo-width": 1.2,
         },
       },
       {
@@ -336,17 +491,21 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         type: "symbol",
         source: "osm",
         filter: ["==", ["get", "kind"], "place"],
+        minzoom: 10,
         layout: {
           "text-field": ["get", "name"],
           "text-font": [FONT_STACK],
-          "text-size": 10.5,
+          "text-size": 10,
+          // places rank below peaks/passes in the collision hierarchy
+          "symbol-sort-key": ["+", ["coalesce", ["get", "rank"], 9], 1],
+          "text-padding": 6,
           "text-offset": [0, 0.9],
           "text-anchor": "top",
         },
         paint: {
-          "text-color": "#cfe0f0",
-          "text-halo-color": "rgba(10, 16, 24, 0.9)",
-          "text-halo-width": 1.4,
+          "text-color": "#d5e2ef",
+          "text-halo-color": "rgba(18, 26, 36, 0.72)",
+          "text-halo-width": 1.2,
         },
       },
       // passes share peak styling but amber
@@ -362,17 +521,22 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         type: "symbol",
         source: "osm",
         filter: ["==", ["get", "kind"], "pass"],
+        minzoom: 9.5,
         layout: {
-          "text-field": ["concat", ["get", "name"], " ", ["to-string", ["get", "ele"]], " m"],
+          "text-field": ["concat", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
           "text-font": [FONT_STACK],
-          "text-size": 10.5,
+          "text-size": ["interpolate", ["linear"], ["zoom"], 9.5, 9.5, 13, 11],
+          // half-step after peaks of the same rank, before places
+          "symbol-sort-key": ["+", ["coalesce", ["get", "rank"], 9], 0.5],
+          "text-padding": 6,
+          "text-max-width": 7,
           "text-offset": [0, 1.0],
           "text-anchor": "top",
         },
         paint: {
-          "text-color": "#f0dcae",
-          "text-halo-color": "rgba(10, 16, 24, 0.9)",
-          "text-halo-width": 1.4,
+          "text-color": "#f0d489",
+          "text-halo-color": "rgba(18, 26, 36, 0.72)",
+          "text-halo-width": 1.2,
         },
       },
       // --- profile highlight (below RAN so analysis stays visible) ---

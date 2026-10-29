@@ -1,7 +1,7 @@
 /** UI wiring: panels, buttons, legends, mode switching. */
 
 import type { Map as MLMap } from "maplibre-gl";
-import { LAYER_IDS, type AppMetadata } from "../config";
+import { demSourceLine, LAYER_IDS, type AppMetadata } from "../config";
 import { MapApp } from "../map/map";
 import type { TerrainControl } from "../map/terrain";
 import type { ContourControl } from "../map/contours";
@@ -131,6 +131,7 @@ export class Controls {
           LAYER_IDS.roadsCasing,
           LAYER_IDS.peaks,
           LAYER_IDS.peakLabels,
+          LAYER_IDS.peakLabelsTop,
           LAYER_IDS.places,
           LAYER_IDS.placeLabels,
           "osm-passes",
@@ -187,7 +188,8 @@ export class Controls {
         const out = document.getElementById("query-result")!;
         out.innerHTML = `<span class="k">采样中…</span>`;
         const r = await sampleElevation(lng, lat, this.meta.dem.zooms[0], this.meta.dem.zooms[1]);
-        const src = `<div class="k">DEM: SIMULATED terrain · terrarium · ~30 m nominal · ${this.meta.dem.vertical_datum}</div>`;
+        // provenance is derived from metadata (real vs simulated), never hardcoded
+        const src = `<div class="k">DEM: ${demSourceLine(this.meta)}</div>`;
         if (r.status === "ok") {
           out.innerHTML = `
             <div><span class="k">经纬度</span> ${lat.toFixed(5)}, ${lng.toFixed(5)}</div>

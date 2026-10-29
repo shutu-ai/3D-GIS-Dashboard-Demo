@@ -33,11 +33,15 @@ test.beforeEach(async ({ page }) => {
 
 test('cold start: map loads, real terrain renders, zero external requests', async ({ page }) => {
   const external = blockExternal(page);
+  // badge wording must always mirror metadata (real build -> REAL TERRAIN · OFFLINE)
+  const metaRes = await page.request.get('/data/metadata.json');
+  const meta = (await metaRes.json()) as { terrain?: { mode?: string } };
+  const badgePattern = meta.terrain?.mode === 'real' ? /REAL TERRAIN · OFFLINE/i : /SIMULATED TERRAIN/i;
   await page.goto('/', { waitUntil: 'load' });
   // map canvas appears
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
   await expect(page.locator('.badge-offline')).toHaveText(/OFFLINE GIS DEMO/i);
-  await expect(page.locator('.badge-sim:not(#ran-banner)').first()).toHaveText(/SIMULATED TERRAIN/i);
+  await expect(page.locator('#terrain-badge')).toHaveText(badgePattern);
   await expect.poll(async () => page.evaluate(() => {
     const app = (window as unknown as { __gisApp?: { map?: {
       getTerrain: () => { source?: string } | null;
@@ -163,26 +167,179 @@ test('fly-to scenes navigate within coverage', async ({ page }) => {
   }
 });
 
-test('capture acceptance screenshots', async ({ page }, testInfo) => {
+test('metadata: real terrain mode and Copernicus DEM source', async ({ page }) => {
+  const res = await page.request.get('/data/metadata.json');
+  expect(res.ok()).toBeTruthy();
+  const meta = (await res.json()) as {
+    terrain?: { mode?: string; product?: string };
+    dem?: { source?: string };
+  };
+  expect(meta.terrain?.mode, 'terrain.mode must be "real" in the v1.1.0 build').toBe('real');
+  const provenance = `${meta.terrain?.product ?? ''} ${meta.dem?.source ?? ''}`;
+  expect(provenance, 'DEM provenance must reference Copernicus').toMatch(/copernicus/i);
+});
+
+test('boundary hint appears when booting far outside coverage', async ({ page }) => {
+  // share-link style boot far west of the DEM coverage; maxBounds will clamp
+  // the camera, but the app must still tell the user the data ends here
+  await page.goto('/#v=-20,31,8,50,0,1.2');
+  await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
+  const hint = page.locator('#boundary-hint');
+  await expect(hint).toHaveClass(/visible/, { timeout: 15_000 });
+  await expect(hint).toContainText(/outside offline terrain coverage/i);
+  // Reset returns the default in-coverage view and dismisses the toast
+  await hint.locator('#boundary-reset').click();
+  await expect(hint).not.toHaveClass(/visible/, { timeout: 20_000 });
+});
+
+test('peak labels render at Toubkal scene without duplicates', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
+  await page.waitForTimeout(6000);
+  await page.evaluate(() => {
+    const target = Array.from(document.querySelectorAll<HTMLButtonElement>('#scenes button'))
+      .find((b) => /toubkal/i.test(b.textContent ?? ''));
+    if (!target) throw new Error('Toubkal scene button not found');
+    target.click();
+  });
+  // settle: DEM pyramid + symbol placement after the scene jump
+  await page.waitForTimeout(8000);
+  const names = await page.evaluate(() => {
+    const w = window as unknown as {
+      __gisApp?: { map: { queryRenderedFeatures: (p?: unknown, o?: unknown) => Array<{ properties?: Record<string, unknown> }> } };
+    };
+    const feats = w.__gisApp!.map.queryRenderedFeatures(undefined, {
+      layers: ['osm-peak-labels', 'osm-peak-labels-top'],
+    });
+    return feats.map((f) => String(f.properties?.name ?? ''));
+  });
+  expect(names.length, 'peak labels must be rendered at the Toubkal scene (z11)').toBeGreaterThan(0);
+  const counts = new Map<string, number>();
+  for (const n of names) counts.set(n, (counts.get(n) ?? 0) + 1);
+  const dups = Array.from(counts.entries()).filter(([, c]) => c > 1);
+  expect(dups, `same-name labels must not duplicate: ${JSON.stringify(dups)}`).toEqual([]);
+});
+
+test('elevation near Toubkal summit is in DEM range and stays constant across exaggeration', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
+  await page.waitForTimeout(2500);
+  const canvas = page.locator('canvas').first();
+  const summit = [-7.9146, 31.0595] as [number, number]; // Jbel Toubkal
+
+  const clickPoint = async ([lng, lat]: [number, number]) => {
+    const pos = await page.evaluate(([lng, lat]) => {
+      const w = window as unknown as { __gisApp: { map: { project: (c: [number, number]) => { x: number; y: number } } } };
+      const p = w.__gisApp.map.project([lng, lat]);
+      return {
+        x: Math.max(5, Math.min(window.innerWidth - 5, Math.round(p.x))),
+        y: Math.max(5, Math.min(window.innerHeight - 5, Math.round(p.y))),
+      };
+    }, [lng, lat]);
+    await canvas.click({ position: pos });
+  };
+
+  const readElevation = async (): Promise<number> => {
+    const result = page.locator('#query-result');
+    await expect(result.getByText(/DEM elevation/i)).toBeVisible({ timeout: 20_000 });
+    const text = await result.textContent();
+    const m = text?.match(/(-?\d+(?:\.\d+)?)\s*m/);
+    expect(m, `query result must contain an elevation (${text})`).toBeTruthy();
+    return Number(m![1]);
+  };
+
+  await clickPoint(summit);
+  const v1 = await readElevation();
+  expect(v1, 'Toubkal summit DEM value must fall in the published range [3900, 4350]').toBeGreaterThanOrEqual(3900);
+  expect(v1).toBeLessThanOrEqual(4350);
+
+  // exaggeration 1.0 -> 1.5 must not alter the sampled DEM value
+  await page.locator('button[data-ex="1.0"]').click();
+  await page.waitForTimeout(1200);
+  await clickPoint(summit);
+  const v2 = await readElevation();
+  expect(v2).toBe(v1);
+
+  await page.locator('button[data-ex="1.5"]').click();
+  await page.waitForTimeout(1200);
+  await clickPoint(summit);
+  const v3 = await readElevation();
+  expect(v3).toBe(v1);
+});
+
+test('capture acceptance screenshots (6 scenes x viewport project)', async ({ page }, testInfo) => {
+  const proj = testInfo.project.name;
+  const dir = path.join(SHOT_ROOT, 'v1.1.0', proj);
   await page.goto('/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
   await page.waitForTimeout(5000); // let 3D terrain + contours stream in
-  const proj = testInfo.project.name;
-  const dir = path.join(SHOT_ROOT, proj);
-  // 1. default 3D view
-  await page.screenshot({ path: `${dir}/01-default-3d.png` });
-  // 2. RAN overlay on
+
+  const flyScene = async (name: string) => {
+    await page.evaluate((n) => {
+      const target = Array.from(document.querySelectorAll<HTMLButtonElement>('#scenes button'))
+        .find((b) => new RegExp(n, 'i').test(b.textContent ?? ''));
+      if (!target) throw new Error(`scene button not found: ${n}`);
+      target.click();
+    }, name);
+    await page.waitForTimeout(5000);
+  };
+
+  // 01 Toubkal 3D
+  await flyScene('Toubkal');
+  await page.screenshot({ path: `${dir}/01-toubkal-3d.png` });
+
+  // 02 High Atlas ridges 3D
+  await flyScene('Ridges');
+  await page.screenshot({ path: `${dir}/02-high-atlas-ridges-3d.png` });
+
+  // 03 Tizi n'Tichka 3D
+  await flyScene('Tichka');
+  await page.screenshot({ path: `${dir}/03-tizi-ntichka-3d.png` });
+
+  // 04 overview 2D with contours: pitch 0, zoom ~9.2
+  await page.locator('#btn-2d').click();
+  await page.waitForTimeout(1200); // pitch ease-out
+  await page.evaluate(() => {
+    const w = window as unknown as { __gisApp: { map: { jumpTo: (o: unknown) => void } } };
+    w.__gisApp.map.jumpTo({ center: [-7.65, 31.2], zoom: 9.2, pitch: 0, bearing: 0 });
+  });
+  await page.waitForTimeout(5000);
+  await page.screenshot({ path: `${dir}/04-overview-2d-contours.png` });
+
+  // 05 RAN overlay on the Tichka scene
+  await flyScene('Tichka');
   await page.locator('#ly-ran').check();
   await expect(page.locator('#ran-banner')).toBeVisible({ timeout: 10_000 });
   await page.waitForTimeout(2500);
-  await page.screenshot({ path: `${dir}/02-ran-overlay.png` });
-  // 3. profile analysis
+  await page.screenshot({ path: `${dir}/05-ran-overlay.png` });
+  await page.locator('#ly-ran').uncheck();
+  await expect(page.locator('#ran-banner')).toBeHidden({ timeout: 10_000 });
+
+  // 06 profile A/B Imlil -> Tizi n'Tichka with result card visible
   await page.getByRole('button', { name: /剖面|Profile/i }).first().click();
-  const canvas = page.locator('canvas').first();
-  await canvas.click({ position: { x: 600, y: 450 } });
-  await page.waitForTimeout(800);
-  await canvas.click({ position: { x: 1000, y: 350 } });
+  // frame both endpoints: pull back to a wide view before clicking
+  await page.evaluate(() => {
+    const w = window as unknown as { __gisApp: { map: { jumpTo: (o: unknown) => void } } };
+    w.__gisApp.map.jumpTo({ center: [-7.67, 31.19], zoom: 8.8, pitch: 30, bearing: 0 });
+  });
+  await page.waitForTimeout(4000);
+  const clickGeo = async ([lng, lat]: [number, number]) => {
+    const pos = await page.evaluate(([lng, lat]) => {
+      const w = window as unknown as { __gisApp: { map: { project: (c: [number, number]) => { x: number; y: number } } } };
+      const p = w.__gisApp.map.project([lng, lat]);
+      return {
+        x: Math.max(5, Math.min(window.innerWidth - 5, Math.round(p.x))),
+        y: Math.max(5, Math.min(window.innerHeight - 5, Math.round(p.y))),
+      };
+    }, [lng, lat]);
+    await page.locator('canvas').first().click({ position: pos });
+  };
+  await clickGeo([-7.9217, 31.1367]); // Imlil
+  await page.waitForTimeout(1500);
+  await clickGeo([-7.4167, 31.25]); // Tizi n'Tichka
   await expect(page.getByText(/水平距离|distance/i).first()).toBeVisible({ timeout: 20_000 });
-  await page.waitForTimeout(1000);
-  await page.screenshot({ path: `${dir}/03-profile-los.png` });
+  // point A's sampled elevation is queried and shown in the analysis card
+  await expect(page.getByText(/\(A:\s*\d+\s*m\)/)).toBeVisible({ timeout: 20_000 });
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${dir}/06-profile-query.png` });
 });

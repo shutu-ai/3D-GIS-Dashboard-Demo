@@ -14,6 +14,14 @@ export interface Scene {
   bearing: number;
 }
 
+/** Terrain provenance block (present once the real DEM build lands). */
+export interface TerrainMeta {
+  mode: "real" | "simulated";
+  product?: string;
+  vertical_datum?: string;
+  native_resolution_m?: number;
+}
+
 export interface AppMetadata {
   simulated: boolean;
   seed: number;
@@ -28,6 +36,7 @@ export interface AppMetadata {
     nominal_resolution_m: string;
     source: string;
   };
+  terrain?: TerrainMeta;
   contours: {
     file: string;
     layer: string;
@@ -48,10 +57,12 @@ export const LAYER_IDS = {
   contoursLine: "contour-lines",
   contoursMajor: "contour-lines-major",
   contoursLabel: "contour-labels",
+  contoursLabelMinor: "contour-labels-minor",
   roads: "osm-roads",
   roadsCasing: "osm-roads-casing",
   peaks: "osm-peaks",
   peakLabels: "osm-peak-labels",
+  peakLabelsTop: "osm-peak-labels-top",
   places: "osm-places",
   placeLabels: "osm-place-labels",
   ranSectors: "ran-sectors",
@@ -66,4 +77,21 @@ export async function loadMetadata(): Promise<AppMetadata> {
   const res = await fetch("/data/metadata.json");
   if (!res.ok) throw new Error(`metadata.json HTTP ${res.status}`);
   return (await res.json()) as AppMetadata;
+}
+
+/**
+ * Truth-in-labeling: derive the DEM provenance line from metadata.
+ * Real build -> "REAL TERRAIN · OFFLINE — Copernicus DEM GLO-30 · <datum> · ~30 m".
+ * Anything else (block absent / mode simulated) -> SIMULATED wording. Never
+ * claims real terrain unless metadata says so.
+ */
+export function demSourceLine(meta: AppMetadata): string {
+  const t = meta.terrain;
+  if (t?.mode === "real") {
+    const product = t.product ?? "DEM";
+    const datum = t.vertical_datum ?? meta.dem.vertical_datum;
+    const res = t.native_resolution_m ? `~${t.native_resolution_m} m` : meta.dem.nominal_resolution_m;
+    return `REAL TERRAIN · OFFLINE — ${product} · ${datum} · ${res}`;
+  }
+  return `SIMULATED terrain · terrarium · ${meta.dem.nominal_resolution_m} nominal · ${meta.dem.vertical_datum}`;
 }

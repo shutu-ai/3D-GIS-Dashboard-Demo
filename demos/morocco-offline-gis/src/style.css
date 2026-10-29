@@ -36,6 +36,30 @@ body {
 .badge-offline { color: #9fe3a8; border-color: rgba(120, 220, 140, 0.5); background: rgba(40, 80, 50, 0.4); }
 .badge-sim { color: #f0c96a; border-color: rgba(230, 190, 90, 0.55); background: rgba(90, 70, 20, 0.45); }
 .badge-sim.mini { font-size: 8px; padding: 1px 4px; }
+.badge-real { color: #9fe3ff; border-color: rgba(120, 200, 230, 0.55); background: rgba(20, 60, 85, 0.45); }
+
+/* ---------- data-boundary hint toast (C2) ---------- */
+.boundary-hint {
+  position: absolute;
+  bottom: 36px; /* above the scale bar / attribution strip */
+  left: 50%;
+  transform: translate(-50%, 12px);
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(230, 190, 90, 0.5);
+  background: rgba(24, 20, 12, 0.92);
+  color: #f0dcae;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.boundary-hint.visible { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+.boundary-hint button { padding: 2px 10px; font-size: 11px; }
 .topbar-actions { display: flex; gap: 8px; pointer-events: auto; }
 
 /* ---------- panels ---------- */

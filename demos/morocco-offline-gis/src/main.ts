@@ -12,6 +12,19 @@ async function boot() {
   const app = await MapApp.create(meta);
   // debug/E2E handle: lets tests project known in-coverage points to screen
   (window as unknown as { __gisApp: MapApp }).__gisApp = app;
+
+  // truth-in-labeling: the header badge always mirrors metadata.terrain
+  const badge = document.getElementById("terrain-badge");
+  if (badge) {
+    if (meta.terrain?.mode === "real") {
+      badge.textContent = "REAL TERRAIN · OFFLINE";
+      badge.classList.remove("badge-sim");
+      badge.classList.add("badge-real");
+    } else {
+      badge.textContent = "SIMULATED TERRAIN"; // markup default; never claim real
+    }
+  }
+
   const terrainCtl = new TerrainControl(app.map, 1.2);
   const ran = new RanOverlay(app.map);
   void ran.initSectorFans();

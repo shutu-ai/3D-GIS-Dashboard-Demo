@@ -49,6 +49,8 @@ export class TerrainControl {
     if (!on) {
       this.map.easeTo({ pitch: 0, duration: 600 });
     } else {
+      // v1.1.0: 3D restore targets the calmer default pitch (50°) but never
+      // flattens a steeper view the user chose deliberately
       this.map.easeTo({ pitch: Math.max(this.map.getPitch(), 50), duration: 600 });
     }
     this.apply();
