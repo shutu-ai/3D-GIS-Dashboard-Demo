@@ -1,5 +1,5 @@
 {
-  "simulated": true,
+  "simulated": false,
   "seed": 20261029,
   "bbox": [
     -8.2,
@@ -8,11 +8,148 @@
     31.5
   ],
   "coverage": [
-    -8.4,
-    30.85,
-    -6.95,
-    31.55
+    -8.75,
+    30.8,
+    -6.45,
+    31.65
   ],
+  "terrain": {
+    "mode": "real",
+    "product": "Copernicus DEM GLO-30",
+    "source_files": [
+      {
+        "name": "Copernicus_DSM_COG_10_N30_00_W007_00_DEM.tif",
+        "sha256": "45cb943ea4a43a1a4065c99d593c7d2eb5bf982055ca1c895b5989d69b68e0ea",
+        "bounds": [
+          -7.0001388888888885,
+          30.000138888888888,
+          -6.0001388888888885,
+          31.000138888888888
+        ],
+        "resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "dtype": "float32",
+        "shape": [
+          3600,
+          3600
+        ]
+      },
+      {
+        "name": "Copernicus_DSM_COG_10_N30_00_W008_00_DEM.tif",
+        "sha256": "7714ec5e34bfcb3e9b2d2d4039b50e1e7ce823a882a67a0bb4763f4eedbc6065",
+        "bounds": [
+          -8.00013888888889,
+          30.000138888888888,
+          -7.000138888888889,
+          31.000138888888888
+        ],
+        "resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "dtype": "float32",
+        "shape": [
+          3600,
+          3600
+        ]
+      },
+      {
+        "name": "Copernicus_DSM_COG_10_N30_00_W009_00_DEM.tif",
+        "sha256": "9ccf11a8dea3757a57698b475090eef3b3aefca15c1c10765456d91b3962f712",
+        "bounds": [
+          -9.00013888888889,
+          30.000138888888888,
+          -8.00013888888889,
+          31.000138888888888
+        ],
+        "resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "dtype": "float32",
+        "shape": [
+          3600,
+          3600
+        ]
+      },
+      {
+        "name": "Copernicus_DSM_COG_10_N31_00_W007_00_DEM.tif",
+        "sha256": "024f00066f44b6c04c26ab5c22ef8d355f6dc77052206d96c9a9c04f66b9c61e",
+        "bounds": [
+          -7.0001388888888885,
+          31.00013888888889,
+          -6.0001388888888885,
+          32.00013888888889
+        ],
+        "resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "dtype": "float32",
+        "shape": [
+          3600,
+          3600
+        ]
+      },
+      {
+        "name": "Copernicus_DSM_COG_10_N31_00_W008_00_DEM.tif",
+        "sha256": "8b0a6c28fa9e8a04c4df4a390f8b0d1ad512ff63726b0cda64de8d556a011243",
+        "bounds": [
+          -8.00013888888889,
+          31.00013888888889,
+          -7.000138888888889,
+          32.00013888888889
+        ],
+        "resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "dtype": "float32",
+        "shape": [
+          3600,
+          3600
+        ]
+      },
+      {
+        "name": "Copernicus_DSM_COG_10_N31_00_W009_00_DEM.tif",
+        "sha256": "d89c471537b15d1b21d6792f108d4b4f1e1e470fcbec26b957b864e1e6db04b1",
+        "bounds": [
+          -9.00013888888889,
+          31.00013888888889,
+          -8.00013888888889,
+          32.00013888888889
+        ],
+        "resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "dtype": "float32",
+        "shape": [
+          3600,
+          3600
+        ]
+      }
+    ],
+    "source_sha256": "6f96a454d260fcd1c944ad9678f7f9401c3e77aab88ff0dbd55f494f07ca2313",
+    "crs": "EPSG:4326",
+    "vertical_datum": "EGM2008 (per Copernicus DEM product specification)",
+    "native_resolution_m": 30,
+    "coverage": [
+      -8.75,
+      30.8,
+      -6.45,
+      31.65
+    ],
+    "void_pixels_filled": 0
+  },
+  "network_data": {
+    "mode": "simulated"
+  },
+  "geo_features": {
+    "mode": "simulated roads / curated nominal peaks"
+  },
   "dem": {
     "file": "dem-terrarium.pmtiles",
     "encoding": "terrarium",
@@ -21,9 +158,9 @@
       12
     ],
     "tile_size": 512,
-    "vertical_datum": "synthetic - no datum (SIMULATED)",
-    "nominal_resolution_m": "~30 (simulated analytic model)",
-    "source": "SIMULATED TERRAIN - programmatically generated, not survey data"
+    "vertical_datum": "EGM2008",
+    "nominal_resolution_m": "30 m",
+    "source": "Copernicus DEM GLO-30 (real)"
   },
   "contours": {
     "file": "contours.pmtiles",
@@ -33,11 +170,19 @@
       "9-11": 100,
       "12+": 50
     },
-    "source": "generated from the same analytic elevation model as the DEM"
+    "source": "generated from the same real DEM as the DEM tiles"
   },
   "hypso": {
     "file": "hypso.pmtiles",
     "legend": [
+      {
+        "elev_m": 250,
+        "color": "#b9bd97"
+      },
+      {
+        "elev_m": 320,
+        "color": "#9aab7d"
+      },
       {
         "elev_m": 400,
         "color": "#3f7f63"
@@ -80,15 +225,15 @@
       },
       {
         "elev_m": 3850,
-        "color": "#bfc0c8"
+        "color": "#b0b2ba"
       },
       {
         "elev_m": 4050,
-        "color": "#eceef2"
+        "color": "#cdced6"
       },
       {
         "elev_m": 4160,
-        "color": "#ffffff"
+        "color": "#dde0e6"
       }
     ]
   },
@@ -102,7 +247,7 @@
       "lng": -7.9146,
       "lat": 31.0595,
       "zoom": 10.8,
-      "pitch": 68,
+      "pitch": 50,
       "bearing": 150
     },
     {
@@ -110,7 +255,7 @@
       "lng": -7.75,
       "lat": 31.12,
       "zoom": 10.8,
-      "pitch": 60,
+      "pitch": 48,
       "bearing": 30
     },
     {
@@ -118,7 +263,7 @@
       "lng": -7.4167,
       "lat": 31.25,
       "zoom": 10.8,
-      "pitch": 65,
+      "pitch": 50,
       "bearing": -30
     },
     {
@@ -126,7 +271,7 @@
       "lng": -7.55,
       "lat": 31.17,
       "zoom": 10.8,
-      "pitch": 62,
+      "pitch": 48,
       "bearing": 75
     }
   ],

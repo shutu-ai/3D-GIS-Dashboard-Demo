@@ -14,7 +14,7 @@
       <div class="brand">
         <span class="title">High Atlas · Offline 3D GIS Lab</span>
         <span class="badge badge-offline" title="All runtime resources are local">OFFLINE GIS DEMO</span>
-        <span class="badge badge-sim" title="Terrain is programmatically generated (user decision), not survey data">SIMULATED TERRAIN</span>
+        <span class="badge badge-sim" id="terrain-badge" title="DEM provenance (set from metadata.json at boot)">SIMULATED TERRAIN</span>
         <span class="badge badge-sim hidden" id="ran-banner">SIMULATED NETWORK DATA</span>
       </div>
       <div class="topbar-actions">
@@ -35,8 +35,8 @@
           <div class="row">
             <button id="btn-2d" class="seg">2D</button><button id="btn-3d" class="seg active">3D</button>
           </div>
-          <label class="lbl">倾斜角 Pitch: <span id="pitch-val">60°</span></label>
-          <input id="pitch-slider" type="range" min="0" max="70" step="1" value="60" />
+          <label class="lbl">倾斜角 Pitch: <span id="pitch-val">50°</span></label>
+          <input id="pitch-slider" type="range" min="0" max="70" step="1" value="50" />
           <label class="lbl">地形夸张 Exaggeration <span class="hint" title="仅视觉，不改变原始海拔数值">(visual only)</span></label>
           <div class="row">
             <button class="seg ex" data-ex="1.0">1.0</button><button class="seg ex active" data-ex="1.2">1.2</button><button class="seg ex" data-ex="1.5">1.5</button>
@@ -53,7 +53,7 @@
           <label><input type="checkbox" id="ly-hypso" checked /> 高程着色 Hypsometric</label>
           <label><input type="checkbox" id="ly-hillshade" checked /> 山体阴影 Hillshade</label>
           <label><input type="checkbox" id="ly-contours" checked /> 等高线 Contours <span id="contour-interval" class="hint"></span></label>
-          <label><input type="checkbox" id="ly-osm" checked /> 道路/山峰/地名 Features</label>
+          <label><input type="checkbox" id="ly-osm" checked /> 道路/山峰/地名 Features <span class="hint" title="Roads are hand-generated; peak elevations are curated nominal values">· SIMULATED GEO FEATURES</span></label>
           <label><input type="checkbox" id="ly-ran" /> 模拟无线 overlay <span class="badge badge-sim mini">SIM</span></label>
         </section>
 

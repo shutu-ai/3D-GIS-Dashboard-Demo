@@ -20,6 +20,7 @@ distance to the glyph outline with ~8 px spread.
 from __future__ import annotations
 
 import os
+import struct
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -58,49 +59,64 @@ def _varint_field(field: int, value: int) -> bytes:
     return _tag(field, 0) + _varint(value)
 
 
-def _dilate3(m: np.ndarray) -> np.ndarray:
-    p = np.pad(m, 1, constant_values=False)
-    return (
-        p[:-2, :-2] | p[:-2, 1:-1] | p[:-2, 2:]
-        | p[1:-1, :-2] | p[1:-1, 1:-1] | p[1:-1, 2:]
-        | p[2:, :-2] | p[2:, 1:-1] | p[2:, 2:]
-    )
+def _dt1d(f: np.ndarray) -> np.ndarray:
+    """1D squared-distance transform (Felzenszwalb-Huttenlocher parabolas)."""
+    n = f.shape[0]
+    d = np.empty(n, dtype=np.float64)
+    v = np.zeros(n, dtype=np.int64)  # parabola vertices
+    z = np.empty(n + 1, dtype=np.float64)  # envelope boundaries
+    k = 0
+    z[0] = -np.inf
+    z[1] = np.inf
+    for q in range(1, n):
+        s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2 * q - 2 * v[k])
+        while s <= z[k]:
+            k -= 1
+            s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2 * q - 2 * v[k])
+        k += 1
+        v[k] = q
+        z[k] = s
+        z[k + 1] = np.inf
+    k = 0
+    for q in range(n):
+        while z[k + 1] < q:
+            k += 1
+        d[q] = (q - v[k]) ** 2 + f[v[k]]
+    return d
 
 
-def _erode3(m: np.ndarray) -> np.ndarray:
-    p = np.pad(m, 1, constant_values=True)
-    return (
-        p[:-2, :-2] & p[:-2, 1:-1] & p[:-2, 2:]
-        & p[1:-1, :-2] & p[1:-1, 1:-1] & p[1:-1, 2:]
-        & p[2:, :-2] & p[2:, 1:-1] & p[2:, 2:]
-    )
+def _edt_sq(mask: np.ndarray) -> np.ndarray:
+    """Exact squared Euclidean distance to the nearest True pixel.
 
-
-def _clip_dist(mask: np.ndarray, spread: int, inside: bool) -> np.ndarray:
-    """Layered 3x3 erosion/dilation -> chebyshev distance clipped to `spread`.
-
-    inside=True: distance from ink pixels toward the outside edge (1..spread).
-    inside=False: distance from background pixels toward the nearest ink.
+    Two-pass column/row composition of the 1D transform; exact L2, no
+    approximation (a Chebyshev field here produced square iso-bands that
+    rendered as bracket-shaped ghost glyphs — see V1_1_0_Visual_RCA §5).
     """
-    dist = np.zeros(mask.shape, dtype=np.int32)
-    cur = mask.copy()
-    step = _erode3 if inside else _dilate3
-    for k in range(1, spread + 1):
-        nxt = step(cur)
-        newly = cur & ~nxt if inside else nxt & ~cur
-        dist[newly] = k
-        cur = nxt
-    dist[cur] = spread  # everything deeper clamps at the spread
-    return dist
+    INF = 1e12
+    h, w = mask.shape
+    cols = np.where(mask, 0.0, INF)
+    tmp = np.empty((h, w), dtype=np.float64)
+    for j in range(w):
+        tmp[:, j] = _dt1d(cols[:, j])
+    out = np.empty((h, w), dtype=np.float64)
+    for i in range(h):
+        out[i, :] = _dt1d(tmp[i, :])
+    return out
 
 
 def _sdf_bitmap(alpha: np.ndarray) -> bytes:
-    """alpha (uint8 2D) -> SDF bytes (uint8 2D, 128 = outline)."""
+    """alpha (uint8 2D) -> SDF bytes (uint8 2D, 128 = glyph outline).
+
+    Signed EUCLIDEAN distance field: positive inside the ink, negative
+    outside, scaled so SPREAD px spans the full 254-value range. Smooth
+    circular iso-contours are what MapLibre's SDF shader threshold expects.
+    """
     ink = alpha > 127
-    spread = int(SPREAD)
-    d_in = _clip_dist(ink, spread, inside=True)
-    d_out = _clip_dist(ink, spread, inside=False)
-    signed = np.where(ink, d_in, -d_out).astype(np.float64)
+    if not ink.any():
+        return bytes([1]) * ((alpha.shape[0] + 6) * (alpha.shape[1] + 6))
+    d_in = np.sqrt(_edt_sq(~ink))  # depth inside the ink
+    d_out = np.sqrt(_edt_sq(ink))  # distance to nearest ink
+    signed = np.where(ink, d_in, -d_out)
     vals = np.clip(128.0 + signed * (127.0 / SPREAD), 1.0, 255.0).astype(np.uint8)
     # glyphs.proto stores the bitmap including MapLibre's 3px safety border;
     # the parser adds that border to width/height when constructing AlphaImage.
@@ -174,3 +190,107 @@ def generate_glyph_pbf(
     with open(out_path, "wb") as f:
         f.write(bytes(msg))
     return count
+
+
+# --------------------------------------------------------------------------
+# cmap presence check (stdlib only - fontTools is not a dependency).
+#
+# PIL/FreeType render .notdef for missing codepoints, so getbbox() cannot
+# prove a glyph exists.  Parse the TTF cmap subtables directly and resolve
+# the glyph id; gid > 0 means the character is actually mapped.
+# --------------------------------------------------------------------------
+
+def _cmap_subtables(data: bytes, cmap_off: int) -> list[tuple[int, int, int, int]]:
+    n = struct.unpack_from(">H", data, cmap_off + 2)[0]
+    out = []
+    for i in range(n):
+        pid, eid, off = struct.unpack_from(">HHI", data, cmap_off + 4 + 8 * i)
+        fmt = struct.unpack_from(">H", data, cmap_off + off)[0]
+        out.append((pid, eid, cmap_off + off, fmt))
+    return out
+
+
+def _gid_from_format4(data: bytes, soff: int, cp: int) -> int | None:
+    if cp > 0xFFFF:
+        return None
+    seg_count_x2 = struct.unpack_from(">H", data, soff + 6)[0]
+    seg_count = seg_count_x2 // 2
+    end_off = soff + 14
+    start_off = end_off + seg_count_x2 + 2
+    delta_off = start_off + seg_count_x2
+    range_off = delta_off + seg_count_x2
+    for i in range(seg_count):
+        end_code = struct.unpack_from(">H", data, end_off + 2 * i)[0]
+        start_code = struct.unpack_from(">H", data, start_off + 2 * i)[0]
+        if start_code <= cp <= end_code:
+            id_delta = struct.unpack_from(">h", data, delta_off + 2 * i)[0]
+            id_range_offset = struct.unpack_from(">H", data, range_off + 2 * i)[0]
+            if id_range_offset == 0:
+                return (cp + id_delta) & 0xFFFF
+            addr = range_off + 2 * i + id_range_offset + 2 * (cp - start_code)
+            if addr + 2 > len(data):
+                return None
+            return struct.unpack_from(">H", data, addr)[0]
+    return None
+
+
+def _gid_from_format12(data: bytes, soff: int, cp: int) -> int | None:
+    n_groups = struct.unpack_from(">I", data, soff + 12)[0]
+    for g in range(n_groups):
+        start_c, end_c, start_gid = struct.unpack_from(">III", data, soff + 16 + 12 * g)
+        if start_c <= cp <= end_c:
+            return start_gid + (cp - start_c)
+    return None
+
+
+def ttf_covers(ttf_path: str, codepoints) -> set[int]:
+    """Return the subset of `codepoints` that the TTF cmap actually maps."""
+    import contextlib
+
+    with open(ttf_path, "rb") as f:
+        data = f.read()
+    num_tables = struct.unpack_from(">H", data, 4)[0]
+    cmap_off = None
+    for i in range(num_tables):
+        rec = 12 + 16 * i
+        tag = data[rec : rec + 4]
+        off = struct.unpack_from(">I", data, rec + 8)[0]
+        if tag == b"cmap":
+            cmap_off = off
+    if cmap_off is None:
+        return set()
+
+    subs = _cmap_subtables(data, cmap_off)
+
+    def pick(pred):
+        for pid, eid, soff, fmt in subs:
+            if pred(pid, eid, fmt):
+                return soff, fmt
+        return None
+
+    # preference: unicode/windows full repertoire first, BMP formats after
+    order = [
+        (lambda p, e, f: f == 12 and (p, e) in ((3, 10), (0, 4), (0, 6))),
+        (lambda p, e, f: f == 12),
+        (lambda p, e, f: f == 4 and (p, e) in ((3, 1), (0, 3))),
+        (lambda p, e, f: f == 4),
+    ]
+    chosen = None
+    for pred in order:
+        chosen = pick(pred)
+        if chosen:
+            break
+    if chosen is None:
+        return set()
+    soff, fmt = chosen
+
+    found = set()
+    for cp in codepoints:
+        with contextlib.suppress(Exception):
+            if fmt == 12:
+                gid = _gid_from_format12(data, soff, cp)
+            else:
+                gid = _gid_from_format4(data, soff, cp)
+            if gid:
+                found.add(cp)
+    return found

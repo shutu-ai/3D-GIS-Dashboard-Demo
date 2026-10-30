@@ -50,14 +50,39 @@ export class RanOverlay {
   private map: MLMap;
   private visible = false;
   private banner: HTMLElement;
+  private booted = false;
 
   constructor(map: MLMap) {
     this.map = map;
     this.banner = document.getElementById("ran-banner")!;
-    map.on("load", () => {
-      this.applyVisibility();
-      this.attachPopups();
-    });
+
+    // Race-free boot: NEITHER signal alone is reliable during app boot —
+    // 'load' may already have fired before this registration (handler would
+    // never run, the original bug: simulated layers rendered without their
+    // banner), while isStyleLoaded() can stay false FOREVER on software-GL
+    // machines (like areTilesLoaded(), some pipeline stage never goes idle),
+    // which starved the retry loop and kept the layers visible (probe:
+    // zero setLayoutProperty calls, getLayoutProperty(undefined)).
+    // Gate on getLayer() alone: it turns true the moment the style's layers
+    // are registered and is exactly the condition applyVisibility needs.
+    this.map.on("load", () => this.bootOnce());
+    const tryBoot = () => {
+      if (this.booted) return;
+      if (this.map.getLayer(LAYER_IDS.ranRsrp)) {
+        this.bootOnce();
+        return;
+      }
+      setTimeout(tryBoot, 100);
+    };
+    tryBoot();
+  }
+
+  private bootOnce() {
+    if (this.booted) return;
+    this.booted = true;
+    this.applyVisibility(); // this.visible === false -> layers + banner hidden
+    void this.initSectorFans();
+    this.attachPopups();
   }
 
   private attachPopups() {
@@ -132,10 +157,21 @@ export class RanOverlay {
     };
     const apply = () => {
       const src = this.map.getSource("ran") as maplibregl.GeoJSONSource | undefined;
-      if (src) src.setData(combined as unknown as GeoJSON.FeatureCollection);
+      if (!src) return false;
+      src.setData(combined as unknown as GeoJSON.FeatureCollection);
+      return true;
     };
-    if (this.map.isStyleLoaded()) apply();
-    else this.map.once("load", apply);
+    if (!apply()) {
+      // Called pre-style from main.ts: poll for the source instead of
+      // once("load") — that event may already have fired by now, which would
+      // leave the fans un-injected forever.
+      let tries = 0;
+      const retry = () => {
+        if (apply() || ++tries > 300) return; // cap ~30 s
+        setTimeout(retry, 100);
+      };
+      retry();
+    }
   }
 
   setVisible(on: boolean) {

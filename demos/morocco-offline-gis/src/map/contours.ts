@@ -7,6 +7,7 @@ const CONTOUR_LAYERS = [
   LAYER_IDS.contoursLine,
   LAYER_IDS.contoursMajor,
   LAYER_IDS.contoursLabel,
+  LAYER_IDS.contoursLabelMinor,
 ] as const;
 
 export class ContourControl {

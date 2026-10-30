@@ -1,0 +1,132 @@
+{
+  "version": "1.1.0",
+  "product": "Morocco High Atlas - Offline 3D GIS Lab (demos/morocco-offline-gis)",
+  "generated_utc": "2026-10-30",
+  "baseline_tag": "v1.0.0",
+  "work_branch": "feat/v1.1.0-real-dem-visual-upgrade",
+  "head_code_final": "581a889",
+  "gates": {
+    "G0": {
+      "name": "v1.0.0 baseline reproduction + RCA",
+      "status": "PASS",
+      "evidence": {
+        "validate": "43/43",
+        "playwright": "16/16",
+        "pmtiles_range_206": "PASS",
+        "v1_zip_bytes": 185080026,
+        "rca_doc": "Docs/V1_1_0_Visual_RCA.md"
+      }
+    },
+    "G1": {
+      "name": "real DEM acquisition, legality, no-fallback",
+      "status": "PASS",
+      "evidence": {
+        "real_dem": true,
+        "dem_product": "Copernicus DEM GLO-30 (30 m, EPSG:4326, EGM2008)",
+        "dem_tiles": "6 x 1-degree COG, AWS Open Data (registry.opendata.aws)",
+        "source_sha256": "data_sources/copernicus-glo30/SHA256SUMS.txt",
+        "validate_real_mode": "99/99",
+        "decode_error_m": 2.48,
+        "seam_discontinuity_m": { "major": 0.27, "minor": 0.65 },
+        "anti_fallback_checks_failed": "0/7",
+        "peak_reconciliation": {
+          "Jbel Toubkal":     { "ele": 4167, "dem_ele": 4154, "diff_m": -13,  "snap_offset_m": 252 },
+          "Jbel Ouanoukrim":  { "ele": 4089, "dem_ele": 4087, "diff_m": -2,   "snap_offset_m": 2510 },
+          "Aksoual":          { "ele": 3910, "dem_ele": 3796, "diff_m": -114, "snap_offset_m": 3313 },
+          "Jbel Aguelzim":    { "ele": 3547, "dem_ele": 3547, "diff_m": 0,    "snap_offset_m": 749, "note": "renamed from 'Iguelzoum' (erroneous); claim target_ele mode" },
+          "Adrar n'Dern":     { "ele": 3000, "dem_ele": 3102, "diff_m": 102,  "snap_offset_m": 1492 },
+          "Tizi n'Tichka":    { "ele": 2260, "dem_ele": 2062, "diff_m": -198, "note": "road-station label kept at pass location" },
+          "Tizi n'Tamatert":  { "ele": 2250, "dem_ele": 2250, "diff_m": 0,    "snap_offset_m": 2476 }
+        },
+        "pipeline_doc": "Docs/V1_1_0_Real_DEM_Pipeline.md"
+      }
+    },
+    "G2": {
+      "name": "natural 3D terrain visual review (human eye)",
+      "status": "PASS",
+      "evidence": {
+        "round_1": {
+          "reviewer": "designer session ses_e7541b833ffeV9TxhxegX8xHMQ",
+          "verdict": "FAIL (1 blocker)",
+          "blocker": "05-ran-overlay rectangular bright slab + straight coverage boundary (1080p+768p)",
+          "rca": "capture timing - screenshot taken before hypso tile decode completed (~25 s software GL after flyScene); map.areTilesLoaded() never settles on software GL. Product render verified correct at t+70 s (probe evidence).",
+          "minors": "see Docs/V1_1_0_Design_Debt.md (label collisions x8, 768p contour moire, 768p-02 label truncation)"
+        },
+        "product_fix_found_via_round_1": "RAN overlay boot race left simulated layers rendered WITHOUT the SIMULATED banner (violates red line); fixed in 66d385d - race-free getLayer-gated boot; style-level visibility:'none' proven to permanently break MapLibre v5 GeoJSON source processing (probe), layers stay visible-in-style",
+        "round_2": {
+          "reviewer": "designer session ses_e74cb8419ffebKos3woUbRSVFa",
+          "screenshots": "Docs/screenshots/v1.1.0/ re-captured 2026-10-30 06:58-07:05 with tile-traffic-settle waits",
+          "verdict": "FAIL (3 blockers)",
+          "blockers": "label double-draw (12/12), 05 coverage notch, 03 straight seam",
+          "root_cause_final": "corrupted SDF glyph atlas from our own generator (Chebyshev layered-erosion distance field) - NOT SwiftShader/driver/MapLibre (that earlier attribution was disproven: user's hardware-accelerated Chrome and Intel D3D11 headless both reproduced); fixed by Felzenszwalb-Huttenlocher exact Euclidean EDT in scripts/pipeline/glyphs.py + regenerated 0-255.pbf; full evidence chain in Docs/V1_1_0_Visual_RCA.md §5"
+        },
+        "round_3": {
+          "reviewer": "designer session ses_e73cc1309ffe8qWNlaUAAzALIG",
+          "screenshots": "Docs/screenshots/v1.1.0/ re-captured 2026-10-30 11:41-11:44 (post-glyph-fix, D3D11, full 24/24 verify run)",
+          "verdict": "PASS (12/12 clean + 18 zoomed-crop checks; all 3 round-2 blockers eliminated; minors D1-D3 retained/reworded, D5 new: label fade legibility at pitch)",
+          "design_debt": "Docs/V1_1_0_Design_Debt.md"
+        }
+      }
+    },
+    "G3": {
+      "name": "contours/hypsometric/labels consistency, no full rework",
+      "status": "PASS",
+      "evidence": {
+        "mvt_encoder_fix": "v1.0.0 contours never rendered (encoder spec bug); fixed + e2e render guard",
+        "peak_label_dedup_e2e": "PASS (both viewports)",
+        "contour_toggle_e2e": "PASS (rendered-features polling)",
+        "hypsometric_legend": "15 stops == real LUT (validate)"
+      }
+    },
+    "G4": {
+      "name": "fully offline cold start, Range 206, zero external requests",
+      "status": "PASS",
+      "evidence": {
+        "runner": "scripts/verify-offline.ps1 -Port 17842 (all non-localhost blocked, fresh profile)",
+        "pmtiles_range_206": "PASS",
+        "external_requests": 0,
+        "playwright": "24/24 passed (4.9 m, ANGLE D3D11; SwiftShader era: 17.5-22 m)",
+        "exit_code": 0,
+        "cold_start_terrain_ready_s": "approx 40-50 on software GL (0.5 MB real-DEM tiles)",
+        "run_date": "2026-10-30",
+        "note": "24/24 includes new regressions: RAN hidden-until-toggled (rendered-features assertions both viewports), tile-settle screenshot waits"
+      }
+    },
+    "G5": {
+      "name": "docs, licenses, screenshots, Windows offline package",
+      "status": "PASS",
+      "evidence": {
+        "release_zip": "releases/Morocco-High-Atlas-Offline-GIS-v1.1.0.zip",
+        "zip_bytes": 241951633,
+        "zip_sha256": "DC0450CFC979D9A4BE9D1BF8B8D15F2A1E7CF6CD0FD23C061C34ACC293057FD6",
+        "bundle": "dist/assets/index-vejHCifx.js (the exact artifact of the 24/24 verify run and the G2 round-3 screenshots, incl. the fixed glyphs pbf)",
+        "version_txt": "built 2026-10-30 12:00:08, commit 581a889 (glyph-fix + acceptance docs final; the hash backfill in these docs is a subsequent docs-only commit - package content unaffected)",
+        "delta_vs_v1_bytes": 56871607,
+        "docs": [
+          "Docs/V1_1_0_Visual_RCA.md",
+          "Docs/V1_1_0_Real_DEM_Pipeline.md",
+          "Docs/V1_1_0_Visual_Acceptance.md",
+          "Docs/V1_1_0_Design_Debt.md",
+          "DATA_SOURCES_AND_LICENSES.md",
+          "README.md",
+          "Docs/Architecture.md"
+        ]
+      }
+    }
+  },
+  "report_fixed_format": {
+    "REAL_DEM": "YES",
+    "DEM_PRODUCT": "Copernicus DEM GLO-30 (30 m, EPSG:4326, 6x1deg COG, AWS Open Data)",
+    "DEM_SOURCE_SHA256": "see data_sources/copernicus-glo30/SHA256SUMS.txt; shipped dem-terrarium.pmtiles 0A348CA3863959023A7EE742FF69FD0AF444B9E8A5E9C9AD15939DC0C6D06C0B",
+    "DEM_VERTICAL_DATUM": "EGM2008",
+    "EXTERNAL_REQUESTS": 0,
+    "PMTILES_RANGE_206": "PASS",
+    "DATA_VALIDATION": "99/99",
+    "PLAYWRIGHT": "24/24",
+    "SCREENSHOT_REVIEW": "PASS (G2 round 3: 12/12 clean, all blockers eliminated)",
+    "DIST_SIZE_BYTES": 241951633
+  },
+  "release_ready": "YES",
+  "blockers": [],
+  "release_authorization": "push tag / GitHub Release NOT performed - requires explicit user authorization"
+}

@@ -21,29 +21,34 @@ nothing but `127.0.0.1`.
 
 | File | Kind | Contents |
 |---|---|---|
-| `data/dem-terrarium.pmtiles` | raster PNG, 512 px, z7–12 | Terrarium-encoded elevation of the synthetic model |
+| `data/dem-terrarium.pmtiles` | raster PNG, 512 px, z7–12 | Terrarium-encoded **real elevation** (Copernicus DEM GLO-30, release) or the synthetic dev model (`--terrain-source synthetic`) |
 | `data/hypso.pmtiles` | raster PNG, 512 px, z7–12 | Hypsometric tint (same palette as the legend) |
 | `data/contours.pmtiles` | vector MVT layer `contour` | `ele` (int m), `major` (bool); z6–12; interval 500/100/50 m by zoom band |
-| `data/roads-peaks.geojson` | GeoJSON | roads (LineString), peaks/passes/places (Point, `ele`) |
-| `data/simulated-ran.geojson` | GeoJSON | sites (Point + `sectors`), RSRP road segments (LineString, `rsrp_dbm`) |
-| `data/metadata.json` | JSON | coverage, zooms, legend stops, scenes, provenance (`simulated: true`) |
-| `assets/glyphs/Noto Sans Regular/0-255.pbf` | glyphs | ASCII coverage for symbol layers |
+| `data/roads-peaks.geojson` | GeoJSON | roads (LineString, `simulated: true`), peaks/passes/places (Point; `ele` = published nominal, `dem_ele` = real DEM sample, `rank`) |
+| `data/simulated-ran.geojson` | GeoJSON | sites (Point + `sectors`, ground elevation from the real DEM), RSRP road segments (LineString, `rsrp_dbm`) — SIMULATED |
+| `data/metadata.json` | JSON | coverage, zooms, legend stops, scenes, provenance (`terrain.mode: "real"`, source SHA-256, vertical datum EGM2008, `network_data.mode: "simulated"`) |
+| `assets/glyphs/Noto Sans Regular/*.pbf` | glyphs | 0-255 ASCII coverage (+ `9472-9727` only when the font maps the requested symbol) |
 
-All artifacts sample **one analytic function** (`scripts/pipeline/dem.py`),
-so DEM tiles, contours, GeoJSON elevations and RAN site heights agree with
-each other by construction.
+All terrain artifacts sample **one elevation raster** (`scripts/pipeline/dem_real.py`
+mosaic of the Copernicus GLO-30 tiles in release mode; `scripts/pipeline/dem.py`
+analytic function in synthetic dev mode), so DEM tiles, contours, GeoJSON
+elevations and RAN site heights agree with each other by construction.
 
-## Synthetic terrain model
+## Terrain sources
 
-1. **Base field** — ridged Perlin fBm rotated 38° to the Atlas trend, a
-   smoothstep mountain mask (SW massif → NE Haouz plain), and a detail fbm.
-2. **Road carving** — Gaussian valley trenches along the R202/Ourika/Imlil
-   corridors.
-3. **Anchor correction** — a damped Gauss–Seidel solve of `W·d = targets −
-   raw` over 13 anchors (regional wide-σ + local narrow-σ tiers) pins named
-   features to their target elevations exactly (residual < 0.1 m) without
-   far-field blowups.
-4. Deterministic: fixed permutation seed, pure function of (lon, lat).
+**Release (`--terrain-source real`)** — six Copernicus DEM GLO-30 COGs
+(EPSG:4326, ~30 m, EGM2008) are mosaicked over a camera-aware coverage bbox
+(−8.75, 30.80, −6.45, 31.65), void-masked (thresholded fill + report), and
+area-average downsampled through a 9-level pyramid so low-zoom tiles stay
+free of aliasing speckle; z11–z12 sample near-natively. Contours run over the
+same raster on a shared lattice (+margin nodes) so tiles seam-match. Peaks are
+labelled with published nominal elevations; their coordinates are snapped to
+the local DEM maximum (≤1.5 km) with the offset recorded. Full provenance
+(per-file SHA-256, QA numbers, rebuild commands) lives in
+`Docs/V1_1_0_Real_DEM_Pipeline.md` and `metadata.json`.
+
+**Dev (`--terrain-source synthetic`, default)** — the v1.0.0 analytic model
+remains for fast iteration; release packaging refuses it.
 
 ## Front-end structure
 
@@ -70,5 +75,8 @@ each other by construction.
   requests blocked and counted; captures 1920×1080 and 1366×768 evidence
   screenshots into `Docs/screenshots/`.
 - `scripts/validate_data.py` — structural + accuracy validation of the
-  generated data (tile coverage, terrarium vs analytic ≤ 30 m, contour
-  interval/range consistency, glyph coverage, GeoJSON sanity).
+  generated data, mode-aware (`metadata.terrain.mode`): release mode checks
+  source SHA-256 provenance, terrarium-vs-GeoTIFF accuracy, elevation
+  extremes/NoData, tile seams, contour interval/range consistency, glyph
+  coverage, GeoJSON sanity, and runs a synthetic-fallback detector so a
+  release build can never quietly ship the dev model.

@@ -1,7 +1,7 @@
 /** UI wiring: panels, buttons, legends, mode switching. */
 
 import type { Map as MLMap } from "maplibre-gl";
-import { LAYER_IDS, type AppMetadata } from "../config";
+import { demSourceLine, LAYER_IDS, type AppMetadata } from "../config";
 import { MapApp } from "../map/map";
 import type { TerrainControl } from "../map/terrain";
 import type { ContourControl } from "../map/contours";
@@ -13,6 +13,8 @@ export type Mode = "query" | "profile";
 export class Controls {
   mode: Mode = "query";
   private profilePoints: Array<{ lng: number; lat: number }> = [];
+  private profileAEle: number | null = null; // sampled elevation of point A (survives the B-click/profile run)
+  private profileDone = false;
   private lastProfileInput: ProfileInput | null = null;
 
   constructor(
@@ -131,6 +133,7 @@ export class Controls {
           LAYER_IDS.roadsCasing,
           LAYER_IDS.peaks,
           LAYER_IDS.peakLabels,
+          LAYER_IDS.peakLabelsTop,
           LAYER_IDS.places,
           LAYER_IDS.placeLabels,
           "osm-passes",
@@ -187,7 +190,8 @@ export class Controls {
         const out = document.getElementById("query-result")!;
         out.innerHTML = `<span class="k">采样中…</span>`;
         const r = await sampleElevation(lng, lat, this.meta.dem.zooms[0], this.meta.dem.zooms[1]);
-        const src = `<div class="k">DEM: SIMULATED terrain · terrarium · ~30 m nominal · ${this.meta.dem.vertical_datum}</div>`;
+        // provenance is derived from metadata (real vs simulated), never hardcoded
+        const src = `<div class="k">DEM: ${demSourceLine(this.meta)}</div>`;
         if (r.status === "ok") {
           out.innerHTML = `
             <div><span class="k">经纬度</span> ${lat.toFixed(5)}, ${lng.toFixed(5)}</div>
@@ -208,6 +212,8 @@ export class Controls {
   private async addProfilePoint(lng: number, lat: number) {
     if (this.profilePoints.length >= 2) {
       this.profilePoints = [];
+      this.profileAEle = null;
+      this.profileDone = false;
     }
     this.profilePoints.push({ lng, lat });
     this.updateProfileSource();
@@ -215,11 +221,23 @@ export class Controls {
     if (this.profilePoints.length === 1) {
       status.textContent = "已选 A 点，请点击 B 点";
       const r = await sampleElevation(lng, lat);
-      if (r.status === "ok") status.textContent += `（A: ${r.elevation.toFixed(0)} m）`;
+      this.profileAEle = r.status === "ok" ? r.elevation : null;
+      // the async sample may resolve after B was clicked (or after the profile
+      // finished) — only rewrite the line when it is still the A hint, or once
+      // the completion line is showing, so the elevation is never silently lost
+      if (this.profilePoints.length === 1) {
+        status.textContent = "已选 A 点，请点击 B 点" + this.profileAEleSuffix();
+      } else if (this.profileDone) {
+        status.textContent = "A → B 剖面完成" + this.profileAEleSuffix();
+      }
     } else {
       status.textContent = "计算剖面中…";
       await this.runProfile();
     }
+  }
+
+  private profileAEleSuffix(): string {
+    return this.profileAEle !== null ? `（A: ${this.profileAEle.toFixed(0)} m）` : "";
   }
 
   private async runProfile(override?: ProfileInput) {
@@ -235,7 +253,8 @@ export class Controls {
     const result = await computeProfile(input, (f) => {
       document.getElementById("profile-status")!.textContent = `计算剖面中… ${(f * 100) | 0}%`;
     });
-    document.getElementById("profile-status")!.textContent = `A → B 剖面完成`;
+    this.profileDone = true;
+    document.getElementById("profile-status")!.textContent = "A → B 剖面完成" + this.profileAEleSuffix();
     const canvas = document.getElementById("profile-chart") as HTMLCanvasElement;
     drawProfileChart(canvas, result, input);
 
