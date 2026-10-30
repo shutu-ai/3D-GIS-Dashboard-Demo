@@ -5,7 +5,7 @@ import { demSourceLine, LAYER_IDS, WEAK_RSRP_DBM, type AppMetadata } from "../co
 import { MapApp } from "../map/map";
 import type { TerrainControl } from "../map/terrain";
 import type { ContourControl } from "../map/contours";
-import { computeProfile, drawProfileChart, type ProfileInput } from "../map/profile";
+import { computeProfile, drawProfileChart, type ProfileInput, type ProfileResult } from "../map/profile";
 import { sampleElevation } from "../map/elevation-query";
 import { RanOverlay } from "../map/ran-overlay";
 import { ViewModeControl, type ViewMode } from "../map/view-mode";
@@ -18,6 +18,17 @@ export class Controls {
   private profileAEle: number | null = null; // sampled elevation of point A (survives the B-click/profile run)
   private profileDone = false;
   private lastProfileInput: ProfileInput | null = null;
+  private lastProfileResult: ProfileResult | null = null; // cached for resize redraws
+
+  // ---- RAN linkage state (task §7) ----
+  /** Incremented on every linkage (re)start; an in-flight computeProfile whose
+   *  token no longer matches is discarded — rapid site/road/mode switching can
+   *  never let a stale result overwrite the newest selection. */
+  private linkageToken = 0;
+  /** The shared profile view (map line + chart) currently belongs to the
+   *  linkage, not to a manual A-B run — clearing the selection may wipe it. */
+  private linkageOwnsProfile = false;
+  private profileExpanded = false;
 
   constructor(
     private map: MLMap,
@@ -178,6 +189,33 @@ export class Controls {
 
   private wireRanSelection() {
     this.ran.onSelect(({ siteId, roadIdx }) => this.renderRanSelection(siteId, roadIdx));
+    this.buildWeakCards();
+    document.getElementById("btn-expand-profile")?.addEventListener("click", () => {
+      this.setProfileExpanded(!this.profileExpanded);
+    });
+  }
+
+  /** Curated demo targets (task §6.2): a blocked-suspected pair and a
+   *  strong-coverage contrast on the same site, plus two more weak segments.
+   *  Road indices are selection-space ordinals (stable source order);
+   *  verified against public/data/simulated-ran.geojson. */
+  private buildWeakCards() {
+    const host = document.getElementById("ran-weak-list");
+    if (!host) return;
+    const cards: Array<{ site: string; road: number; label: string }> = [
+      { site: "GTW-TICHKA-05", road: 209, label: "TICHKA-05 → 道路东段 4.6 km · -110.7 dBm（弱）" },
+      { site: "GTW-TICHKA-05", road: 193, label: "TICHKA-05 → 近站段 0.3 km · -62.7 dBm（对比）" },
+      { site: "GTW-TICHKA-04", road: 172, label: "TICHKA-04 → 4.5 km · -110.5 dBm（弱）" },
+      { site: "GTW-IMLIL-01", road: 273, label: "IMLIL-01 → 4.9 km · -111.7 dBm（弱）" },
+    ];
+    for (const c of cards) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = c.label;
+      // one click = the full chain (G2 gate: no manual two-point picking)
+      b.addEventListener("click", () => this.ran.selectPair(c.site, c.road));
+      host.appendChild(b);
+    }
   }
 
   /** Selection card: site params + road RSRP, all SIMULATED-labelled. */
@@ -216,6 +254,146 @@ export class Controls {
           <div class="k">模拟数据，非实测；弱覆盖原因需现场/剖面验证</div>`;
       }
     }
+    // task §7.1: site AND road both present -> automatic terrain profile
+    // linkage; either missing -> clear any linkage residue (no stale line,
+    // no stale verdict, no expanded card left behind)
+    if (siteId && roadIdx !== null) {
+      void this.runRanLinkage(siteId, roadIdx);
+    } else {
+      this.clearRanLinkage();
+    }
+  }
+
+  // ------------------------------------------------- RAN linkage (task §7)
+  /** Site→road terrain profile. Reuses computeProfile + drawProfileChart —
+   *  the LOS math is NOT duplicated (task §7.2). A-end ground from the real
+   *  DEM, mast height from the SIMULATED site field; B-end is the segment
+   *  midpoint with an explicit SIMULATED 1.5 m endpoint height (never
+   *  silently equal to the mast). */
+  private async runRanLinkage(siteId: string, roadIdx: number) {
+    const site = this.ran.getSite(siteId);
+    const road = this.ran.getRoadFeature(roadIdx);
+    const aCoord = this.ran.getSiteCoord(siteId);
+    const out = document.getElementById("ran-link")!;
+    if (!site || !road || !aCoord || road.coordinates.length < 2) {
+      out.innerHTML = `<div class="st-unknown">UNKNOWN — 链路数据不完整，无法计算剖面</div>`;
+      return;
+    }
+    const token = ++this.linkageToken;
+    const mid: [number, number] = [
+      (road.coordinates[0]![0]! + road.coordinates[1]![0]!) / 2,
+      (road.coordinates[0]![1]! + road.coordinates[1]![1]!) / 2,
+    ];
+    // frequency = the site's first advertised band ("900 MHz" -> 900)
+    const bandStr = Array.isArray(site.bands) ? String(site.bands[0] ?? "") : String(site.bands ?? "");
+    const freqMHz = parseInt(bandStr, 10) || 900;
+    const mastH = typeof site.height_m === "number" ? site.height_m : 10;
+    const input: ProfileInput = {
+      a: { lng: aCoord[0], lat: aCoord[1], antHeightM: mastH },
+      b: { lng: mid[0], lat: mid[1], antHeightM: 1.5 },
+      freqMHz,
+    };
+    // reuse the shared profile source/layers for the A→B highlight (§7.1.3)
+    this.profilePoints = [
+      { lng: aCoord[0], lat: aCoord[1] },
+      { lng: mid[0], lat: mid[1] },
+    ];
+    this.updateProfileSource();
+    this.setMode("profile");
+    this.setProfileExpanded(true);
+    this.linkageOwnsProfile = true;
+    out.innerHTML = `<div class="k">剖面计算中…（真实 DEM 采样）</div>`;
+    const result = await computeProfile(input, (f) => {
+      if (token === this.linkageToken) {
+        out.innerHTML = `<div class="k">剖面计算中… ${(f * 100) | 0}%（真实 DEM 采样）</div>`;
+      }
+    });
+    if (token !== this.linkageToken) return; // superseded — never overwrite the newest selection
+    this.lastProfileInput = input;
+    this.profileDone = true;
+    document.getElementById("profile-status")!.textContent = `${siteId} → 道路点 B 联动剖面`;
+    this.renderProfileResult(result, input);
+
+    const aGround = result.samples[0]?.elevation ?? null;
+    const bGround = result.samples[result.samples.length - 1]?.elevation ?? null;
+    const v = this.losVerdict(result);
+    const clear = result.worstClearanceM;
+    const fmtGround = (g: number | null) => (g === null ? "UNKNOWN" : `${g.toFixed(0)} m`);
+    out.innerHTML = `
+      <div><span class="k">A 站点</span> <span class="val">${siteId}</span> <span class="badge badge-sim mini">SIM</span> <span class="k">挂高 ${mastH} m（模拟）</span></div>
+      <div><span class="k">A 地面</span> ${fmtGround(aGround)} <span class="k">(真实 DEM 采样)</span></div>
+      <div><span class="k">B 道路点</span> ${road.rsrp_dbm} dBm <span class="badge badge-sim mini">SIMULATED RSRP</span> <span class="k">端高 1.5 m（模拟终端假设）</span></div>
+      <div><span class="k">B 地面</span> ${fmtGround(bGround)}</div>
+      <div><span class="k">距离</span> ${(result.distanceM / 1000).toFixed(2)} km · <span class="k">频率</span> ${freqMHz} MHz</div>
+      <div>判定: <span class="${v.cls}">${v.text}</span></div>
+      <div><span class="k">最小净空</span> ${clear === null ? "UNKNOWN" : `${clear > 0 ? "+" : ""}${clear} m`} <span class="k">(正=射线高于地形，负=与地形相交)</span></div>
+      <div class="k">${v.note}</div>`;
+  }
+
+  /** Terrain-only LOS verdict with honesty rules (task §7.2): DEM gaps are
+   *  never read as clear; blocked stays blocked even when INCOMPLETE (an
+   *  intersection found in the covered part is definite); wording keeps the
+   *  demo/verification boundary and never claims an RSRP cause. */
+  private losVerdict(result: ProfileResult): { cls: string; text: string; note: string } {
+    if (result.samples.length > 0 && result.outOfCoverage >= result.samples.length) {
+      return {
+        cls: "st-unknown",
+        text: "UNKNOWN / 无法判断",
+        note: "路径完全超出离线 DEM 覆盖，不能得出任何 LOS 结论",
+      };
+    }
+    if (result.outOfCoverage > 0) {
+      return result.blocked
+        ? {
+            cls: "st-blocked",
+            text: "BLOCKED — LOS 受地形阻挡 (INCOMPLETE)",
+            note: `已覆盖段存在确定相交；另有 ${result.outOfCoverage} 个采样点无 DEM 数据，缺失段无法判断，不得视为通畅`,
+          }
+        : {
+            cls: "st-unknown",
+            text: "INCOMPLETE / 部分未知",
+            note: `${result.outOfCoverage} 个采样点无 DEM 数据——不能展示“LOS 通畅”，需复算或重选`,
+          };
+    }
+    return result.blocked
+      ? {
+          cls: "st-blocked",
+          text: "BLOCKED — LOS 受地形阻挡 (terrain-only)",
+          note: "疑似遮挡风险，需现场验证。此为演示解释，不是运营商验证结论；也不能仅凭 LOS 阻挡断言模拟 RSRP 差的原因",
+        }
+      : {
+          cls: "st-clear",
+          text: "CLEAR — 视距通畅 (terrain-only)",
+          note: "几何视距近似参考，非覆盖/RSRP 预测",
+        };
+  }
+
+  /** Leaving partial selection / exiting RAN: drop linkage residue without
+   *  touching a manual A-B profile the user ran themselves. */
+  private clearRanLinkage() {
+    this.linkageToken++; // invalidate any in-flight linkage compute
+    const out = document.getElementById("ran-link");
+    if (out) out.innerHTML = "";
+    if (!this.linkageOwnsProfile) return;
+    this.linkageOwnsProfile = false;
+    this.setProfileExpanded(false);
+    this.resetProfileView();
+  }
+
+  /** Expanded readability mode for the profile card (task §7.3); redraws the
+   *  cached result at the new canvas size. */
+  private setProfileExpanded(on: boolean) {
+    this.profileExpanded = on;
+    document.getElementById("panel-right")?.classList.toggle("expanded", on);
+    const btn = document.getElementById("btn-expand-profile");
+    btn?.classList.toggle("active", on);
+    if (btn) btn.textContent = on ? "还原 ⤡" : "放大 ⤢";
+    const c = document.getElementById("profile-chart") as HTMLCanvasElement;
+    c.width = on ? 560 : 360;
+    c.height = on ? 300 : 170;
+    if (this.lastProfileResult && this.lastProfileInput) {
+      this.renderProfileResult(this.lastProfileResult, this.lastProfileInput);
+    }
   }
 
   // ---------------------------------------------------------------- analysis
@@ -225,14 +403,10 @@ export class Controls {
     bq.addEventListener("click", () => this.setMode("query"));
     bp.addEventListener("click", () => this.setMode("profile"));
     document.getElementById("btn-clear-profile")?.addEventListener("click", () => {
-      this.profilePoints = [];
-      this.lastProfileInput = null;
-      this.updateProfileSource();
-      document.getElementById("profile-status")!.textContent = "依次点击地图选择 A、B 两点";
-      document.getElementById("profile-stats")!.innerHTML = "";
-      document.getElementById("los-result")!.innerHTML = "";
-      const c = document.getElementById("profile-chart") as HTMLCanvasElement;
-      c.getContext("2d")?.clearRect(0, 0, c.width, c.height);
+      // one clear = all clear: releases a linkage-owned shared view too
+      this.linkageOwnsProfile = false;
+      document.getElementById("ran-link")!.innerHTML = "";
+      this.resetProfileView();
     });
     const recompute = () => {
       if (this.lastProfileInput) void this.runProfile({ ...this.lastProfileInput });
@@ -279,6 +453,8 @@ export class Controls {
   }
 
   private async addProfilePoint(lng: number, lat: number) {
+    // a manual A-B pick takes the shared profile view from the linkage
+    this.linkageOwnsProfile = false;
     if (this.profilePoints.length >= 2) {
       this.profilePoints = [];
       this.profileAEle = null;
@@ -312,6 +488,7 @@ export class Controls {
   private async runProfile(override?: ProfileInput) {
     const [a, b] = this.profilePoints;
     if (!a || !b) return;
+    this.linkageOwnsProfile = false; // a manual A-B run owns the shared view now
     const input: ProfileInput =
       override ?? {
         a: { ...a, antHeightM: +(document.getElementById("ant-a") as HTMLInputElement).value },
@@ -324,6 +501,15 @@ export class Controls {
     });
     this.profileDone = true;
     document.getElementById("profile-status")!.textContent = "A → B 剖面完成" + this.profileAEleSuffix();
+    this.renderProfileResult(result, input);
+  }
+
+  /** Shared profile rendering (chart + stats + verdict) for the manual A-B
+   *  flow AND the RAN linkage — one implementation, two entries. The verdict
+   *  goes through losVerdict() so DEM gaps are never read as a green CLEAR
+   *  (task §7.2; the v1.1.0 manual flow had that honesty bug). */
+  private renderProfileResult(result: ProfileResult, input: ProfileInput) {
+    this.lastProfileResult = result;
     const canvas = document.getElementById("profile-chart") as HTMLCanvasElement;
     drawProfileChart(canvas, result, input);
 
@@ -338,11 +524,27 @@ export class Controls {
     const los = document.getElementById("los-result")!;
     const clear = result.worstClearanceM;
     const fres = result.fresnelRadiusM;
+    const v = this.losVerdict(result);
     los.innerHTML = `
-      <div>LOS: ${result.blocked ? `<span class="warn">受地形阻挡 (terrain-only)</span>` : `<span style="color:var(--ok)">视距通畅 (terrain-only approximation)</span>`}</div>
-      <div><span class="k">最小净空</span> ${clear === null ? "-" : `${clear > 0 ? "+" : ""}${clear} m`}</div>
-      <div><span class="k">1st Fresnel (中点)</span> ${fres === null ? "-" : `${fres} m @ ${input.freqMHz} MHz`}</div>
-      <div class="k" style="margin-top:4px">几何视距近似，非 RSRP/覆盖预测</div>`;
+      <div>LOS: <span class="${v.cls}">${v.text}</span></div>
+      <div><span class="k">最小净空</span> ${clear === null ? "-" : `${clear > 0 ? "+" : ""}${clear} m`} <span class="k">(正=射线高于地形，负=与地形相交)</span></div>
+      <div><span class="k">1st Fresnel (中点参考)</span> ${fres === null ? "-" : `${fres} m @ ${input.freqMHz} MHz`}</div>
+      <div class="k" style="margin-top:4px">${v.note}</div>`;
+  }
+
+  /** Manual-state reset shared by the clear button and linkage cleanup. */
+  private resetProfileView() {
+    this.profilePoints = [];
+    this.lastProfileInput = null;
+    this.lastProfileResult = null;
+    this.profileDone = false;
+    this.profileAEle = null;
+    this.updateProfileSource();
+    document.getElementById("profile-status")!.textContent = "依次点击地图选择 A、B 两点";
+    document.getElementById("profile-stats")!.innerHTML = "";
+    document.getElementById("los-result")!.innerHTML = "";
+    const c = document.getElementById("profile-chart") as HTMLCanvasElement;
+    c.getContext("2d")?.clearRect(0, 0, c.width, c.height);
   }
 
   private updateProfileSource() {

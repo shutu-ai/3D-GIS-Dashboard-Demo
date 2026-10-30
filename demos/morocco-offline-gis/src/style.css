@@ -116,6 +116,17 @@ input[type="checkbox"] { vertical-align: middle; margin-right: 6px; }
 .los { border-top: 1px dashed var(--panel-border); margin-top: 8px; padding-top: 4px; }
 .los label { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 
+/* v1.2.0 G2: linkage profile expansion + weak-coverage demo cards */
+/* ID specificity beats the .panel width in the media query below */
+#panel-right.expanded { width: min(500px, 44vw); }
+.weak-box { border-top: 1px dashed var(--panel-border); margin-top: 8px; padding-top: 4px; }
+.weak-cards { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; }
+.weak-cards button { text-align: left; font-size: 11px; line-height: 1.5; }
+/* verdict colors MUST travel with text (task §7.3), never color-only */
+.st-clear { color: var(--ok); font-weight: 600; }
+.st-blocked { color: var(--danger); font-weight: 600; }
+.st-unknown { color: #d8c34a; font-weight: 600; }
+
 /* ---------- legends ---------- */
 .legend-bar { display: flex; height: 14px; border-radius: 3px; overflow: hidden; border: 1px solid var(--panel-border); margin: 6px 0; }
 .legend-bar div { flex: 1; }

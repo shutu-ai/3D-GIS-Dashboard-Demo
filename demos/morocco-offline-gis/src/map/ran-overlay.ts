@@ -240,6 +240,24 @@ export class RanOverlay {
     return f?.properties ?? null;
   }
 
+  /** Site coordinates (linkage A endpoint). */
+  getSiteCoord(siteId: string): [number, number] | null {
+    if (!this.baseData) return null;
+    const f = this.baseData.features.find(
+      (x) => x.geometry.type === "Point" && x.properties.id === siteId,
+    );
+    return f ? (f.geometry as { coordinates: [number, number] }).coordinates : null;
+  }
+
+  /** Demo-card entry (task §6.2): set both linkage ends, notify exactly once
+   *  so the controller starts a single linkage run. */
+  selectPair(siteId: string, roadIdx: number) {
+    this.selSite = siteId;
+    this.selRoad = roadIdx;
+    this.pushSourceData();
+    this.selectListener?.({ siteId, roadIdx });
+  }
+
   getRoadFeature(i: number): { coordinates: [number, number][]; rsrp_dbm: number } | null {
     if (!this.baseData || i < 0 || i >= this.roadIdxs.length) return null;
     const f = this.baseData.features[this.roadIdxs[i]!]!;
