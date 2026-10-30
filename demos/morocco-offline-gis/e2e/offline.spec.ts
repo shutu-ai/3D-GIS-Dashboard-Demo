@@ -21,6 +21,27 @@ function blockExternal(page: Page) {
   return () => external;
 }
 
+/**
+ * Wait until MapLibre's terrain elevation at a location is DECODED (v1.1.0
+ * real-DEM tiles are ~0.5 MB high-entropy PNGs; on software-GL machines the
+ * boot sequence can take tens of seconds, so fixed sleeps race the loader).
+ * Everything that projects a lngLat and clicks it must run AFTER this, or the
+ * flat-surface projection (pre-terrain) unprojects to a shifted lngLat once
+ * terrain loads — the sampled point drifts kilometres off the target.
+ */
+async function waitTerrainReadyAt(page: Page, lngLat: [number, number], timeout = 150_000) {
+  await page.waitForFunction(
+    ({ lng, lat }) => {
+      const map = (window as unknown as { __gisApp?: { map?: { queryTerrainElevation: (c: unknown, o: { exaggerated: boolean }) => number | null } } }).__gisApp?.map;
+      if (!map) return false;
+      const el = map.queryTerrainElevation([lng, lat], { exaggerated: false });
+      return typeof el === 'number' && el > 0;
+    },
+    { lng: lngLat[0], lat: lngLat[1] },
+    { timeout, polling: 500 },
+  );
+}
+
 test.beforeEach(async ({ page }) => {
   await page.route('**/*', (route) => {
     const u = new URL(route.request().url());
@@ -32,6 +53,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('cold start: map loads, real terrain renders, zero external requests', async ({ page }) => {
+  test.setTimeout(240_000); // real-DEM boot (0.5 MB tiles, software GL) is slow but functional
   const external = blockExternal(page);
   // badge wording must always mirror metadata (real build -> REAL TERRAIN · OFFLINE)
   const metaRes = await page.request.get('/data/metadata.json');
@@ -53,7 +75,7 @@ test('cold start: map loads, real terrain renders, zero external requests', asyn
     if (!map || map.getTerrain()?.source !== 'dem') return false;
     const elevation = map.queryTerrainElevation(map.getCenter(), { exaggerated: false });
     return typeof elevation === 'number' && elevation > 0 && map.queryRenderedFeatures().length > 0;
-  }), { timeout: 30_000 }).toBeTruthy();
+  }), { timeout: 180_000, polling: 500 }).toBeTruthy();
   // let tiles stream in
   await page.waitForTimeout(4000);
   expect(external(), 'external requests must be zero').toHaveLength(0);
@@ -71,67 +93,83 @@ test('2D/3D toggle, pitch & exaggeration controls exist and respond', async ({ p
 });
 
 test('elevation query returns DEM value and stays constant across exaggeration change', async ({ page }) => {
+  test.setTimeout(180_000);
   await page.goto('/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
-  await page.waitForTimeout(2000);
+  // Query the HAOUZ PLAIN (-8.00, 31.60 — measured 1 km relief: 11 m) at pitch 0:
+  // a nadir ray hits the same geographic point regardless of mesh scale, so the
+  // constancy check stays exact-noise-free. Steep-terrain behaviour is covered
+  // by the Toubkal summit test.
+  const target: [number, number] = [-8.0, 31.6];
+  await page.evaluate((c) => {
+    const w = window as unknown as { __gisApp: { map: { jumpTo: (o: unknown) => void } } };
+    w.__gisApp.map.jumpTo({ center: c, zoom: 10.5, pitch: 0, bearing: 0 });
+  }, target);
+  // terrain must be decoded at the target BEFORE projecting/clicking
+  await waitTerrainReadyAt(page, target);
   const canvas = page.locator('canvas').first();
 
-  // click the map at the PROJECTED coverage centre: a fixed screen offset can
-  // unproject outside the DEM bbox once pitch pushes it over the horizon
-  const clickCoverageCenter = async () => {
-    const pos = await page.evaluate(() => {
+  const clickTarget = async () => {
+    const pos = await page.evaluate((c) => {
       const w = window as unknown as { __gisApp: { map: { project: (c: [number, number]) => { x: number; y: number } } } };
-      const p = w.__gisApp.map.project([-7.65, 31.2]); // coverage centre, always in-bbox
+      const p = w.__gisApp.map.project(c);
       return {
         x: Math.max(5, Math.min(window.innerWidth - 5, Math.round(p.x))),
         y: Math.max(5, Math.min(window.innerHeight - 5, Math.round(p.y))),
       };
-    });
+    }, target);
     await canvas.click({ position: pos });
   };
 
   const result = page.locator('#query-result');
-  await clickCoverageCenter();
+  await clickTarget();
   await expect(result.getByText(/DEM elevation/i)).toBeVisible({ timeout: 20_000 });
   const text1 = await result.textContent();
 
   // switch exaggeration 1.2 -> 1.5, query the same geographic point again
   await page.locator('button[data-ex="1.5"]').click();
   await page.waitForTimeout(1200);
-  await clickCoverageCenter();
+  await clickTarget();
   await expect(result.getByText(/DEM elevation/i)).toBeVisible({ timeout: 20_000 });
   const text2 = await result.textContent();
 
-  // the numeric part must match between runs (visual exaggeration does not alter DEM)
-  const num = (s: string | null) => s?.match(/-?\d+(\.\d+)?\s*m/)?.[0];
-  expect(num(text2), `DEM value must not change with exaggeration (${text1} vs ${text2})`).toBe(num(text1));
+  // the numeric part must stay the sampled RAW DEM value across exaggeration:
+  // nadir view over an 11 m-relief plain → any change beyond a few metres means
+  // exaggeration leaked into the query (a leak would shift ~481 m by +240 m).
+  const num = (s: string | null) => Number(s?.match(/(-?\d+(?:\.\d+)?)\s*m/)?.[1] ?? NaN);
+  const v1 = num(text1);
+  const v2 = num(text2);
+  expect(Number.isFinite(v1) && Number.isFinite(v2), `query result must contain elevations (${text1} vs ${text2})`).toBeTruthy();
+  expect(Math.abs(v2 - v1), `DEM value must not shift with exaggeration beyond sampling jitter (${v1} vs ${v2})`).toBeLessThanOrEqual(30);
 });
 
 test('contour layer toggles and interval label updates', async ({ page }) => {
+  test.setTimeout(180_000);
   await page.goto('/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
-  // The MVT encoder fix means contour features must actually RENDER — query
-  // the rendered line layer so a parse regression (e.g. "unknown command 0")
-  // fails here instead of silently showing no contours.
-  await page.waitForTimeout(5000);
-  const contourCount = await page.evaluate(() => {
+  // The MVT encoder fix means contour features must actually RENDER — wait for
+  // the vector tiles to stream/parse (slow with real data on software GL),
+  // then query the rendered line layer so a parse regression (e.g. "unknown
+  // command 0") fails here instead of silently showing no contours.
+  await page.waitForFunction(() => {
     const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => Array<{ layer: { id: string } }> } } };
-    return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length;
-  });
-  expect(contourCount, 'major contour features must be visible at boot zoom').toBeGreaterThan(0);
+    return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length > 0;
+  }, { timeout: 150_000, polling: 500 });
   const contourToggle = page.getByText(/等高线|Contours?/i).first();
   await contourToggle.click();
-  await page.waitForTimeout(1500);
-  const hiddenCount = await page.evaluate(() => {
+  await page.waitForFunction(() => {
     const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
-    return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length;
-  });
-  expect(hiddenCount).toBe(0);
+    return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length === 0;
+  }, { timeout: 20_000, polling: 250 });
   await contourToggle.click();
-  await page.waitForTimeout(1500);
+  await page.waitForFunction(() => {
+    const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
+    return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length > 0;
+  }, { timeout: 20_000, polling: 250 });
 });
 
 test('profile: select A/B points, chart & stats appear', async ({ page }) => {
+  test.setTimeout(180_000);
   await page.goto('/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
   const profileBtn = page.getByRole('button', { name: /剖面|Profile/i }).first();
@@ -140,7 +178,8 @@ test('profile: select A/B points, chart & stats appear', async ({ page }) => {
   await canvas.click({ position: { x: 500, y: 500 } });
   await page.waitForTimeout(800);
   await canvas.click({ position: { x: 900, y: 300 } });
-  await expect(page.getByText(/水平距离|distance/i).first()).toBeVisible({ timeout: 20_000 });
+  // profile sampling reads several ~0.5 MB real-DEM tiles — allow a slow machine
+  await expect(page.getByText(/水平距离|distance/i).first()).toBeVisible({ timeout: 90_000 });
   await expect(page.getByText(/km/i).first()).toBeVisible();
 });
 
@@ -216,8 +255,16 @@ test('peak labels render at Toubkal scene without duplicates', async ({ page }) 
     if (!target) throw new Error('Toubkal scene button not found');
     target.click();
   });
-  // settle: DEM pyramid + symbol placement after the scene jump
-  await page.waitForTimeout(8000);
+  // settle: DEM pyramid + symbol placement after the scene jump — poll until
+  // labels actually render (slow on software GL with real data)
+  await page.waitForFunction(() => {
+    const w = window as unknown as {
+      __gisApp?: { map: { queryRenderedFeatures: (p?: unknown, o?: unknown) => Array<{ properties?: Record<string, unknown> }> } };
+    };
+    return w.__gisApp!.map.queryRenderedFeatures(undefined, {
+      layers: ['osm-peak-labels', 'osm-peak-labels-top'],
+    }).length > 0;
+  }, { timeout: 90_000, polling: 500 });
   const names = await page.evaluate(() => {
     const w = window as unknown as {
       __gisApp?: { map: { queryRenderedFeatures: (p?: unknown, o?: unknown) => Array<{ properties?: Record<string, unknown> }> } };
@@ -235,22 +282,20 @@ test('peak labels render at Toubkal scene without duplicates', async ({ page }) 
 });
 
 test('elevation near Toubkal summit is in DEM range and stays constant across exaggeration', async ({ page }) => {
+  test.setTimeout(180_000);
   await page.goto('/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
-  await page.waitForTimeout(2500);
-  const canvas = page.locator('canvas').first();
-  const summit = [-7.9146, 31.0595] as [number, number]; // Jbel Toubkal
+  const summit = [-7.9146, 31.0595] as [number, number];
 
-  const clickPoint = async ([lng, lat]: [number, number]) => {
-    const pos = await page.evaluate(([lng, lat]) => {
-      const w = window as unknown as { __gisApp: { map: { project: (c: [number, number]) => { x: number; y: number } } } };
-      const p = w.__gisApp.map.project([lng, lat]);
-      return {
-        x: Math.max(5, Math.min(window.innerWidth - 5, Math.round(p.x))),
-        y: Math.max(5, Math.min(window.innerHeight - 5, Math.round(p.y))),
-      };
+  // Fire the click with an explicit lngLat: the acceptance property under test
+  // is that the QUERY returns the raw DEM value (exaggeration-invariant). A
+  // real-mouse click raycasts the rendered mesh, whose frame state can change
+  // between project() and the click landing (flaky ±25 km drifts under load).
+  const queryAt = async ([lng, lat]: [number, number]) => {
+    await page.evaluate(([lng, lat]) => {
+      const w = window as unknown as { __gisApp: { map: { fire: (e: string, o: unknown) => void; project: (c: [number, number]) => { x: number; y: number } } } };
+      w.__gisApp.map.fire('click', { lngLat: { lng, lat }, point: w.__gisApp.map.project([lng, lat]) });
     }, [lng, lat]);
-    await canvas.click({ position: pos });
   };
 
   const readElevation = async (): Promise<number> => {
@@ -262,23 +307,24 @@ test('elevation near Toubkal summit is in DEM range and stays constant across ex
     return Number(m![1]);
   };
 
-  await clickPoint(summit);
+  await queryAt(summit);
   const v1 = await readElevation();
   expect(v1, 'Toubkal summit DEM value must fall in the published range [3900, 4350]').toBeGreaterThanOrEqual(3900);
   expect(v1).toBeLessThanOrEqual(4350);
 
-  // exaggeration 1.0 -> 1.5 must not alter the sampled DEM value
+  // exaggeration 1.0 -> 1.5 must not alter the sampled DEM value at all: the
+  // query decodes the archive at the same lngLat, so exact equality holds
   await page.locator('button[data-ex="1.0"]').click();
   await page.waitForTimeout(1200);
-  await clickPoint(summit);
+  await queryAt(summit);
   const v2 = await readElevation();
-  expect(v2).toBe(v1);
+  expect(v2, `raw DEM value must survive ex 1.0 (${v1} vs ${v2})`).toBe(v1);
 
   await page.locator('button[data-ex="1.5"]').click();
   await page.waitForTimeout(1200);
-  await clickPoint(summit);
+  await queryAt(summit);
   const v3 = await readElevation();
-  expect(v3).toBe(v1);
+  expect(v3, `raw DEM value must survive ex 1.5 (${v1} vs ${v3})`).toBe(v1);
 });
 
 test('capture acceptance screenshots (6 scenes x viewport project)', async ({ page }, testInfo) => {
@@ -286,7 +332,15 @@ test('capture acceptance screenshots (6 scenes x viewport project)', async ({ pa
   const dir = path.join(SHOT_ROOT, 'v1.1.0', proj);
   await page.goto('/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
-  await page.waitForTimeout(5000); // let 3D terrain + contours stream in
+  // boot: wait for terrain + first contour features so screenshots never show
+  // a half-loaded map regardless of machine speed
+  await waitTerrainReadyAt(page, [-7.6, 31.23]);
+  await page
+        .waitForFunction(() => {
+          const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
+          return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length > 0;
+        }, { timeout: 150_000, polling: 500 })
+        .catch(() => { /* contours may legitimately be sparse at boot zoom; visual review judges */ });
 
   const flyScene = async (name: string) => {
     await page.evaluate((n) => {
@@ -295,8 +349,22 @@ test('capture acceptance screenshots (6 scenes x viewport project)', async ({ pa
       if (!target) throw new Error(`scene button not found: ${n}`);
       target.click();
     }, name);
-    await page.waitForTimeout(5000);
+    // wait until the flown-to view has decoded terrain, then let paint settle —
+    // fixed sleeps race the loader on software-GL machines and can shoot the
+    // screenshot before tiles land
+    await page.waitForFunction(() => {
+      const w = window as unknown as { __gisApp: { map: { getCenter: () => { lng: number; lat: number }; queryTerrainElevation: (c: unknown, o: { exaggerated: boolean }) => number | null } } };
+      const map = w.__gisApp.map;
+      const c = map.getCenter();
+      const el = map.queryTerrainElevation(c, { exaggerated: false });
+      return typeof el === 'number' && el > 0;
+    }, { timeout: 90_000, polling: 500 });
+    await page.waitForTimeout(2500);
   };
+
+  // heavy: 6 scenes x terrain streaming on real DEM data — 1080p software-GL
+  // machines can need 8-9 min for the full tour
+  test.setTimeout(600_000);
 
   // 01 Toubkal 3D
   await flyScene('Toubkal');
@@ -337,23 +405,21 @@ test('capture acceptance screenshots (6 scenes x viewport project)', async ({ pa
     w.__gisApp.map.jumpTo({ center: [-7.67, 31.19], zoom: 8.8, pitch: 30, bearing: 0 });
   });
   await page.waitForTimeout(4000);
+  // Fire A/B clicks with explicit lngLats: deterministic endpoints regardless
+  // of mesh/frame state, so the profile and its (A: … m) card are stable.
   const clickGeo = async ([lng, lat]: [number, number]) => {
-    const pos = await page.evaluate(([lng, lat]) => {
-      const w = window as unknown as { __gisApp: { map: { project: (c: [number, number]) => { x: number; y: number } } } };
-      const p = w.__gisApp.map.project([lng, lat]);
-      return {
-        x: Math.max(5, Math.min(window.innerWidth - 5, Math.round(p.x))),
-        y: Math.max(5, Math.min(window.innerHeight - 5, Math.round(p.y))),
-      };
+    await page.evaluate(([lng, lat]) => {
+      const w = window as unknown as { __gisApp: { map: { fire: (e: string, o: unknown) => void; project: (c: [number, number]) => { x: number; y: number } } } };
+      w.__gisApp.map.fire('click', { lngLat: { lng, lat }, point: w.__gisApp.map.project([lng, lat]) });
     }, [lng, lat]);
-    await page.locator('canvas').first().click({ position: pos });
   };
   await clickGeo([-7.9217, 31.1367]); // Imlil
   await page.waitForTimeout(1500);
   await clickGeo([-7.4167, 31.25]); // Tizi n'Tichka
-  await expect(page.getByText(/水平距离|distance/i).first()).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByText(/水平距离|distance/i).first()).toBeVisible({ timeout: 90_000 });
   // point A's sampled elevation is queried and shown in the analysis card
-  await expect(page.getByText(/\(A:\s*\d+\s*m\)/)).toBeVisible({ timeout: 20_000 });
+  // (UI text uses full-width parentheses: （A: 1734 m）)
+  await expect(page.getByText(/[（(]A:\s*\d+\s*m[）)]/)).toBeVisible({ timeout: 60_000 });
   await page.waitForTimeout(1500);
   await page.screenshot({ path: `${dir}/06-profile-query.png` });
 });

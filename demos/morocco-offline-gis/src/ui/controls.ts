@@ -13,6 +13,8 @@ export type Mode = "query" | "profile";
 export class Controls {
   mode: Mode = "query";
   private profilePoints: Array<{ lng: number; lat: number }> = [];
+  private profileAEle: number | null = null; // sampled elevation of point A (survives the B-click/profile run)
+  private profileDone = false;
   private lastProfileInput: ProfileInput | null = null;
 
   constructor(
@@ -210,6 +212,8 @@ export class Controls {
   private async addProfilePoint(lng: number, lat: number) {
     if (this.profilePoints.length >= 2) {
       this.profilePoints = [];
+      this.profileAEle = null;
+      this.profileDone = false;
     }
     this.profilePoints.push({ lng, lat });
     this.updateProfileSource();
@@ -217,11 +221,23 @@ export class Controls {
     if (this.profilePoints.length === 1) {
       status.textContent = "已选 A 点，请点击 B 点";
       const r = await sampleElevation(lng, lat);
-      if (r.status === "ok") status.textContent += `（A: ${r.elevation.toFixed(0)} m）`;
+      this.profileAEle = r.status === "ok" ? r.elevation : null;
+      // the async sample may resolve after B was clicked (or after the profile
+      // finished) — only rewrite the line when it is still the A hint, or once
+      // the completion line is showing, so the elevation is never silently lost
+      if (this.profilePoints.length === 1) {
+        status.textContent = "已选 A 点，请点击 B 点" + this.profileAEleSuffix();
+      } else if (this.profileDone) {
+        status.textContent = "A → B 剖面完成" + this.profileAEleSuffix();
+      }
     } else {
       status.textContent = "计算剖面中…";
       await this.runProfile();
     }
+  }
+
+  private profileAEleSuffix(): string {
+    return this.profileAEle !== null ? `（A: ${this.profileAEle.toFixed(0)} m）` : "";
   }
 
   private async runProfile(override?: ProfileInput) {
@@ -237,7 +253,8 @@ export class Controls {
     const result = await computeProfile(input, (f) => {
       document.getElementById("profile-status")!.textContent = `计算剖面中… ${(f * 100) | 0}%`;
     });
-    document.getElementById("profile-status")!.textContent = `A → B 剖面完成`;
+    this.profileDone = true;
+    document.getElementById("profile-status")!.textContent = "A → B 剖面完成" + this.profileAEleSuffix();
     const canvas = document.getElementById("profile-chart") as HTMLCanvasElement;
     drawProfileChart(canvas, result, input);
 
