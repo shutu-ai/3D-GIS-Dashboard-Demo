@@ -111,9 +111,17 @@
     "DIST_SHA256": "see zip_sha256 in gates.G4 (single-file deliverable hash); bundle dist/assets/index-DdLS0W2-.js",
     "RELEASE_READY": "YES",
     "BLOCKERS": "none",
-    "PUBLISHED": "NO (requires explicit user authorization)"
+    "PUBLISHED": "YES (2026-10-30, explicit user authorization - PR #2 merged, tag v1.2.0, GitHub Release with zip)"
   },
   "release_ready": "YES",
   "blockers": [],
-  "release_authorization": "push / merge to main / tag / GitHub Release NOT performed - requires explicit user authorization"
+  "release_authorization": "explicitly authorized by user on 2026-10-30 (full release)",
+  "published": {
+    "pull_request": "https://github.com/shutu-ai/3D-GIS-Dashboard-Demo/pull/2 (merged into main)",
+    "merge_commit": "e1958c7",
+    "tag": "v1.2.0",
+    "release_url": "https://github.com/shutu-ai/3D-GIS-Dashboard-Demo/releases/tag/v1.2.0",
+    "release_published_at_utc": "2026-10-30T13:48:56Z",
+    "release_asset": "Morocco-High-Atlas-Offline-RAN-v1.2.0.zip (241966041 bytes, SHA256 6B44B6EE92DD61CEF8D08E7EDF359505767943E2A69E8AADEF759A2B60F9BC5C)"
+  }
 }
