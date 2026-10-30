@@ -185,11 +185,13 @@ test('G2: leaving RAN clears linkage residue; GIS view untouched', async ({ page
   expect(text.trim()).toBe('');
   await expect(page.locator('#panel-right')).not.toHaveClass(/expanded/);
   expect(await page.evaluate(() => (document.getElementById('profile-chart') as HTMLCanvasElement).width)).toBe(360);
-  const lineCount = await page.evaluate(() => {
-    const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
-    return w.__gisApp.map.queryRenderedFeatures({ layers: ['profile-line', 'profile-points'] }).length;
-  });
-  expect(lineCount, 'no A-B linkage line may survive leaving RAN').toBe(0);
+  const lineCount = () =>
+    page.evaluate(() => {
+      const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
+      return w.__gisApp.map.queryRenderedFeatures({ layers: ['profile-line', 'profile-points'] }).length;
+    });
+  // tile feature index rebuilds asynchronously after the source wipe — poll
+  await expect.poll(lineCount, { timeout: 45_000, intervals: [500] }).toBe(0);
 
   expect(external(), 'external requests must be zero').toHaveLength(0);
 });
