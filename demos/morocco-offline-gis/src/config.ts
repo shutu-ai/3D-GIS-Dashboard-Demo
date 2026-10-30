@@ -66,12 +66,24 @@ export const LAYER_IDS = {
   places: "osm-places",
   placeLabels: "osm-place-labels",
   ranSectors: "ran-sectors",
+  ranSectorAxis: "ran-sector-axis",
+  ranRsrpCasing: "ran-rsrp-casing",
   ranRsrp: "ran-rsrp",
+  ranRsrpSel: "ran-rsrp-selected",
   ranSites: "ran-sites",
+  ranSitesSel: "ran-sites-selected",
   ranSiteLabels: "ran-site-labels",
+  ranSiteLabelsSel: "ran-site-labels-selected",
   profileLine: "profile-line",
   profilePoints: "profile-points",
 } as const;
+
+/**
+ * Demo weak-coverage threshold (SIMULATED RSRP). Must stay consistent with
+ * the legend / weak-coverage cards / docs. This is a demo filter, not an
+ * operator KPI — never present it as a universal engineering standard.
+ */
+export const WEAK_RSRP_DBM = -110;
 
 export async function loadMetadata(): Promise<AppMetadata> {
   const res = await fetch("/data/metadata.json");

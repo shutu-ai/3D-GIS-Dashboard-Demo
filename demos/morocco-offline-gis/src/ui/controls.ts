@@ -1,12 +1,14 @@
 /** UI wiring: panels, buttons, legends, mode switching. */
 
 import type { Map as MLMap } from "maplibre-gl";
-import { demSourceLine, LAYER_IDS, type AppMetadata } from "../config";
+import { demSourceLine, LAYER_IDS, WEAK_RSRP_DBM, type AppMetadata } from "../config";
 import { MapApp } from "../map/map";
 import type { TerrainControl } from "../map/terrain";
 import type { ContourControl } from "../map/contours";
 import { computeProfile, drawProfileChart, type ProfileInput } from "../map/profile";
 import { sampleElevation } from "../map/elevation-query";
+import { RanOverlay } from "../map/ran-overlay";
+import { ViewModeControl, type ViewMode } from "../map/view-mode";
 
 export type Mode = "query" | "profile";
 
@@ -23,15 +25,20 @@ export class Controls {
     private meta: AppMetadata,
     private terrainCtl: TerrainControl,
     private contourCtl: ContourControl,
-    private onRanToggle: (on: boolean) => void,
+    private ran: RanOverlay,
+    private viewMode: ViewModeControl,
   ) {
     this.wireTopbar();
     this.wireViewGroup();
     this.wireScenes();
+    this.wireViewMode();
     this.wireLayers();
     this.wireAnalysis();
     this.buildLegends();
     this.wireMapClick();
+    this.wireRanSelection();
+    // boot-time hash mode (e.g. `#v=…&m=ran`) must land in the UI too
+    this.syncMode(this.viewMode.mode);
   }
 
   // ------------------------------------------------------------------ topbar
@@ -144,9 +151,71 @@ export class Controls {
     });
     document.getElementById("ly-ran")?.addEventListener("change", (e) => {
       const on = (e.target as HTMLInputElement).checked;
-      this.onRanToggle(on);
-      document.getElementById("legend-ran")?.classList.toggle("hidden", !on);
+      // one state owner: the ViewModeControl drives layers + banner + legend
+      this.viewMode.setMode(on ? "ran" : "gis");
     });
+  }
+
+  // -------------------------------------------------------------- view modes
+  private wireViewMode() {
+    document.getElementById("btn-view-gis")?.addEventListener("click", () => this.viewMode.setMode("gis"));
+    document.getElementById("btn-view-ran")?.addEventListener("click", () => this.viewMode.setMode("ran"));
+  }
+
+  /** Single UI sync point for the GIS/RAN switch (buttons, checkbox, legend,
+   *  selection card, hash). Called on every setMode and at boot. */
+  syncMode(mode: ViewMode) {
+    const ran = mode === "ran";
+    document.getElementById("btn-view-gis")?.classList.toggle("active", !ran);
+    document.getElementById("btn-view-ran")?.classList.toggle("active", ran);
+    const lyRan = document.getElementById("ly-ran") as HTMLInputElement | null;
+    if (lyRan) lyRan.checked = ran;
+    document.getElementById("legend-ran")?.classList.toggle("hidden", !ran);
+    document.getElementById("legend-ran-ticks")?.classList.toggle("hidden", !ran);
+    document.getElementById("ran-card")?.classList.toggle("hidden", !ran);
+    this.app.writeHash();
+  }
+
+  private wireRanSelection() {
+    this.ran.onSelect(({ siteId, roadIdx }) => this.renderRanSelection(siteId, roadIdx));
+  }
+
+  /** Selection card: site params + road RSRP, all SIMULATED-labelled. */
+  private renderRanSelection(siteId: string | null, roadIdx: number | null) {
+    const out = document.getElementById("ran-selection")!;
+    const roadOut = document.getElementById("ran-road-info")!;
+    if (!siteId) {
+      out.innerHTML = "点击地图站点或道路彩线进行选择";
+    } else {
+      const p = this.ran.getSite(siteId);
+      if (!p) {
+        out.innerHTML = `<div class="warn">UNKNOWN — 站点数据不可用</div>`;
+      } else {
+        const bands = Array.isArray(p.bands) ? p.bands.join(", ") : String(p.bands ?? "-");
+        const sectors = Array.isArray(p.sectors) ? p.sectors : [];
+        const az = sectors.map((s) => `${Math.round(s.azimuth)}°`).join(" / ");
+        out.innerHTML = `
+          <div><span class="k">站点</span> <span class="val">${p.id}</span> <span class="badge badge-sim mini">SIMULATED</span></div>
+          <div><span class="k">站址海拔 (DEM)</span> ${p.ele ?? "UNKNOWN"} m</div>
+          <div><span class="k">天线挂高 (模拟)</span> ${p.height_m ?? "UNKNOWN"} m</div>
+          <div><span class="k">频段</span> ${bands}</div>
+          <div><span class="k">扇区方位</span> ${az || "-"} <span class="k">(几何方向示意)</span></div>`;
+      }
+    }
+    if (roadIdx === null) {
+      roadOut.innerHTML = "";
+    } else {
+      const road = this.ran.getRoadFeature(roadIdx);
+      if (!road) {
+        roadOut.innerHTML = `<div class="warn">UNKNOWN — 道路数据不可用</div>`;
+      } else {
+        const weak = road.rsrp_dbm < WEAK_RSRP_DBM;
+        roadOut.innerHTML = `
+          <div><span class="k">道路片段 RSRP</span> <span class="val">${road.rsrp_dbm} dBm</span> <span class="badge badge-sim mini">SIMULATED</span></div>
+          <div><span class="k">分级</span> ${weak ? `<span class="warn">模拟弱覆盖 (阈值 ${WEAK_RSRP_DBM} dBm)</span>` : "模拟正常覆盖"}</div>
+          <div class="k">模拟数据，非实测；弱覆盖原因需现场/剖面验证</div>`;
+      }
+    }
   }
 
   // ---------------------------------------------------------------- analysis
@@ -326,6 +395,10 @@ export class Controls {
     ran.innerHTML = stops.map(([, c]) => `<div style="background:${c}"></div>`).join("");
     const t2 = document.createElement("div");
     t2.className = "legend-ticks";
+    t2.id = "legend-ran-ticks";
+    // RSRP legend appears ONLY while the simulated network layer is visible
+    // (task §4.1); ticks travel with the bar — v1.1.0 leaked them in GIS view
+    t2.classList.add("hidden");
     t2.innerHTML = `<span>-140 dBm</span><span>-100</span><span>-60 (SIMULATED RSRP)</span>`;
     ran.after(t2);
   }

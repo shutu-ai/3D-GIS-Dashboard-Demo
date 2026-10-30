@@ -16,7 +16,7 @@ export interface ProfileResult {
   ascentM: number;
   descentM: number;
   blocked: boolean;
-  worstClearanceM: number | null; // min (terrain - LOS ray); negative => blocked
+  worstClearanceM: number | null; // min (LOS ray - terrain): positive => ray above terrain; negative => ray intersects terrain (blocked)
   fresnelRadiusM: number | null; // 1st Fresnel radius at midpoint
   outOfCoverage: number; // samples without DEM
 }

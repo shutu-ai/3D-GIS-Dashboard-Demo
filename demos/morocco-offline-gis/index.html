@@ -30,6 +30,13 @@
         <button class="btn-collapse" data-target="panel-left" title="折叠/展开">‹</button>
       </div>
       <div class="panel-body">
+        <section class="group" id="grp-viewmode">
+          <h3>视图模式 / View Mode</h3>
+          <div class="row">
+            <button id="btn-view-gis" class="seg active" title="地形优先的专业 GIS 视图">GIS View</button><button id="btn-view-ran" class="seg" title="突出模拟站点/扇区/道路 RSRP（SIMULATED）">RAN Coverage</button>
+          </div>
+        </section>
+
         <section class="group" id="grp-view">
           <h3>视图 / View</h3>
           <div class="row">
@@ -76,6 +83,11 @@
           <div class="row">
             <button id="btn-mode-query" class="seg active">海拔查询</button><button id="btn-mode-profile" class="seg">A-B 剖面</button>
           </div>
+        </section>
+        <section class="group hidden" id="ran-card">
+          <h3>网络选择 / RAN Selection <span class="badge badge-sim mini">SIM</span></h3>
+          <div id="ran-selection" class="kv">点击地图站点或道路彩线进行选择</div>
+          <div id="ran-road-info" class="kv"></div>
         </section>
         <section class="group" id="query-card">
           <h3>海拔查询 / Elevation</h3>
