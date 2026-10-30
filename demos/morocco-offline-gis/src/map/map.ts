@@ -555,6 +555,13 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         paint: { "circle-radius": 6, "circle-color": "#62e3c8", "circle-stroke-width": 2, "circle-stroke-color": "#0c3a32" },
       },
       // --- simulated RAN overlay (top) ---
+      // NOTE: these layers are visible-in-style ON PURPOSE. MapLibre v5 never
+      // processes a GeoJSON source whose referencing layers all start with
+      // layout visibility:"none", and the source never recovers — not via
+      // setLayoutProperty("visible") nor setData() (verified by probe). The
+      // simulated network must still never render without its SIMULATED
+      // banner, so RanOverlay hides these layers at the earliest safe moment
+      // (race-free constructor boot) instead of relying on style defaults.
       {
         id: LAYER_IDS.ranSectors,
         type: "fill",
@@ -598,7 +605,6 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         id: LAYER_IDS.ranSiteLabels,
         type: "symbol",
         source: "ran",
-        filter: ["==", ["geometry-type"], "Point"],
         minzoom: 11,
         layout: {
           "text-field": ["get", "id"],

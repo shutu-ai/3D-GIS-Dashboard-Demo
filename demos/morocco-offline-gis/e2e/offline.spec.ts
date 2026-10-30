@@ -22,6 +22,36 @@ function blockExternal(page: Page) {
 }
 
 /**
+ * Track raster/vector tile traffic from Node and resolve when it has been
+ * quiet for `quietMs`. `map.areTilesLoaded()` never settles on software-GL
+ * machines (a tile can stay 'loading' forever after decode), so tile-network
+ * silence is the reliable "safe to screenshot" signal for the real-DEM build
+ * (~0.5 MB tiles, decode+upload takes tens of seconds per view).
+ */
+function trackTileTraffic(page: Page) {
+  let inFlight = 0;
+  let lastActivity = Date.now();
+  const isTile = (u: string) => /\/data\/(hypso|dem-terrarium|contours)\.pmtiles/.test(u);
+  page.on('request', (r) => {
+    if (isTile(r.url())) { inFlight++; lastActivity = Date.now(); }
+  });
+  page.on('requestfinished', (r) => {
+    if (isTile(r.url())) { inFlight--; lastActivity = Date.now(); }
+  });
+  page.on('requestfailed', (r) => {
+    if (isTile(r.url())) { inFlight--; lastActivity = Date.now(); }
+  });
+  return async (quietMs = 4_000, timeout = 180_000) => {
+    const t0 = Date.now();
+    for (;;) {
+      if (inFlight === 0 && Date.now() - lastActivity >= quietMs) return;
+      if (Date.now() - t0 > timeout) throw new Error(`tile traffic did not settle within ${timeout}ms (inFlight=${inFlight})`);
+      await page.waitForTimeout(250);
+    }
+  };
+}
+
+/**
  * Wait until MapLibre's terrain elevation at a location is DECODED (v1.1.0
  * real-DEM tiles are ~0.5 MB high-entropy PNGs; on software-GL machines the
  * boot sequence can take tens of seconds, so fixed sleeps race the loader).
@@ -154,18 +184,18 @@ test('contour layer toggles and interval label updates', async ({ page }) => {
   await page.waitForFunction(() => {
     const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => Array<{ layer: { id: string } }> } } };
     return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length > 0;
-  }, { timeout: 150_000, polling: 500 });
+  }, undefined, { timeout: 150_000, polling: 500 });
   const contourToggle = page.getByText(/等高线|Contours?/i).first();
   await contourToggle.click();
   await page.waitForFunction(() => {
     const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
     return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length === 0;
-  }, { timeout: 20_000, polling: 250 });
+  }, undefined, { timeout: 20_000, polling: 250 });
   await contourToggle.click();
   await page.waitForFunction(() => {
     const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
     return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length > 0;
-  }, { timeout: 20_000, polling: 250 });
+  }, undefined, { timeout: 20_000, polling: 250 });
 });
 
 test('profile: select A/B points, chart & stats appear', async ({ page }) => {
@@ -184,12 +214,36 @@ test('profile: select A/B points, chart & stats appear', async ({ page }) => {
 });
 
 test('simulated RAN overlay toggles with SIMULATED NETWORK DATA banner', async ({ page }) => {
+  test.setTimeout(240_000);
   await page.goto('/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
+  // fly to the Tichka scene: the simulated RSRP road + sites live there — the
+  // boot/intro view contains no RAN features, so rendered-feature assertions
+  // are only meaningful in that viewport
+  await page.evaluate(() => {
+    const target = Array.from(document.querySelectorAll<HTMLButtonElement>('#scenes button'))
+      .find((b) => /tichka/i.test(b.textContent ?? ''));
+    if (!target) throw new Error('Tichka scene button not found');
+    target.click();
+  });
+  await page.waitForFunction(() => {
+    const w = window as unknown as { __gisApp: { map: { isMoving: () => boolean } } };
+    return !w.__gisApp.map.isMoving();
+  }, undefined, { timeout: 90_000, polling: 250 });
+  await page.waitForTimeout(2500);
+  // the simulated layer must be hidden until first enabled (banner accompanies it)
+  await expect.poll(async () => page.evaluate(() => {
+    const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
+    return w.__gisApp.map.queryRenderedFeatures({ layers: ['ran-rsrp', 'ran-sites', 'ran-sectors'] }).length;
+  }), { timeout: 45_000, intervals: [500] }).toBe(0);
   const ranToggle = page.locator('#ly-ran');
   await ranToggle.check();
   await expect(page.locator('#ran-banner')).toBeVisible({ timeout: 10_000 });
   await expect(page.locator('#ran-banner')).toHaveText(/SIMULATED NETWORK DATA/i);
+  await expect.poll(async () => page.evaluate(() => {
+    const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
+    return w.__gisApp.map.queryRenderedFeatures({ layers: ['ran-rsrp', 'ran-sites'] }).length;
+  }), { timeout: 45_000, intervals: [500] }).toBeGreaterThan(0);
   await ranToggle.uncheck();
   await expect(page.locator('#ran-banner')).toBeHidden({ timeout: 10_000 });
 });
@@ -264,7 +318,7 @@ test('peak labels render at Toubkal scene without duplicates', async ({ page }) 
     return w.__gisApp!.map.queryRenderedFeatures(undefined, {
       layers: ['osm-peak-labels', 'osm-peak-labels-top'],
     }).length > 0;
-  }, { timeout: 90_000, polling: 500 });
+  }, undefined, { timeout: 90_000, polling: 500 });
   const names = await page.evaluate(() => {
     const w = window as unknown as {
       __gisApp?: { map: { queryRenderedFeatures: (p?: unknown, o?: unknown) => Array<{ properties?: Record<string, unknown> }> } };
@@ -328,8 +382,10 @@ test('elevation near Toubkal summit is in DEM range and stays constant across ex
 });
 
 test('capture acceptance screenshots (6 scenes x viewport project)', async ({ page }, testInfo) => {
+  test.setTimeout(600_000);
   const proj = testInfo.project.name;
   const dir = path.join(SHOT_ROOT, 'v1.1.0', proj);
+  const waitTilesSettled = trackTileTraffic(page);
   await page.goto('/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
   // boot: wait for terrain + first contour features so screenshots never show
@@ -339,7 +395,7 @@ test('capture acceptance screenshots (6 scenes x viewport project)', async ({ pa
         .waitForFunction(() => {
           const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
           return w.__gisApp.map.queryRenderedFeatures({ layers: ['contour-lines-major'] }).length > 0;
-        }, { timeout: 150_000, polling: 500 })
+        }, undefined, { timeout: 150_000, polling: 500 })
         .catch(() => { /* contours may legitimately be sparse at boot zoom; visual review judges */ });
 
   const flyScene = async (name: string) => {
@@ -349,22 +405,17 @@ test('capture acceptance screenshots (6 scenes x viewport project)', async ({ pa
       if (!target) throw new Error(`scene button not found: ${n}`);
       target.click();
     }, name);
-    // wait until the flown-to view has decoded terrain, then let paint settle —
-    // fixed sleeps race the loader on software-GL machines and can shoot the
-    // screenshot before tiles land
+    // flight must end AND tile traffic must go quiet: a screenshot taken mid-
+    // decode shows half-loaded raster (undrawn hypso = dark background slabs
+    // with straight projected tile-boundary edges — the first acceptance
+    // run's 05 blocker). areTilesLoaded() never settles on software GL.
     await page.waitForFunction(() => {
-      const w = window as unknown as { __gisApp: { map: { getCenter: () => { lng: number; lat: number }; queryTerrainElevation: (c: unknown, o: { exaggerated: boolean }) => number | null } } };
-      const map = w.__gisApp.map;
-      const c = map.getCenter();
-      const el = map.queryTerrainElevation(c, { exaggerated: false });
-      return typeof el === 'number' && el > 0;
-    }, { timeout: 90_000, polling: 500 });
-    await page.waitForTimeout(2500);
+      const w = window as unknown as { __gisApp: { map: { isMoving: () => boolean } } };
+      return !w.__gisApp.map.isMoving();
+    }, undefined, { timeout: 90_000, polling: 250 });
+    await waitTilesSettled();
+    await page.waitForTimeout(1200); // paint settle
   };
-
-  // heavy: 6 scenes x terrain streaming on real DEM data — 1080p software-GL
-  // machines can need 8-9 min for the full tour
-  test.setTimeout(600_000);
 
   // 01 Toubkal 3D
   await flyScene('Toubkal');
@@ -390,9 +441,20 @@ test('capture acceptance screenshots (6 scenes x viewport project)', async ({ pa
 
   // 05 RAN overlay on the Tichka scene
   await flyScene('Tichka');
+  // regression guard: simulated RAN layers must be HIDDEN while the banner is
+  // off — the style defaults them to visibility:"none" (a boot race used to
+  // leave them visible without the SIMULATED banner)
+  await expect.poll(async () => page.evaluate(() => {
+    const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
+    return w.__gisApp.map.queryRenderedFeatures({ layers: ['ran-rsrp', 'ran-sites', 'ran-sectors'] }).length;
+  }), { timeout: 45_000, intervals: [500] }).toBe(0);
   await page.locator('#ly-ran').check();
   await expect(page.locator('#ran-banner')).toBeVisible({ timeout: 10_000 });
-  await page.waitForTimeout(2500);
+  await expect.poll(async () => page.evaluate(() => {
+    const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
+    return w.__gisApp.map.queryRenderedFeatures({ layers: ['ran-rsrp', 'ran-sites'] }).length;
+  }), { timeout: 45_000, intervals: [500] }).toBeGreaterThan(0);
+  await page.waitForTimeout(1200);
   await page.screenshot({ path: `${dir}/05-ran-overlay.png` });
   await page.locator('#ly-ran').uncheck();
   await expect(page.locator('#ran-banner')).toBeHidden({ timeout: 10_000 });
