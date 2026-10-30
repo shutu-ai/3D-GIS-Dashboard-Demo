@@ -10,10 +10,13 @@ simulated RAN overlay.
 > elevation queries, profiles) from the real Copernicus DEM GLO-30 (ESA,
 > EGM2008, ~30 m), processed at build time and bundled offline — see
 > [`DATA_SOURCES_AND_LICENSES.md`](./DATA_SOURCES_AND_LICENSES.md) for
-> provenance, license and attribution. The RAN overlay stays **simulated**
-> ("SIMULATED NETWORK DATA"), and road geometries are hand-authored
-> ("SIMULATED GEO FEATURES"); peak/pass labels show published nominal
-> elevations kept separate from DEM pixel values.
+> provenance, license and attribution. v1.2.0 adds a GIS/RAN view-mode
+> system, RAN visual hierarchy and site→road→DEM-profile linkage; the RAN
+> overlay stays **simulated** ("SIMULATED NETWORK DATA"), road geometries
+> are hand-authored ("SIMULATED GEO FEATURES"), and peak/pass labels show
+> published nominal elevations kept separate from DEM pixel values.
+> The full real/simulated boundary contract lives in
+> [`Docs/V1_2_0_Interaction_and_Data_Contract.md`](./Docs/V1_2_0_Interaction_and_Data_Contract.md).
 
 ## Run it (Windows, one click)
 
@@ -46,6 +49,9 @@ npm run dev                        # dev server
 | Contours with `ele` labels, zoom-dependent interval (500/100/50 m) | MVT PMTiles, major/minor styling, collision-managed labels |
 | Elevation query | decodes terrarium tiles **directly from the archive** (nearest-pixel, no interpolation, unaffected by visual exaggeration) |
 | A→B profile | ~30 m sampling, canvas chart, ascent/descent, terrain-only LOS clearance, 1st Fresnel radius |
+| GIS ⇄ RAN Coverage view modes | one state machine: RAN mode damps the basemap (contours/labels/hillshade), shows the 9-site overlay with the SIMULATED banner, hash suffix `&m=ran` |
+| RAN visual hierarchy | selected site/sector highlighted (base layer + filtered overlay), other sites dimmed, RSRP roads with dark casing, legend from the same color stops as the map (weak-coverage threshold −110 dBm, configurable) |
+| Site→road→profile linkage | select site + road (or a demo card) → automatic terrain profile: A = simulated mast (35 m etc.), B = road midpoint with an explicit simulated 1.5 m terminal height; honest verdicts — DEM gaps are UNKNOWN/INCOMPLETE, never a green CLEAR; BLOCKED says 疑似遮挡，需现场验证, never an RSRP-cause claim |
 | Simulated RAN overlay | 9 sites with sector fans, popups, RSRP-colored road; banner “SIMULATED NETWORK DATA” |
 | Data-boundary UX | camera constrained to real coverage; clear hint + Reset when the view leaves the offline domain |
 | Shareable view | all state in the URL hash (`#v=lng,lat,z,pitch,bearing,ex`) |
@@ -82,6 +88,11 @@ v1.1.0 evidence: `Docs/V1_1_0_Real_DEM_Pipeline.md` (data QA),
 `Docs/V1_1_0_Visual_RCA.md` (baseline + root causes),
 `Docs/V1_1_0_Visual_Acceptance.md` + `Docs/V1_1_0_Acceptance.json`
 (visual + functional + offline acceptance, machine-readable).
+v1.2.0 evidence: `Docs/V1_2_0_RAN_Visual_RCA.md` (G0/G1 root causes +
+implementation appendices), `Docs/V1_2_0_Interaction_and_Data_Contract.md`
+(behavior/provenance contract), `Docs/V1_2_0_Visual_Acceptance.md`
+(12-screenshot review) + `Docs/V1_2_0_Acceptance.json` (machine-readable),
+`Docs/v1_2_0_timings.json` (boot/switch/linkage timings, no perf gate).
 
 ## Licenses
 
