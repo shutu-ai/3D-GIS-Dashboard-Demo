@@ -1,7 +1,7 @@
 # v1.1.0 视觉升级验收报告 — 真实 DEM + 自然三维 + 完全离线
 
 产品：`demos/morocco-offline-gis`（Morocco High Atlas · Offline 3D GIS Lab）
-基线：v1.0.0 ｜ 分支：`feat/v1.1.0-real-dem-visual-upgrade` ｜ 代码终版 commit：`66d385d`
+基线：v1.0.0 ｜ 分支：`feat/v1.1.0-real-dem-visual-upgrade` ｜ 代码终版 commit：`581a889`（字形修复 + 验收收集；本文档哈希回填为后续 docs-only 提交）
 验收日期：2026-10-30 ｜ 机器可读版：`Docs/V1_1_0_Acceptance.json`
 
 ---
@@ -15,7 +15,7 @@
 | G2 | 自然三维人眼复核 | **PASS**（第三轮 12/12 全 PASS：标签双绘/05 覆盖缺口/03 直线接缝全部消除——根因为自产 SDF 字形图集损坏，Euclidean EDT 修复；4 项 minors 不阻断，见 `V1_1_0_Design_Debt.md`） |
 | G3 | 等高线/分层设色/标签一致性 | **PASS**（MVT 编码器规格 bug 修复——v1.0.0 等高线从未真正渲染；e2e 渲染断言守护；图例 15 档 == 真实 LUT） |
 | G4 | 断网冷启动 / Range 206 / 外部请求 0 | **PASS**（`verify-offline.ps1 -Port 17842`：Range 206 PASS、**Playwright 24/24 (4.9 min, D3D11)**、外部请求 0、exit 0） |
-| G5 | 文档/许可/截图/离线包 | **PENDING**（等 G2 结论；包已制好，哈希见 §5） |
+| G5 | 文档/许可/截图/离线包 | **PASS**（包重制于字形修复终版 `581a889`：241,951,633 B，SHA256 见 §5；G0-G5 全 PASS） |
 
 ## 2. 真实 DEM 数据（G1）
 
@@ -63,18 +63,18 @@ v1.0.0 截图历史保持原样未改动（新截图只写 v1.1.0 目录）。�
 
 ## 5. Windows 离线发行包（G5）
 
-- 文件：`releases/Morocco-High-Atlas-Offline-GIS-v1.1.0.zip`（`dist\` 为根，同 v1 格式）
-- 字节数：**241,937,813**（v1.0.0：185,080,026，Δ +56,857,787 — 真实 DEM 数据增量）
-- SHA256：`F7707B03F98A1F80E01C83949E247B5760F9E83FF08BCED274B7EDB0771B03AB`
-- 包内 bundle：`dist/assets/index-CCW3BZ-u.js`（= 24/24 全绿验收所运行的产物）；`VERSION.txt`：built 2026-10-30 06:39:13, commit c6a930c（数据管线提交；构建树同时包含 RAN 修复与 e2e 改动，已提交为 66d385d，与构建包内容一致）
-- 使用：解压后运行 `start-offline.bat`（127.0.0.1:17841，端口占用时自动回退）
+- 文件：`releases/Morocco-High-Atlas-Offline-GIS-v1.1.0.zip`（zip 内顶层 `dist\`，同 v1 格式），**字形修复终版重制**（2026-10-30 12:00 构建）
+- 字节数：**241,951,633**（v1.0.0：185,080,026，Δ +56,871,607 — 真实 DEM 数据增量）
+- SHA256：`DC0450CFC979D9A4BE9D1BF8B8D15F2A1E7CF6CD0FD23C061C34ACC293057FD6`
+- 包内 bundle：`dist/assets/index-vejHCifx.js`（= 24/24 全绿验收 + G2 第三轮 12 张截图所运行的产物，含修复后字形 `assets/glyphs/Noto Sans Regular/0-255.pbf`）；`VERSION.txt`：built 2026-10-30 12:00:08, commit `581a889`（字形修复 + 验收文档终版；本文档哈希回填为后续 docs-only 提交，不影响包内容）
+- 使用：解压后运行 `start-offline.bat`（127.0.0.1:17841，端口占用时自动回退）。**已打开过旧版页面的浏览器请 Ctrl+Shift+R 强刷**（字形 pbf 可能被缓存）。
 
 ## 6. §11 最终执行报告（固定格式）
 
 ```text
 BASELINE_TAG=v1.0.0
 WORK_BRANCH=feat/v1.1.0-real-dem-visual-upgrade
-HEAD=66d385d
+HEAD=581a889
 REAL_DEM=YES
 DEM_PRODUCT=Copernicus DEM GLO-30 (30 m, EPSG:4326, 6x1deg COG, AWS Open Data)
 DEM_SOURCE_SHA256=data_sources/copernicus-glo30/SHA256SUMS.txt; shipped dem-terrarium.pmtiles=0A348CA3863959023A7EE742FF69FD0AF444B9E8A5E9C9AD15939DC0C6D06C0B
@@ -90,10 +90,12 @@ EXTERNAL_REQUESTS=0
 PMTILES_RANGE_206=PASS
 DATA_VALIDATION=99/99
 PLAYWRIGHT=24/24
-SCREENSHOT_REVIEW=PENDING
-DIST_SIZE_BYTES=241937813
-RELEASE_READY=PENDING
-BLOCKERS=none known (G2 round-2 review in flight)
+SCREENSHOT_REVIEW=PASS (G2 round 3: 12/12 clean, all blockers eliminated)
+DIST_SIZE_BYTES=241951633
+RELEASE_READY=YES
+BLOCKERS=none
 ```
+
+> 验收期内根因更正记录：第二轮 FAIL 的"标签双绘/05 覆盖缺口/03 直线接缝"最终定性为**自产 SDF 字形图集损坏**（生成器 Chebyshev 距离场），早先"SwiftShader 环境缺陷"定性已证伪（用户硬件加速 Chrome 与 Intel D3D11 同样复现）；修复后第三轮 12/12 PASS。全程见 `V1_1_0_Visual_RCA.md` §5。
 
 > 发布权限说明：push tag / 创建 GitHub Release 均未执行，需用户明确授权。

@@ -4,7 +4,7 @@
   "generated_utc": "2026-10-30",
   "baseline_tag": "v1.0.0",
   "work_branch": "feat/v1.1.0-real-dem-visual-upgrade",
-  "head_code_final": "66d385d",
+  "head_code_final": "581a889",
   "gates": {
     "G0": {
       "name": "v1.0.0 baseline reproduction + RCA",
@@ -43,7 +43,7 @@
     },
     "G2": {
       "name": "natural 3D terrain visual review (human eye)",
-      "status": "PENDING",
+      "status": "PASS",
       "evidence": {
         "round_1": {
           "reviewer": "designer session ses_e7541b833ffeV9TxhxegX8xHMQ",
@@ -94,15 +94,14 @@
     },
     "G5": {
       "name": "docs, licenses, screenshots, Windows offline package",
-      "status": "PENDING",
-      "pending_on": "G2 round-2 verdict",
+      "status": "PASS",
       "evidence": {
         "release_zip": "releases/Morocco-High-Atlas-Offline-GIS-v1.1.0.zip",
-        "zip_bytes": 241937813,
-        "zip_sha256": "F7707B03F98A1F80E01C83949E247B5760F9E83FF08BCED274B7EDB0771B03AB",
-        "bundle": "dist/assets/index-CCW3BZ-u.js (the exact artifact of the 24/24 verify run)",
-        "version_txt": "built 2026-10-30 06:39:13, commit c6a930c (data pipeline commit; tree also carried RAN-fix + e2e changes, committed as 66d385d - content-identical to built bundle)",
-        "delta_vs_v1_bytes": 56857787,
+        "zip_bytes": 241951633,
+        "zip_sha256": "DC0450CFC979D9A4BE9D1BF8B8D15F2A1E7CF6CD0FD23C061C34ACC293057FD6",
+        "bundle": "dist/assets/index-vejHCifx.js (the exact artifact of the 24/24 verify run and the G2 round-3 screenshots, incl. the fixed glyphs pbf)",
+        "version_txt": "built 2026-10-30 12:00:08, commit 581a889 (glyph-fix + acceptance docs final; the hash backfill in these docs is a subsequent docs-only commit - package content unaffected)",
+        "delta_vs_v1_bytes": 56871607,
         "docs": [
           "Docs/V1_1_0_Visual_RCA.md",
           "Docs/V1_1_0_Real_DEM_Pipeline.md",
@@ -124,9 +123,10 @@
     "PMTILES_RANGE_206": "PASS",
     "DATA_VALIDATION": "99/99",
     "PLAYWRIGHT": "24/24",
-    "DIST_SIZE_BYTES": 241937813
+    "SCREENSHOT_REVIEW": "PASS (G2 round 3: 12/12 clean, all blockers eliminated)",
+    "DIST_SIZE_BYTES": 241951633
   },
-  "release_ready": "PENDING_G2",
+  "release_ready": "YES",
   "blockers": [],
   "release_authorization": "push tag / GitHub Release NOT performed - requires explicit user authorization"
 }
