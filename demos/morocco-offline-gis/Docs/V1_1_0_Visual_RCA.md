@@ -92,3 +92,64 @@
 | P0-2 渲染部分、P0-4 前端部分、P0-5、P1-6、P1-8 | 前端（map.ts/controls.ts/index.html） | 12 张截图人眼检查 + E2E |
 | P0-4 数据部分（coverage 扩张） | 数据管线 | 覆盖 bbox 检查 |
 | 全量回归 + 离线包 | Orchestrator | verify-offline.ps1 + 打包哈希 |
+
+---
+
+## 5. 验收期渲染伪影 RCA：自产 SDF 字形图集损坏（最终定性）
+
+> 日期：2026-10-30。第一轮 blocker（05 号亮斑/直线边界）经探针证实为**捕获时机**（瓦片解码未完成即截图），捕获流程改为 `trackTileTraffic` 网络静默等待后消除。第二轮复核仍报 3 类 blocker；本轮给出最终定性——**并推翻本节早先"SwiftShader 环境缺陷"的结论**（原 5.3，已证伪，保留反转过程于 5.3）。
+
+### 5.1 现象（第二轮 12/12 张）
+
+1. **标签双绘**：每条 symbol 文本以 ~半字符水平错位叠印两份，均全不透明，稳定跨帧；01/02/03/04/06 各分辨率均现。
+2. **05 号亮斑补丁 + 直线覆盖边界**（新形态）。
+3. **03 号大范围直线地形接缝**（精细地形与平滑区域的笔直对角分界）。
+
+### 5.2 假说排除链（探针实证）
+
+| 假说 | 实验 | 结果 |
+|---|---|---|
+| 数据重复 | `roads-peaks.geojson` 按名去重检查 | 16 要素无重复名 |
+| 双层各画一次 | probe12：`queryRenderedFeatures` 按 layer 归组 | **查询只见一份**（且少于可见标签数）→ 渲染期伪影 |
+| fade 中间态 | probe13：连续截图 churn 检测 + 归零实验 | churn ~10-15s 自稳；`fadeDuration: 0`（Map 构造器）+ `raster-fade-duration: 0` 后**双绘仍在** |
+| 图层来源 | probe14/15：Toubkal 场景逐层隐藏像素归因 | 双绘发生在**单一图层内部**（隐藏 `osm-peak-labels-top` 后其标签整体消失，余下层各自双绘） |
+| terrain/pitch/avoid-edges | probe16：`setTerrain(null)`、pitch 0、`symbol-avoid-edges: true` 矩阵 | 全部无效 |
+| maplibre 版本回归 | 最小复现页（纯 MapLibre + 3 点 GeoJSON，无 PMTiles/无地形/无产品代码）：5.23.0 / 5.24.0 / 6.16.0 | **三版本全部双绘** → 非版本回归 |
+| 渲染后端差异 | `--use-angle=d3d11`（Intel 真机 GPU）下全量验收重拍 | **双绘依旧** → 非 SwiftShader 专属（第一轮定性在此证伪） |
+| glyph placement（left/top/w/h） | 以 maplibre `quads.ts` 公式 `(left-4, -top-4)` 代入自家 metrics 解析落点 | 墨迹落点正确（≤1px 偏差）→ placement 无罪 |
+| **自产 SDF 字形损坏** | 换官方参考字形（demotiles / openfreemap `0-255.pbf`，76,580 B）重拍 halo/nohalo 矩阵 | **halo/nohalo 全部干净单份** → 根因即字形数据（此前该行被误排除，见 5.3） |
+
+> 注：排除链早先版本中"自产 SDF 字形损坏"一行被标注为"排除"，理由是 `dump_glyph.py` 解析位图"呈条纹状"且"用户真实 GPU 参考图正常"。两点皆有误：① 解析脚本按未含 3px 边框的尺寸读位图、且未做 zigzag 解码，"条纹"是解析错误的产物；② "用户 GPU 正常"判断先于用户提交 `chrome://gpu` 与 `3.png`——`3.png` 恰是同一伪影在用户硬件加速浏览器上的表现。
+
+### 5.3 定性反转过程（记录两轮结论及证伪链）
+
+**第一轮（已证伪）**："SwiftShader 软件渲染符号绘制缺陷"。依据是 D3D11 最小复现"干净"——后经对比度增强复检，该判断是低对比度下的漏检。
+
+**决定性事实链（最终定性依据）**：
+
+1. `chrome://gpu`（用户本机 Chrome 155）：`WebGL: Hardware accelerated`，`GL_RENDERER = ANGLE (Intel, Direct3D11)`——与验收探针同 GPU 同后端，用户浏览器**同样重影**（`3.png`，与捕获伪影同型）→ 缺陷与渲染后端无关。
+2. 修复 `playwright.config.ts` 重复 `use:` 键（launchOptions 曾被静默覆盖）后，测试内渲染器探针实证 `ANGLE (Intel, Direct3D11)` 生效，全量验收 4.9 分钟跑完（SwiftShader 时代 17.5-22 分钟）——**新截图仍双绘**。
+3. **halo 矩阵**（最小复现页，D3D11）：`halo` 模式 = 红色填充单份 + 深色 halo 双份方括号鬼影；`nohalo`（`text-halo-width: 0`）= **填充文字完全消失**（连纯红填充都不出图）→ 可见"双份"中的鬼影来自 halo 通道对损坏距离场的阈值拾取，填充通道值贴近阈值故若有若无。
+4. `canvasContextAttributes: { antialias: true }`、`desynchronized` 上下文变体：无变化 → 非 GL 上下文属性问题。
+5. **换参考字形图集**（demotiles 与 openfreemap 两源字节一致，76,580 B）：同页 halo/nohalo **全部干净单份** → 字形数据为唯一变量。
+6. **字节级 + 位图直视对比**（同字形编码，正确尺寸 `(w+6)×(h+6)` 解析）：
+   - 参考：平滑 SDF（背景 0、字心亮核、环形渐变衰减）；
+   - 自产：`\x01`/`\x80` 两极化大平台 + `\x8f`/`\x9f` 台阶——**Chebyshev（L∞）分层侵蚀距离场**；直视图上字干中灰、顶部两角大片灰色楔形伪影。
+   - `[...]` 式方括号鬼影机制：L∞ 场在字形周边形成方形等值平台，被 SDF shader 阈值拾取即画出与笔画错位的方块伪影；nohalo 时文字消失机制：细笔画内部深度 ≤1-2px、场值贴近阈值，绘制与否取决于采样精度 → Intel D3D11 消失、SwiftShader 粗体双份。
+7. metrics 约定核验（`quads.ts` verbatim + 字段级 wire 转储）：自产文件的 `left/top/w/h` 与参考文件数值形态不同（约定差异），但代入 maplibre 公式后墨迹落点正确——**placement 无罪，唯一致命缺陷是距离场算法**。
+
+**最终定性**：`scripts/pipeline/glyphs.py` 的 `_clip_dist` 以 3×3 腐蚀/膨胀分层实现距离场，得到的是 **Chebyshev 距离**而非 SDF 所需的**欧几里得距离**——自产字形图集 `public/assets/glyphs/Noto Sans Regular/0-255.pbf` 全量损坏。该缺陷自 v1.0.0 字形管线引入即存在：v1.0.0 用户截图的"叠字黑块"（P0-5）中"半字符错位叠印"部分与之同源（P0-5 的标签碰撞压盖部分另由 rank/sort-key 修复，两因并存）。
+
+### 5.4 修复
+
+- `glyphs.py`：删除 `_dilate3/_erode3/_clip_dist`（Chebyshev 分层侵蚀），替换为 **Felzenszwalb–Huttenlocher 精确平方欧几里得距离变换**（纯 numpy 两趟一维抛物线包络，无新依赖）；`_sdf_bitmap` 输出有符号 L2 距离场（`128 + signed·127/SPREAD`，SPREAD=8）。
+- 重新生成 `0-255.pbf`（417,016 B，fontstack 名与覆盖不变）；位图直视复核：平滑环形衰减、无平台、无楔形伪影。
+- `validate_data.py` 全量 **99/99 PASS**（glyph 区块：名字/数量/ASCII 覆盖）。
+- 产品级 D3D11 探针（端口 17860）：峰标签**干净单份**。
+- placement/metrics 约定未改动（实证正确）；e2e `launchOptions` 的 D3D11 参数保留（真实 GPU 渲染更快且更贴近用户环境，但**不再是本缺陷的修复手段**——修复后在两种后端下均干净）。
+
+### 5.5 残留与更正
+
+- 03 直线接缝、05 亮斑此前被归为"SwiftShader 复合伪影"——同样需以字形修复后的第三轮截图重新定性（RAN 类 blocker 已随 `getLayer` 门控修复消除；剩余项以 designer 第三轮复核为准）。
+- ~~向 maplibre 上游提 issue~~ 撤销：非 maplibre/驱动/浏览器缺陷。自产字形生成器的教训记入 `Docs/V1_1_0_Design_Debt.md`（缺独立参考实现比对与位图级自检，导致 v1.0.0 带病发布）。
+- 用户侧验证提示：字形 pbf 可能被浏览器缓存，修复后需 Ctrl+Shift+R 强刷方可见效。

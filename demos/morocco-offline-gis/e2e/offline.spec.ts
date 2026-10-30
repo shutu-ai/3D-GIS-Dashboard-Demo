@@ -382,10 +382,31 @@ test('elevation near Toubkal summit is in DEM range and stays constant across ex
 });
 
 test('capture acceptance screenshots (6 scenes x viewport project)', async ({ page }, testInfo) => {
-  test.setTimeout(600_000);
+  // heavy: 6 scenes x terrain streaming + render-stability settling on real
+  // DEM data — 1080p software-GL machines can need ~10 min for the full tour
+  test.setTimeout(900_000);
   const proj = testInfo.project.name;
   const dir = path.join(SHOT_ROOT, 'v1.1.0', proj);
   const waitTilesSettled = trackTileTraffic(page);
+  // Capture readiness: tile-traffic silence alone is NOT enough — placement
+  // fades and raster LOD blending can keep re-compositing for tens of
+  // seconds after the flight (straight LOD seams, mid-fade composites).
+  // The render is stable only when two consecutive screenshots are
+  // byte-identical. (NOTE: the round-2 "double-drawn labels" blocker was
+  // later traced to corrupted SDF glyph data, not fades — see
+  // Docs/V1_1_0_Visual_RCA.md §5; this guard remains as the general
+  // stability criterion for capture.)
+  const waitRenderStable = async (timeoutMs = 150_000) => {
+    const t0 = Date.now();
+    let prev: Buffer | null = null;
+    for (;;) {
+      const cur = await page.screenshot();
+      if (prev && cur.equals(prev)) return;
+      prev = cur;
+      if (Date.now() - t0 > timeoutMs) return; // best effort — visual review judges
+      await page.waitForTimeout(2500);
+    }
+  };
   await page.goto('/');
   await expect(page.locator('canvas').first()).toBeVisible({ timeout: 30_000 });
   // boot: wait for terrain + first contour features so screenshots never show
@@ -414,7 +435,7 @@ test('capture acceptance screenshots (6 scenes x viewport project)', async ({ pa
       return !w.__gisApp.map.isMoving();
     }, undefined, { timeout: 90_000, polling: 250 });
     await waitTilesSettled();
-    await page.waitForTimeout(1200); // paint settle
+    await waitRenderStable(); // fades/composites must finish before capture
   };
 
   // 01 Toubkal 3D
@@ -437,6 +458,7 @@ test('capture acceptance screenshots (6 scenes x viewport project)', async ({ pa
     w.__gisApp.map.jumpTo({ center: [-7.65, 31.2], zoom: 9.2, pitch: 0, bearing: 0 });
   });
   await page.waitForTimeout(5000);
+  await waitRenderStable();
   await page.screenshot({ path: `${dir}/04-overview-2d-contours.png` });
 
   // 05 RAN overlay on the Tichka scene
@@ -454,7 +476,7 @@ test('capture acceptance screenshots (6 scenes x viewport project)', async ({ pa
     const w = window as unknown as { __gisApp: { map: { queryRenderedFeatures: (o: unknown) => unknown[] } } };
     return w.__gisApp.map.queryRenderedFeatures({ layers: ['ran-rsrp', 'ran-sites'] }).length;
   }), { timeout: 45_000, intervals: [500] }).toBeGreaterThan(0);
-  await page.waitForTimeout(1200);
+  await waitRenderStable(); // overlay fade + re-composite must finish
   await page.screenshot({ path: `${dir}/05-ran-overlay.png` });
   await page.locator('#ly-ran').uncheck();
   await expect(page.locator('#ran-banner')).toBeHidden({ timeout: 10_000 });
@@ -482,6 +504,6 @@ test('capture acceptance screenshots (6 scenes x viewport project)', async ({ pa
   // point A's sampled elevation is queried and shown in the analysis card
   // (UI text uses full-width parentheses: （A: 1734 m）)
   await expect(page.getByText(/[（(]A:\s*\d+\s*m[）)]/)).toBeVisible({ timeout: 60_000 });
-  await page.waitForTimeout(1500);
+  await waitRenderStable();
   await page.screenshot({ path: `${dir}/06-profile-query.png` });
 });

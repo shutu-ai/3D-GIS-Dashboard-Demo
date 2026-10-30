@@ -102,8 +102,10 @@ dist unless `metadata.json` says `terrain.mode == "real"` (override
   conversion. A copy is preserved at `.data/fonts/LICENSE-noto-sans.txt` and
   in the upstream npm package.
 - The `.pbf` glyph ranges under `public/assets/glyphs/` (including the
-  `▲` marker range `9472-9727.pbf`) are generated from that TTF by
-  `scripts/pipeline/glyphs.py`.
+  `▲` marker range `9472-9727.pbf` when shipped) are generated from that TTF
+  by `scripts/pipeline/glyphs.py` (rasterisation + signed Euclidean distance
+  field, hand-encoded glyphs.proto wire format; no third-party glyph binary
+  is bundled).
 
 ## Software
 

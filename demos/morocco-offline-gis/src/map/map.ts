@@ -61,6 +61,15 @@ export class MapApp {
       // keep free flight inside the real DEM coverage so the camera never
       // hovers past the "floating rectangle" data edge (C1)
       maxBounds: shrinkBounds(meta.coverage, 0.05),
+      // Deterministic rendering: MapLibre's symbol crossfade (default 300 ms)
+      // composites previous placement quads while a placement re-commits;
+      // zeroing it drops old quads immediately (symbolFadeChange() == 1),
+      // which removes fade mid-state flakiness from screenshot capture and
+      // shortens render-settle time. NOT a fix for the acceptance label
+      // double-draw — that root cause was corrupted SDF glyph data (see
+      // Docs/V1_1_0_Visual_RCA.md §5); the fade experiment was proven
+      // ineffective against it.
+      fadeDuration: 0,
     });
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "bottom-right");
     map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: "metric" }), "bottom-left");
@@ -314,8 +323,10 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         type: "raster",
         source: "hypso",
         // opacity 1.0: 0.9 let background bleed through and produced washed
-        // seams between adjacent raster tiles
-        paint: { "raster-opacity": 1.0, "raster-fade-duration": 150 },
+        // seams between adjacent raster tiles. Fade 0: no LOD crossfade —
+        // zero-fade removes tile LOD transition mid-states from capture
+        // (deterministic compositing). 
+        paint: { "raster-opacity": 1.0, "raster-fade-duration": 0 },
       },
       {
         id: LAYER_IDS.hillshade,
