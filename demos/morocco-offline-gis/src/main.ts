@@ -1,10 +1,16 @@
 /** Entry point: metadata -> map -> controls. No external resource is fetched. */
 
+// MapLibre's own stylesheet — NEVER shipped until v1.2.0 found it missing
+// (G1 RCA addendum): .maplibregl-popup stayed position:static, so site
+// popups flowed BELOW the canvas and never appeared, and the nav/scale
+// controls rendered unstyled.
+import "maplibre-gl/dist/maplibre-gl.css";
 import { loadMetadata } from "./config";
 import { MapApp } from "./map/map";
 import { TerrainControl } from "./map/terrain";
 import { ContourControl } from "./map/contours";
 import { RanOverlay } from "./map/ran-overlay";
+import { ViewModeControl, readHashMode } from "./map/view-mode";
 import { Controls } from "./ui/controls";
 
 async function boot() {
@@ -27,14 +33,18 @@ async function boot() {
 
   const terrainCtl = new TerrainControl(app.map, 1.2);
   const ran = new RanOverlay(app.map);
-  void ran.initSectorFans();
 
   // contour interval indicator is wired through a late-bound callback
   let showInterval: (m: number | null) => void = () => {};
   const contourCtl = new ContourControl(app.map, meta, (m) => showInterval(m));
-  const controls = new Controls(app.map, app, meta, terrainCtl, contourCtl, (on) => ran.setVisible(on));
+  let controls: Controls;
+  // mode state machine: one owner for RAN layers, banner, base dampening
+  const viewModeCtl = new ViewModeControl(app.map, ran, (mode) => controls.syncMode(mode));
+  controls = new Controls(app.map, app, meta, terrainCtl, contourCtl, ran, viewModeCtl);
   showInterval = (m) => controls.setContourInterval(m);
   contourCtl.setVisible(true);
+  // honour a shared `#v=…&m=ran` link; 'gis' (or absent/unknown) is a no-op sync
+  viewModeCtl.setMode(readHashMode());
 
   // attribution / data provenance footer
   document.getElementById("attribution")!.innerHTML =

@@ -6,10 +6,22 @@
 global elevation model published by ESA under the Copernicus programme's free and
 open data policy — processed entirely at build time and bundled offline.
 
-Still clearly labelled **SIMULATED**: the mobile-network overlay (RAN/RSRP), the
-road geometries (hand-authored), and nothing else. Peak/pass elevations shown on
+Still clearly labelled **SIMULATED**: the mobile-network overlay (RAN/RSRP),
+the road geometries (hand-authored), and nothing else. Peak/pass elevations shown on
 the map are **curated nominal values** from public geographic references, kept
 separate from the DEM pixel values (`dem_ele`) used for QA.
+
+v1.2.0 keeps the three data classes strictly separated:
+
+| Class | Content | On-screen label |
+|---|---|---|
+| **REAL (terrain)** | DEM tiles, contours, hypsometric tint, elevation queries, profile sampling | `REAL TERRAIN · OFFLINE`, `DEM: REAL TERRAIN · OFFLINE — Copernicus DEM GLO-30` |
+| **SIMULATED (geo features)** | hand-authored road geometries, curated peak/pass nominal elevations | `SIMULATED GEO FEATURES` |
+| **SIMULATED (RAN)** | 9 invented sites (coords, mast heights, bands, azimuths), per-segment toy-model RSRP, linkage endpoint heights (mast `height_m`, 1.5 m terminal assumption) | `SIMULATED NETWORK DATA` banner while visible, `SIM`/`SIMULATED`/`SIMULATED RSRP` chips on every card |
+
+The RAN overlay renders **only** while its banner is visible; terrain-only
+LOS verdicts are geometric references and never worded as RSRP/coverage
+predictions (see `Docs/V1_2_0_Interaction_and_Data_Contract.md` §5).
 
 Build-time provenance (per-file SHA-256, extents, void statistics) is embedded in
 `public/data/metadata.json` under `terrain`, and mirrored in
@@ -85,6 +97,14 @@ RSRP value per road segment computed from a toy distance+terrain-shadow model.
 Ground elevations are sampled from the **real DEM** (so radio geometry sits on
 the real terrain), but **no operator data, no real measurements** — every UI
 surface labels it "SIMULATED NETWORK DATA".
+
+v1.2.0 linkage (site→road→profile) endpoint heights are likewise simulated:
+A uses the site's invented mast `height_m`; B uses an explicit **1.5 m
+terminal assumption** (labelled 模拟终端假设). Profile sampling along A→B and
+both ground elevations come from the real DEM; the LOS verdict is a
+terrain-only geometric reference — weak RSRP classification uses the
+configurable −110 dBm threshold (`WEAK_RSRP_DBM` in `src/config.ts`) and the
+verdict never claims an RSRP cause.
 
 ## Synthetic terrain mode — dev only
 

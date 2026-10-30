@@ -3,10 +3,28 @@
 import maplibregl, { type Map as MLMap, type StyleSpecification } from "maplibre-gl";
 import { PMTiles, Protocol } from "pmtiles";
 import { FONT_STACK, LAYER_IDS, type AppMetadata } from "../config";
+import { currentViewMode } from "./view-mode";
 
 // register the pmtiles:// protocol exactly once
 const protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
+
+/**
+ * SIMULATED RSRP color ramp — single source of truth shared by both RSRP
+ * layers (base + selection overlay); mirrored in the legend (controls.ts
+ * buildLegends). Units: dBm. Legend and map must stay visually identical.
+ */
+const RSRP_COLOR_STOPS = [
+  "interpolate",
+  ["linear"],
+  ["get", "rsrp_dbm"],
+  -140, "#c0392b",
+  -120, "#e07840",
+  -105, "#d8c34a",
+  -90, "#7dbb5a",
+  -75, "#3f9e6f",
+  -60, "#2e8b8b",
+] as unknown as NonNullable<StyleSpecification["layers"]>[number]["paint"];
 
 /** Single shared archive handle (range-request reader) for elevation queries. */
 export const demArchive = new PMTiles("/data/dem-terrarium.pmtiles");
@@ -93,7 +111,10 @@ export class MapApp {
 
   writeHash() {
     const v = this.getViewState();
-    const h = `#v=${v.lng},${v.lat},${v.zoom},${v.pitch},${v.bearing},${v.ex}`;
+    // mode suffix is additive; v1.1.0 `#v=…` links still parse identically
+    // (readHashMode tolerates absence and unknown values -> 'gis')
+    const modeSuffix = currentViewMode() === "ran" ? "&m=ran" : "";
+    const h = `#v=${v.lng},${v.lat},${v.zoom},${v.pitch},${v.bearing},${v.ex}${modeSuffix}`;
     if (location.hash !== h) history.replaceState(null, "", h);
   }
 
@@ -573,12 +594,54 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
       // simulated network must still never render without its SIMULATED
       // banner, so RanOverlay hides these layers at the earliest safe moment
       // (race-free constructor boot) instead of relying on style defaults.
+      //
+      // v1.2.0 visual hierarchy: every RAN feature carries a runtime `sel`
+      // property ("selected" | "dimmed" | undefined) that RanOverlay bakes in
+      // when the selection changes (single rebuild of the small GeoJSON).
+      // Paint expressions branch on it — one declarative place per layer, no
+      // scattered setPaintProperty calls.
       {
         id: LAYER_IDS.ranSectors,
         type: "fill",
         source: "ran",
         filter: ["==", ["geometry-type"], "Polygon"],
-        paint: { "fill-color": "#5aa0e0", "fill-opacity": 0.12, "fill-outline-color": "rgba(120,180,240,0.45)" },
+        paint: {
+          "fill-color": ["match", ["get", "sel"], "selected", "#74b3ef", "#5aa0e0"],
+          // selected sector clearly readable; unfocused sites' sectors fade
+          "fill-opacity": ["match", ["get", "sel"], "selected", 0.42, "dimmed", 0.05, 0.26],
+          "fill-outline-color": [
+            "match",
+            ["get", "sel"],
+            "selected", "rgba(170,215,255,0.95)",
+            "dimmed", "rgba(120,180,240,0.12)",
+            "rgba(120,180,240,0.5)",
+          ],
+        },
+      },
+      {
+        // sector boresight line: gives the fan an explicit direction reading
+        // (azimuth centre). Geometric direction indicator — NOT a beam model.
+        id: LAYER_IDS.ranSectorAxis,
+        type: "line",
+        source: "ran",
+        filter: ["==", ["get", "role"], "sector-axis"],
+        paint: {
+          "line-color": ["match", ["get", "sel"], "selected", "#d8ecff", "rgba(150,195,240,0.6)"],
+          "line-width": ["match", ["get", "sel"], "selected", 2.4, 1.3],
+        },
+      },
+      {
+        // dark casing under the RSRP band: separates the colored road from
+        // contours/hillshade texture so the weakest segments still read
+        id: LAYER_IDS.ranRsrpCasing,
+        type: "line",
+        source: "ran",
+        filter: ["has", "rsrp_dbm"],
+        paint: {
+          "line-color": "#131a15",
+          "line-width": ["interpolate", ["linear"], ["zoom"], 9, 4.8, 13, 10.5],
+          "line-opacity": ["match", ["get", "sel"], "dimmed", 0.18, 1],
+        },
       },
       {
         id: LAYER_IDS.ranRsrp,
@@ -586,18 +649,25 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         source: "ran",
         filter: ["has", "rsrp_dbm"],
         paint: {
-          "line-width": ["interpolate", ["linear"], ["zoom"], 9, 3, 13, 7],
-          "line-color": [
-            "interpolate",
-            ["linear"],
-            ["get", "rsrp_dbm"],
-            -140, "#c0392b",
-            -120, "#e07840",
-            -105, "#d8c34a",
-            -90, "#7dbb5a",
-            -75, "#3f9e6f",
-            -60, "#2e8b8b",
-          ],
+          // MapLibre 5 allows exactly ONE zoom-based subexpression per paint
+          // property, at top level — selection emphasis therefore lives in
+          // dedicated overlay layers below, driven by the `sel` property.
+          "line-width": ["interpolate", ["linear"], ["zoom"], 9, 3.8, 13, 8.5],
+          "line-opacity": ["match", ["get", "sel"], "dimmed", 0.22, 1],
+          "line-color": RSRP_COLOR_STOPS,
+        },
+      },
+      {
+        // selected road segment: same RSRP band, wider + opaque
+        id: LAYER_IDS.ranRsrpSel,
+        type: "line",
+        source: "ran",
+        // has-rsrp guard: sector-axis lines are also sel=selected but are
+        // geometric direction indicators, never RSRP data
+        filter: ["all", ["==", ["get", "sel"], "selected"], ["has", "rsrp_dbm"]],
+        paint: {
+          "line-width": ["interpolate", ["linear"], ["zoom"], 9, 6.5, 13, 13],
+          "line-color": RSRP_COLOR_STOPS,
         },
       },
       {
@@ -606,28 +676,66 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         source: "ran",
         filter: ["==", ["geometry-type"], "Point"],
         paint: {
-          "circle-radius": ["interpolate", ["linear"], ["zoom"], 9, 5, 13, 8],
+          "circle-radius": ["interpolate", ["linear"], ["zoom"], 9, 5.5, 13, 9],
           "circle-color": "#6ab0f3",
           "circle-stroke-width": 2,
           "circle-stroke-color": "#12324f",
+          "circle-opacity": ["match", ["get", "sel"], "dimmed", 0.35, 1],
+          "circle-stroke-opacity": ["match", ["get", "sel"], "dimmed", 0.35, 1],
+        },
+      },
+      {
+        // selected site: amber, larger, always above the blue base circles.
+        // geometry-type guard is REQUIRED: circle layers render every vertex
+        // of polygons/linestrings, which would bead the fan outline amber.
+        id: LAYER_IDS.ranSitesSel,
+        type: "circle",
+        source: "ran",
+        filter: ["all", ["==", ["get", "sel"], "selected"], ["==", ["geometry-type"], "Point"]],
+        paint: {
+          "circle-radius": ["interpolate", ["linear"], ["zoom"], 9, 8, 13, 13],
+          "circle-color": "#ffce54",
+          "circle-stroke-width": 2.5,
+          "circle-stroke-color": "#5a3e00",
         },
       },
       {
         id: LAYER_IDS.ranSiteLabels,
         type: "symbol",
         source: "ran",
-        minzoom: 11,
+        minzoom: 10,
         layout: {
           "text-field": ["get", "id"],
           "text-font": [FONT_STACK],
-          "text-size": 9.5,
+          "text-size": ["interpolate", ["linear"], ["zoom"], 10, 10.5, 13, 12],
           "text-offset": [0, 1.4],
           "text-anchor": "top",
         },
         paint: {
           "text-color": "#a8d0f5",
+          "text-opacity": ["match", ["get", "sel"], "dimmed", 0.35, 1],
           "text-halo-color": "rgba(10, 16, 24, 0.9)",
           "text-halo-width": 1.2,
+        },
+      },
+      {
+        // selected site label: larger + warm, wins the collision priority by
+        // being drawn last
+        id: LAYER_IDS.ranSiteLabelsSel,
+        type: "symbol",
+        source: "ran",
+        filter: ["all", ["==", ["get", "sel"], "selected"], ["==", ["geometry-type"], "Point"]],
+        layout: {
+          "text-field": ["get", "id"],
+          "text-font": [FONT_STACK],
+          "text-size": 13.5,
+          "text-offset": [0, 1.4],
+          "text-anchor": "top",
+        },
+        paint: {
+          "text-color": "#ffd98a",
+          "text-halo-color": "rgba(10, 16, 24, 0.95)",
+          "text-halo-width": 1.4,
         },
       },
     ],

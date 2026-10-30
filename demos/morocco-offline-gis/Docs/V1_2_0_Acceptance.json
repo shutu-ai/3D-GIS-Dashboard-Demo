@@ -1,0 +1,119 @@
+{
+  "version": "1.2.0",
+  "product": "Morocco High Atlas - Offline 3D GIS Lab (demos/morocco-offline-gis)",
+  "task": "Codex_Task_3D_GIS_Dashboard_v1.2.0_Offline_RAN_Coverage_Visualization",
+  "generated_utc": "2026-10-30",
+  "baseline_tag": "v1.1.0",
+  "baseline_commit": "581a889",
+  "work_branch": "feat/v1.2.0-offline-ran-coverage-visualization",
+  "head_code_final": "59353ab",
+  "environment": {
+    "os": "Windows (win32)",
+    "browser": "Playwright Chromium headless, ANGLE D3D11",
+    "runner": "scripts/verify-offline.ps1 (all non-localhost blocked, fresh profile, Range gate + full Playwright suite)",
+    "viewports": ["1920x1080", "1366x768"]
+  },
+  "gates": {
+    "G0": {
+      "name": "v1.1.0 baseline reproduction + visual RCA",
+      "status": "PASS",
+      "evidence": {
+        "rca_doc": "Docs/V1_2_0_RAN_Visual_RCA.md",
+        "validate": "99/99 (@70ba084)",
+        "playwright_baseline": "24/24 (4.7 min, v1.1.0 dist untouched by src work)",
+        "pmtiles_range_206": "PASS"
+      }
+    },
+    "G1": {
+      "name": "GIS/RAN view-mode state machine + RAN visual hierarchy + selection",
+      "status": "PASS",
+      "commit": "a4ab8b0",
+      "evidence": {
+        "g1_smoke": "2/2 PASS (both viewports)",
+        "screenshots": "Docs/screenshots/v1.2.0-g1/ 5 scenes x 2 viewports, human-eye reviewed",
+        "appendices": "RCA §6 A1-A7 (maplibre-gl.css defect, MapLibre v5 zoom-expression constraint, geometry-type filters, tiled GeoJSON selection baking, blob: URL counting, BASE_DAMPEN normalization, legend-tick leak fix)"
+      }
+    },
+    "G2": {
+      "name": "site->road->DEM profile linkage with honesty-guarded verdicts",
+      "status": "PASS",
+      "commit": "4a3ae8c",
+      "evidence": {
+        "g2_linkage": "6/6 PASS (3 tests x 2 viewports)",
+        "demo_pairs": {
+          "blocked": "GTW-TICHKA-05 -> road209 (-110.7 dBm; real DEM: BLOCKED, clearance -389 m, 4.64 km)",
+          "clear_contrast": "GTW-TICHKA-05 -> road193 (-62.7 dBm; real DEM: CLEAR, clearance +2 m, 0.31 km)",
+          "additional": ["GTW-TICHKA-04 -> road172 (-110.5 dBm)", "GTW-IMLIL-01 -> road273 (-111.7 dBm)"]
+        },
+        "honesty_fix": "manual A-B flow no longer renders green CLEAR when outOfCoverage>0 (shared renderProfileResult path)"
+      }
+    },
+    "G3": {
+      "name": "§10 regression extension + full offline verification",
+      "status": "PASS",
+      "commit": "59353ab",
+      "evidence": {
+        "g3_regression": "8/8 PASS (cold start invisible, GIS/RAN loop x10 zero residue, RSRP set within GeoJSON range + data-driven colors, exaggeration-1.5 number invariance, out-of-coverage UNKNOWN, exit-race no resurrection)",
+        "full_verify_after_g3": "40/40 PASS (6.8 min), 24 baseline tests untouched, external requests 0, PMTiles Range 206",
+        "timings": "Docs/v1_2_0_timings.json (recording only, no perf gate)"
+      }
+    },
+    "G4": {
+      "name": "visual acceptance set, docs, final offline package",
+      "status": "PASS",
+      "evidence": {
+        "g4_spec": "2/2 PASS (both viewports)",
+        "screenshots": "Docs/screenshots/v1.2.0/ 6 scenarios x 2 viewports = 12, tile-traffic-settle waits, external requests 0; human-eye review Docs/V1_2_0_Visual_Acceptance.md -> 12/12 approved, 0 blockers",
+        "final_verify_on_shipped_bytes": "42/42 PASS (7.8 min) incl. 24-item v1.1.0 baseline + g1/g2/g3/g4 suites, external requests 0, PMTiles Range 206",
+        "docs": [
+          "Docs/V1_2_0_RAN_Visual_RCA.md",
+          "Docs/V1_2_0_Interaction_and_Data_Contract.md",
+          "Docs/V1_2_0_Visual_Acceptance.md",
+          "Docs/V1_2_0_Acceptance.json",
+          "Docs/v1_2_0_timings.json",
+          "README.md",
+          "DATA_SOURCES_AND_LICENSES.md"
+        ],
+        "release_zip": "releases/Morocco-High-Atlas-Offline-RAN-v1.2.0.zip",
+        "zip_bytes": 241966041,
+        "zip_sha256": "6B44B6EE92DD61CEF8D08E7EDF359505767943E2A69E8AADEF759A2B60F9BC5C",
+        "dist_bytes": 244336304,
+        "bundle": "dist/assets/index-DdLS0W2-.js (identical src hash for the G4 screenshot run and the final 42/42 verify; only docs differ between builds)"
+      }
+    }
+  },
+  "report_fixed_format": {
+    "PROJECT": "3D-GIS-Dashboard-Demo",
+    "VERSION_TARGET": "v1.2.0",
+    "BASELINE_TAG": "v1.1.0",
+    "BASELINE_COMMIT": "581a889",
+    "WORK_BRANCH": "feat/v1.2.0-offline-ran-coverage-visualization",
+    "HEAD": "59353ab",
+    "REAL_DEM_PRESERVED": "PASS",
+    "SIMULATED_RAN_LABEL": "PASS",
+    "GIS_RAN_MODE_SWITCH": "PASS",
+    "RAN_VISUAL_HIERARCHY": "PASS",
+    "SITE_SECTOR_SELECTION": "PASS",
+    "RSRP_ROAD_HIGHLIGHT": "PASS",
+    "SITE_TO_ROAD_PROFILE": "PASS",
+    "LOS_NODATA_UNKNOWN": "PASS",
+    "PROFILE_GEOMETRY_COHERENCE": "PASS",
+    "RAN_BOOT_RACE_REGRESSION": "PASS",
+    "GIS_REGRESSION": "PASS",
+    "DATA_VALIDATION": "99/99",
+    "PLAYWRIGHT": "42/42",
+    "VISUAL_SCREENSHOTS": "12/12",
+    "OFFLINE_COLD_START": "PASS",
+    "EXTERNAL_REQUESTS": 0,
+    "PMTILES_RANGE_206": "PASS",
+    "JS_WEBGL_ERRORS": 0,
+    "DIST_SIZE_BYTES": 244336304,
+    "DIST_SHA256": "see zip_sha256 in gates.G4 (single-file deliverable hash); bundle dist/assets/index-DdLS0W2-.js",
+    "RELEASE_READY": "YES",
+    "BLOCKERS": "none",
+    "PUBLISHED": "NO (requires explicit user authorization)"
+  },
+  "release_ready": "YES",
+  "blockers": [],
+  "release_authorization": "push / merge to main / tag / GitHub Release NOT performed - requires explicit user authorization"
+}
