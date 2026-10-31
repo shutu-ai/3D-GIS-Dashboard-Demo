@@ -1,0 +1,2624 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -11.487535149205273,
+          26.291022599999998
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B89532291078161:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "La\u00e2youne-Sakia El Hamra",
+        "level": "ADM1",
+        "name": "La\u00e2youne-Sakia El Hamra",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B89532291078161",
+        "shapeISO": "MA-11",
+        "shapeName": "La\u00e2youne-Sakia El Hamra",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.434766372913305,
+          35.2181678
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B66040098455254:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "Tangier-Tetouan-Al Hoceima",
+        "level": "ADM1",
+        "name": "Tangier-Tetouan-Al Hoceima",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B66040098455254",
+        "shapeISO": "MA-01",
+        "shapeName": "Tangier-Tetouan-Al Hoceima",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -2.3906063870173955,
+          33.5811814
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B40056535803135:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "Oriental",
+        "level": "ADM1",
+        "name": "Oriental",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B40056535803135",
+        "shapeISO": "MA-02",
+        "shapeName": "Oriental",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.58317463160672,
+          31.28770725
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B26242154300952:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "Dr\u00e2a-Tafilalet",
+        "level": "ADM1",
+        "name": "Dr\u00e2a-Tafilalet",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B26242154300952",
+        "shapeISO": "MA-08",
+        "shapeName": "Dr\u00e2a-Tafilalet",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.060304250000003,
+          31.175936749999998
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B26242154300952:atlas",
+      "properties": {
+        "admin_level": 1,
+        "label": "Dr\u00e2a-Tafilalet",
+        "level": "ADM1",
+        "name": "Dr\u00e2a-Tafilalet",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B26242154300952",
+        "shapeISO": "MA-08",
+        "shapeName": "Dr\u00e2a-Tafilalet",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.157695785778756,
+          29.7357752
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B1820144472977:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "Souss-Massa",
+        "level": "ADM1",
+        "name": "Souss-Massa",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B1820144472977",
+        "shapeISO": "MA-09",
+        "shapeName": "Souss-Massa",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.828497597711737,
+          30.986385300000002
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B1820144472977:atlas",
+      "properties": {
+        "admin_level": 1,
+        "label": "Souss-Massa",
+        "level": "ADM1",
+        "name": "Souss-Massa",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B1820144472977",
+        "shapeISO": "MA-09",
+        "shapeName": "Souss-Massa",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -10.084427221839995,
+          28.385906
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B64069740334949:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "Guelmim-Oued Noun",
+        "level": "ADM1",
+        "name": "Guelmim-Oued Noun",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B64069740334949",
+        "shapeISO": "MA-10",
+        "shapeName": "Guelmim-Oued Noun",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.799432071783302,
+          33.065160649999996
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B33851053053385:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "Casablanca-Settat",
+        "level": "ADM1",
+        "name": "Casablanca-Settat",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B33851053053385",
+        "shapeISO": "MA-06",
+        "shapeName": "Casablanca-Settat",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.306409084756796,
+          31.806335949999998
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B60308563647099:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "Marrakech-Safi",
+        "level": "ADM1",
+        "name": "Marrakech-Safi",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B60308563647099",
+        "shapeISO": "MA-07",
+        "shapeName": "Marrakech-Safi",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.167859225,
+          31.23724945
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B60308563647099:atlas",
+      "properties": {
+        "admin_level": 1,
+        "label": "Marrakech-Safi",
+        "level": "ADM1",
+        "name": "Marrakech-Safi",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B60308563647099",
+        "shapeISO": "MA-07",
+        "shapeName": "Marrakech-Safi",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -14.741994773441643,
+          22.735386249999998
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B40522022577718:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "Dakhla-Oued Ed-Dahab",
+        "level": "ADM1",
+        "name": "Dakhla-Oued Ed-Dahab",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B40522022577718",
+        "shapeISO": "MA-12",
+        "shapeName": "Dakhla-Oued Ed-Dahab",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.328725938578254,
+          34.08533075
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B15955360211262:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "Rabat-Sal\u00e9-Kenitra",
+        "level": "ADM1",
+        "name": "Rabat-Sal\u00e9-Kenitra",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B15955360211262",
+        "shapeISO": "MA-04",
+        "shapeName": "Rabat-Sal\u00e9-Kenitra",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -4.847581884998955,
+          33.74727775
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B83815134303720:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "Fez-Meknes",
+        "level": "ADM1",
+        "name": "Fez-Meknes",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B83815134303720",
+        "shapeISO": "MA-03",
+        "shapeName": "Fez-Meknes",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.280445836675398,
+          32.4092902
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B63032885328780:overview",
+      "properties": {
+        "admin_level": 1,
+        "label": "B\u00e9ni Mellal-Kh\u00e9nifra",
+        "level": "ADM1",
+        "name": "B\u00e9ni Mellal-Kh\u00e9nifra",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B63032885328780",
+        "shapeISO": "MA-05",
+        "shapeName": "B\u00e9ni Mellal-Kh\u00e9nifra",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.864233710581274,
+          31.49519205
+        ],
+        "type": "Point"
+      },
+      "id": "70788906B63032885328780:atlas",
+      "properties": {
+        "admin_level": 1,
+        "label": "B\u00e9ni Mellal-Kh\u00e9nifra",
+        "level": "ADM1",
+        "name": "B\u00e9ni Mellal-Kh\u00e9nifra",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "70788906B63032885328780",
+        "shapeISO": "MA-05",
+        "shapeName": "B\u00e9ni Mellal-Kh\u00e9nifra",
+        "shapeType": "ADM1",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.26491246319585,
+          33.659657249999995
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B24539393832458:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Kh\u00e9misset",
+        "level": "ADM2",
+        "name": "Province de Kh\u00e9misset \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u062e\u0645\u064a\u0633\u0627\u062a",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B24539393832458",
+        "shapeISO": "",
+        "shapeName": "Province de Kh\u00e9misset \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u062e\u0645\u064a\u0633\u0627\u062a",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.076319799519935,
+          32.22411525
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B21316479060137:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Rhamna Province",
+        "level": "ADM2",
+        "name": "Rhamna Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B21316479060137",
+        "shapeISO": "",
+        "shapeName": "Rhamna Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.601422151510306,
+          31.635712599999998
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B21316479060137:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Rhamna Province",
+        "level": "ADM2",
+        "name": "Rhamna Province",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B21316479060137",
+        "shapeISO": "",
+        "shapeName": "Rhamna Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.053593094469916,
+          34.28939715
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B64432809888793:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Sidi Slimane",
+        "level": "ADM2",
+        "name": "Province de Sidi Slimane \u0625\u0642\u0644\u064a\u0645 \u0633\u064a\u062f\u064a \u0633\u0644\u064a\u0645\u0627\u0646",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B64432809888793",
+        "shapeISO": "",
+        "shapeName": "Province de Sidi Slimane \u0625\u0642\u0644\u064a\u0645 \u0633\u064a\u062f\u064a \u0633\u0644\u064a\u0645\u0627\u0646",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.356702211088197,
+          34.55524585
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B12662883146655:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Kenitra",
+        "level": "ADM2",
+        "name": "Province de Kenitra \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0642\u0646\u064a\u0637\u0631\u0629",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B12662883146655",
+        "shapeISO": "",
+        "shapeName": "Province de Kenitra \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0642\u0646\u064a\u0637\u0631\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.498026506216112,
+          30.4442891
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B53703826618026:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Taroudant Province",
+        "level": "ADM2",
+        "name": "Taroudant Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B53703826618026",
+        "shapeISO": "",
+        "shapeName": "Taroudant Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.828497597711737,
+          30.986385300000002
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B53703826618026:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Taroudant Province",
+        "level": "ADM2",
+        "name": "Taroudant Province",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B53703826618026",
+        "shapeISO": "",
+        "shapeName": "Taroudant Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -9.75915017528542,
+          29.32799405
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B51161748863193:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Sidi Ifni Province",
+        "level": "ADM2",
+        "name": "Sidi Ifni Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B51161748863193",
+        "shapeISO": "",
+        "shapeName": "Sidi Ifni Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.048053013639528,
+          29.3861601
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B26550498921337:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Tata Province",
+        "level": "ADM2",
+        "name": "Tata Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B26550498921337",
+        "shapeISO": "",
+        "shapeName": "Tata Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -4.211065166002861,
+          31.1323905
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B35891480133263:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province d'Errachidia",
+        "level": "ADM2",
+        "name": "Province d'Errachidia \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0631\u0634\u064a\u062f\u064a\u0629",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B35891480133263",
+        "shapeISO": "",
+        "shapeName": "Province d'Errachidia \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0631\u0634\u064a\u062f\u064a\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -13.35328628115249,
+          25.530332073165688
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B48127384361052:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Boujdour Province",
+        "level": "ADM2",
+        "name": "Boujdour Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B48127384361052",
+        "shapeISO": "",
+        "shapeName": "Boujdour Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.994214641639976,
+          32.250390949999996
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B23117375948520:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Safi",
+        "level": "ADM2",
+        "name": "Province de Safi \u0625\u0642\u0644\u064a\u0645 \u0623\u0633\u0641\u064a",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B23117375948520",
+        "shapeISO": "",
+        "shapeName": "Province de Safi \u0625\u0642\u0644\u064a\u0645 \u0623\u0633\u0641\u064a",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.567133251565252,
+          32.0287
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B54259280648674:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Youssoufia",
+        "level": "ADM2",
+        "name": "Province de Youssoufia \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u064a\u0648\u0633\u0641\u064a\u0629",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B54259280648674",
+        "shapeISO": "",
+        "shapeName": "Province de Youssoufia \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u064a\u0648\u0633\u0641\u064a\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.005421943217993,
+          34.11017795
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B42104761334354:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Moulay Yacoub",
+        "level": "ADM2",
+        "name": "Province de Moulay Yacoub \u0625\u0642\u0644\u064a\u0645 \u0645\u0648\u0644\u0627\u064a \u064a\u0639\u0642\u0648\u0628",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B42104761334354",
+        "shapeISO": "",
+        "shapeName": "Province de Moulay Yacoub \u0625\u0642\u0644\u064a\u0645 \u0645\u0648\u0644\u0627\u064a \u064a\u0639\u0642\u0648\u0628",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -2.8235248333345875,
+          35.05220395
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B25654465299878:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Nador",
+        "level": "ADM2",
+        "name": "Province de Nador \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0646\u0627\u0638\u0648\u0631",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B25654465299878",
+        "shapeISO": "",
+        "shapeName": "Province de Nador \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0646\u0627\u0638\u0648\u0631",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.0089799848952765,
+          35.0987334
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B54306876372793:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Chefchaouen Province",
+        "level": "ADM2",
+        "name": "Chefchaouen Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B54306876372793",
+        "shapeISO": "",
+        "shapeName": "Chefchaouen Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.879002384323693,
+          33.7488371
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B91342156363380:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Pr\u00e9fecture de Skhirate-T\u00e9mara",
+        "level": "ADM2",
+        "name": "Pr\u00e9fecture de Skhirate-T\u00e9mara \u0639\u0645\u0627\u0644\u0629 \u0627\u0644\u0635\u062e\u064a\u0631\u0627\u062a-\u062a\u0645\u0627\u0631\u0629",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B91342156363380",
+        "shapeISO": "",
+        "shapeName": "Pr\u00e9fecture de Skhirate-T\u00e9mara \u0639\u0645\u0627\u0644\u0629 \u0627\u0644\u0635\u062e\u064a\u0631\u0627\u062a-\u062a\u0645\u0627\u0631\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.497380775000071,
+          32.776039850000004
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B9799798831472:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Settat Province",
+        "level": "ADM2",
+        "name": "Settat Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B9799798831472",
+        "shapeISO": "",
+        "shapeName": "Settat Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -9.337892560566079,
+          30.012591
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B99021473747258:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Chtouka-Ait Baha Province",
+        "level": "ADM2",
+        "name": "Chtouka-Ait Baha Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B99021473747258",
+        "shapeISO": "",
+        "shapeName": "Chtouka-Ait Baha Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.40197937081988,
+          35.76470835000001
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B89687162507810:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Pr\u00e9fecture de M'diq-Fnideq",
+        "level": "ADM2",
+        "name": "Pr\u00e9fecture de M'diq-Fnideq \u0639\u0645\u0627\u0644\u0629 \u0627\u0644\u0645\u0636\u064a\u0642 \u0627\u0644\u0641\u0646\u064a\u062f\u0642",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B89687162507810",
+        "shapeISO": "",
+        "shapeName": "Pr\u00e9fecture de M'diq-Fnideq \u0639\u0645\u0627\u0644\u0629 \u0627\u0644\u0645\u0636\u064a\u0642 \u0627\u0644\u0641\u0646\u064a\u062f\u0642",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -4.153521949326005,
+          34.28638745
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B85287588144355:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Taza",
+        "level": "ADM2",
+        "name": "Province de Taza \u0627\u0642\u0644\u064a\u0645 \u062a\u0627\u0632\u0629",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B85287588144355",
+        "shapeISO": "",
+        "shapeName": "Province de Taza \u0627\u0642\u0644\u064a\u0645 \u062a\u0627\u0632\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.47343833479977,
+          34.781842999999995
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B93440982531475:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province d'Ouezzane",
+        "level": "ADM2",
+        "name": "Province d'Ouezzane \u0625\u0642\u0644\u064a\u0645 \u0648\u0632\u0627\u0646",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B93440982531475",
+        "shapeISO": "",
+        "shapeName": "Province d'Ouezzane \u0625\u0642\u0644\u064a\u0645 \u0648\u0632\u0627\u0646",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.604024664005683,
+          35.750443250000004
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B56432502406176:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Fahs-Anjra Province",
+        "level": "ADM2",
+        "name": "Fahs-Anjra Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B56432502406176",
+        "shapeISO": "",
+        "shapeName": "Fahs-Anjra Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -4.181813636089512,
+          34.97113495000001
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B99920267922653:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Al Hoceima Province",
+        "level": "ADM2",
+        "name": "Al Hoceima Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B99920267922653",
+        "shapeISO": "",
+        "shapeName": "Al Hoceima Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.058909708793859,
+          33.5148328
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B34372354169334:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Benslimane",
+        "level": "ADM2",
+        "name": "Province de Benslimane \u0625\u0642\u0644\u064a\u0645 \u0628\u0646 \u0633\u0644\u064a\u0645\u0627\u0646",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B34372354169334",
+        "shapeISO": "",
+        "shapeName": "Province de Benslimane \u0625\u0642\u0644\u064a\u0645 \u0628\u0646 \u0633\u0644\u064a\u0645\u0627\u0646",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -12.576366580543986,
+          27.537593649999998
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B75888110493475:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Tarfaya Province",
+        "level": "ADM2",
+        "name": "Tarfaya Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B75888110493475",
+        "shapeISO": "",
+        "shapeName": "Tarfaya Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -2.627136537462538,
+          32.7038995
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B25874170222857:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Figuig",
+        "level": "ADM2",
+        "name": "Province de Figuig \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0646\u0627\u0638\u0648\u0631",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B25874170222857",
+        "shapeISO": "",
+        "shapeName": "Province de Figuig \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0646\u0627\u0638\u0648\u0631",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.578260986182058,
+          34.47995695
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B9718685225615:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Sidi Kacem",
+        "level": "ADM2",
+        "name": "Province de Sidi Kacem \u0625\u0642\u0644\u064a\u0645 \u0633\u064a\u062f\u064a \u0642\u0627\u0633\u0645",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B9718685225615",
+        "shapeISO": "",
+        "shapeName": "Province de Sidi Kacem \u0625\u0642\u0644\u064a\u0645 \u0633\u064a\u062f\u064a \u0642\u0627\u0633\u0645",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.467650312135236,
+          33.4939548
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B92138134403299:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "M\u00e9diouna Province",
+        "level": "ADM2",
+        "name": "M\u00e9diouna Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B92138134403299",
+        "shapeISO": "",
+        "shapeName": "M\u00e9diouna Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -2.037308409445868,
+          34.665335400000004
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B53695376753874:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Pr\u00e9fecture d'Oujda-Angad",
+        "level": "ADM2",
+        "name": "Pr\u00e9fecture d'Oujda-Angad \u0639\u0645\u0627\u0644\u0629 \u0648\u062c\u062f\u0629 - \u0623\u0646\u062c\u0627\u062f",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B53695376753874",
+        "shapeISO": "",
+        "shapeName": "Pr\u00e9fecture d'Oujda-Angad \u0639\u0645\u0627\u0644\u0629 \u0648\u062c\u062f\u0629 - \u0623\u0646\u062c\u0627\u062f",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.587446542473357,
+          32.926784
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B15248572972708:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Khouribga",
+        "level": "ADM2",
+        "name": "Province de Khouribga \u0625\u0642\u0644\u064a\u0645 \u062e\u0631\u064a\u0628\u0643\u0629",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B15248572972708",
+        "shapeISO": "",
+        "shapeName": "Province de Khouribga \u0625\u0642\u0644\u064a\u0645 \u062e\u0631\u064a\u0628\u0643\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -11.087647153523513,
+          28.20989133345697
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B8060198419886:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Tan-Tan",
+        "level": "ADM2",
+        "name": "Province de Tan-Tan \u0625\u0642\u0644\u064a\u0645 \u0637\u0627\u0646\u0637\u0627\u0646",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B8060198419886",
+        "shapeISO": "",
+        "shapeName": "Province de Tan-Tan \u0625\u0642\u0644\u064a\u0645 \u0637\u0627\u0646\u0637\u0627\u0646",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -9.3478000453974,
+          29.59306715
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B52167870329218:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Tiznit Province",
+        "level": "ADM2",
+        "name": "Tiznit Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B52167870329218",
+        "shapeISO": "",
+        "shapeName": "Tiznit Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.84828006924817,
+          31.29871945
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B46616002618727:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Chichaoua Province",
+        "level": "ADM2",
+        "name": "Chichaoua Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B46616002618727",
+        "shapeISO": "",
+        "shapeName": "Chichaoua Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.580660575,
+          31.23726155
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B46616002618727:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Chichaoua Province",
+        "level": "ADM2",
+        "name": "Chichaoua Province",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B46616002618727",
+        "shapeISO": "",
+        "shapeName": "Chichaoua Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.525787558795653,
+          32.586269
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B30309850889145:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Sidi Bennour",
+        "level": "ADM2",
+        "name": "Province de Sidi Bennour \u0625\u0642\u0644\u064a\u0645 \u0633\u064a\u062f\u064a \u0628\u0646\u0648\u0631",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B30309850889145",
+        "shapeISO": "",
+        "shapeName": "Province de Sidi Bennour \u0625\u0642\u0644\u064a\u0645 \u0633\u064a\u062f\u064a \u0628\u0646\u0648\u0631",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -10.002759097898245,
+          28.877643550000002
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B36466177595872:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Guelmim Province",
+        "level": "ADM2",
+        "name": "Guelmim Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B36466177595872",
+        "shapeISO": "",
+        "shapeName": "Guelmim Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -9.602135076863952,
+          30.642919050000003
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B63187791317705:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Agadir Ida-Outanane Prefecture",
+        "level": "ADM2",
+        "name": "Agadir Ida-Outanane Prefecture",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B63187791317705",
+        "shapeISO": "",
+        "shapeName": "Agadir Ida-Outanane Prefecture",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.924565118975571,
+          31.2806715
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B698999344864:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Al Haouz Province",
+        "level": "ADM2",
+        "name": "Al Haouz Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B698999344864",
+        "shapeISO": "",
+        "shapeName": "Al Haouz Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.947559097115754,
+          31.2605828
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B698999344864:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Al Haouz Province",
+        "level": "ADM2",
+        "name": "Al Haouz Province",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B698999344864",
+        "shapeISO": "",
+        "shapeName": "Al Haouz Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -9.449090180856725,
+          30.34712555
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B99662254658575:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Inezgane-Ait Melloul Prefecture",
+        "level": "ADM2",
+        "name": "Inezgane-Ait Melloul Prefecture",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B99662254658575",
+        "shapeISO": "",
+        "shapeName": "Inezgane-Ait Melloul Prefecture",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.851582346442612,
+          35.19589985
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B18768670389586:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Larache Province",
+        "level": "ADM2",
+        "name": "Larache Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B18768670389586",
+        "shapeISO": "",
+        "shapeName": "Larache Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.644275931478111,
+          33.4079574
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B89345886069248:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Nouaceur Province",
+        "level": "ADM2",
+        "name": "Nouaceur Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B89345886069248",
+        "shapeISO": "",
+        "shapeName": "Nouaceur Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.240046117038478,
+          30.82785015
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B41522516415054:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Ouarzazate Province",
+        "level": "ADM2",
+        "name": "Ouarzazate Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B41522516415054",
+        "shapeISO": "",
+        "shapeName": "Ouarzazate Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.060304250000003,
+          31.175936749999998
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B41522516415054:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Ouarzazate Province",
+        "level": "ADM2",
+        "name": "Ouarzazate Province",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B41522516415054",
+        "shapeISO": "",
+        "shapeName": "Ouarzazate Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -4.9097847067424745,
+          33.96012745
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B2759448404756:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Pr\u00e9fecture de F\u00e8s",
+        "level": "ADM2",
+        "name": "Pr\u00e9fecture de F\u00e8s \u0639\u0645\u0627\u0644\u0629 \u0641\u0627\u0633",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B2759448404756",
+        "shapeISO": "",
+        "shapeName": "Pr\u00e9fecture de F\u00e8s \u0639\u0645\u0627\u0644\u0629 \u0641\u0627\u0633",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.155112122727571,
+          31.7221525
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B80339347175881:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Pr\u00e9fecture de Marrakech",
+        "level": "ADM2",
+        "name": "Pr\u00e9fecture de Marrakech \u0639\u0645\u0627\u0644\u0629 \u0645\u0631\u0627\u0643\u0634",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B80339347175881",
+        "shapeISO": "",
+        "shapeName": "Pr\u00e9fecture de Marrakech \u0639\u0645\u0627\u0644\u0629 \u0645\u0631\u0627\u0643\u0634",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.25248240970857,
+          31.5070328
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B80339347175881:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Pr\u00e9fecture de Marrakech",
+        "level": "ADM2",
+        "name": "Pr\u00e9fecture de Marrakech \u0639\u0645\u0627\u0644\u0629 \u0645\u0631\u0627\u0643\u0634",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B80339347175881",
+        "shapeISO": "",
+        "shapeName": "Pr\u00e9fecture de Marrakech \u0639\u0645\u0627\u0644\u0629 \u0645\u0631\u0627\u0643\u0634",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.374383018356435,
+          33.614816399999995
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B27397508075839:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Prefecture of Mohamm\u00e9dia",
+        "level": "ADM2",
+        "name": "Prefecture of Mohamm\u00e9dia",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B27397508075839",
+        "shapeISO": "",
+        "shapeName": "Prefecture of Mohamm\u00e9dia",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -9.507019980451417,
+          31.3622756
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B53936679900609:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Essaouira Province",
+        "level": "ADM2",
+        "name": "Essaouira Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B53936679900609",
+        "shapeISO": "",
+        "shapeName": "Essaouira Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.839054119978236,
+          33.970217899999994
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B91545835536411:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Prefecture of Rabat",
+        "level": "ADM2",
+        "name": "Prefecture of Rabat",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B91545835536411",
+        "shapeISO": "",
+        "shapeName": "Prefecture of Rabat",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.432251781311532,
+          31.8702262
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B10773066300421:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province d'Azilal",
+        "level": "ADM2",
+        "name": "Province d'Azilal \u0625\u0642\u0644\u064a\u0645 \u0623\u0632\u064a\u0644\u0627\u0644",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B10773066300421",
+        "shapeISO": "",
+        "shapeName": "Province d'Azilal \u0625\u0642\u0644\u064a\u0645 \u0623\u0632\u064a\u0644\u0627\u0644",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.864233710581274,
+          31.49519205
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B10773066300421:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province d'Azilal",
+        "level": "ADM2",
+        "name": "Province d'Azilal \u0625\u0642\u0644\u064a\u0645 \u0623\u0632\u064a\u0644\u0627\u0644",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B10773066300421",
+        "shapeISO": "",
+        "shapeName": "Province d'Azilal \u0625\u0642\u0644\u064a\u0645 \u0623\u0632\u064a\u0644\u0627\u0644",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.979549926375791,
+          32.444855849999996
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B40957387644980:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Beni Mellal",
+        "level": "ADM2",
+        "name": "Province de Beni Mellal \u0625\u0642\u0644\u064a\u0645 \u0628\u0646\u064a \u0645\u0644\u0627\u0644",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B40957387644980",
+        "shapeISO": "",
+        "shapeName": "Province de Beni Mellal \u0625\u0642\u0644\u064a\u0645 \u0628\u0646\u064a \u0645\u0644\u0627\u0644",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -9.489214973047979,
+          27.96150015
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B62254917052717:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Assa-Zag Province",
+        "level": "ADM2",
+        "name": "Assa-Zag Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B62254917052717",
+        "shapeISO": "",
+        "shapeName": "Assa-Zag Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -3.91021111648444,
+          33.24762
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B81090244987905:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Boulemane",
+        "level": "ADM2",
+        "name": "Province de Boulemane \u0625\u0642\u0644\u064a\u0645 \u0628\u0648\u0644\u0645\u0627\u0646",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B81090244987905",
+        "shapeISO": "",
+        "shapeName": "Province de Boulemane \u0625\u0642\u0644\u064a\u0645 \u0628\u0648\u0644\u0645\u0627\u0646",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.732465526365921,
+          32.4244025
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B50122508033550:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Fquih Ben Saleh",
+        "level": "ADM2",
+        "name": "Province de Fquih Ben Saleh \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0641\u0642\u064a\u0647 \u0628\u0646 \u0635\u0627\u0644\u062d",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B50122508033550",
+        "shapeISO": "",
+        "shapeName": "Province de Fquih Ben Saleh \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0641\u0642\u064a\u0647 \u0628\u0646 \u0635\u0627\u0644\u062d",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -3.451907585953683,
+          34.14528895
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B63064605054668:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Guercif",
+        "level": "ADM2",
+        "name": "Province de Guercif \u0625\u0642\u0644\u064a\u0645 \u062c\u0631\u0633\u064a\u0641",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B63064605054668",
+        "shapeISO": "",
+        "shapeName": "Province de Guercif \u0625\u0642\u0644\u064a\u0645 \u062c\u0631\u0633\u064a\u0641",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -2.060543336037036,
+          34.1087695
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B21390270390615:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Jerada",
+        "level": "ADM2",
+        "name": "Province de Jerada \u0625\u0642\u0644\u064a\u0645 \u062c\u0631\u0627\u062f\u0629",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B21390270390615",
+        "shapeISO": "",
+        "shapeName": "Province de Jerada \u0625\u0642\u0644\u064a\u0645 \u062c\u0631\u0627\u062f\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.6913326101483275,
+          32.969710649999996
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B52871738396395:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Kh\u00e9nifra",
+        "level": "ADM2",
+        "name": "Province de Kh\u00e9nifra \u0625\u0642\u0644\u064a\u0645 \u062e\u0646\u064a\u0641\u0631\u0629",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B52871738396395",
+        "shapeISO": "",
+        "shapeName": "Province de Kh\u00e9nifra \u0625\u0642\u0644\u064a\u0645 \u062e\u0646\u064a\u0641\u0631\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.492859310767717,
+          33.69875155
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B90056368806308:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province d'El Hajeb",
+        "level": "ADM2",
+        "name": "Province d'El Hajeb \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u062d\u0627\u062c\u0628",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B90056368806308",
+        "shapeISO": "",
+        "shapeName": "Province d'El Hajeb \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u062d\u0627\u062c\u0628",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.37914046805748,
+          32.0331402
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B21870556317795:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province d'El Kel\u00e2at Es-Sraghna",
+        "level": "ADM2",
+        "name": "Province d'El Kel\u00e2at Es-Sraghna \u0625\u0642\u0644\u064a\u0645 \u0642\u0644\u0639\u0629 \u0627\u0644\u0633\u0631\u0627\u063a\u0646\u0629",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B21870556317795",
+        "shapeISO": "",
+        "shapeName": "Province d'El Kel\u00e2at Es-Sraghna \u0625\u0642\u0644\u064a\u0645 \u0642\u0644\u0639\u0629 \u0627\u0644\u0633\u0631\u0627\u063a\u0646\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.5459004645246734,
+          31.634063949999998
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B21870556317795:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province d'El Kel\u00e2at Es-Sraghna",
+        "level": "ADM2",
+        "name": "Province d'El Kel\u00e2at Es-Sraghna \u0625\u0642\u0644\u064a\u0645 \u0642\u0644\u0639\u0629 \u0627\u0644\u0633\u0631\u0627\u063a\u0646\u0629",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B21870556317795",
+        "shapeISO": "",
+        "shapeName": "Province d'El Kel\u00e2at Es-Sraghna \u0625\u0642\u0644\u064a\u0645 \u0642\u0644\u0639\u0629 \u0627\u0644\u0633\u0631\u0627\u063a\u0646\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -4.665217509262015,
+          32.490579999999994
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B71822601453569:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Midelt",
+        "level": "ADM2",
+        "name": "Province de Midelt \u0625\u0642\u0644\u064a\u0645 \u0645\u064a\u062f\u0644\u062a",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B71822601453569",
+        "shapeISO": "",
+        "shapeName": "Province de Midelt \u0625\u0642\u0644\u064a\u0645 \u0645\u064a\u062f\u0644\u062a",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -4.64467784431813,
+          33.793091399999994
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B1478822582790:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Sefrou",
+        "level": "ADM2",
+        "name": "Province de Sefrou \u0625\u0642\u0644\u064a\u0645 \u0635\u0641\u0631\u0648",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B1478822582790",
+        "shapeISO": "",
+        "shapeName": "Province de Sefrou \u0625\u0642\u0644\u064a\u0645 \u0635\u0641\u0631\u0648",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -10.47306969881361,
+          26.88435565
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B70524131405695:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province d'Es-Semara",
+        "level": "ADM2",
+        "name": "Province d'Es-Semara \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0633\u0645\u0627\u0631\u0629",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B70524131405695",
+        "shapeISO": "",
+        "shapeName": "Province d'Es-Semara \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u0633\u0645\u0627\u0631\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -2.7958329353426192,
+          34.04487
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B4563753155162:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Taourirt",
+        "level": "ADM2",
+        "name": "Province de Taourirt \u0625\u0642\u0644\u064a\u0645 \u062a\u0627\u0648\u0631\u064a\u0631\u062a",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B4563753155162",
+        "shapeISO": "",
+        "shapeName": "Province de Taourirt \u0625\u0642\u0644\u064a\u0645 \u062a\u0627\u0648\u0631\u064a\u0631\u062a",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.749590478290385,
+          31.3173124
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B39685617616684:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Tinghir",
+        "level": "ADM2",
+        "name": "Province de Tinghir \u0625\u0642\u0644\u064a\u0645 \u062a\u0646\u063a\u064a\u0631",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B39685617616684",
+        "shapeISO": "",
+        "shapeName": "Province de Tinghir \u0625\u0642\u0644\u064a\u0645 \u062a\u0646\u063a\u064a\u0631",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.251608826599604,
+          33.353001750000004
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B64717664824106:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province d'Ifrane",
+        "level": "ADM2",
+        "name": "Province d'Ifrane \u2d5c\u2d30\u2d59\u2d33\u2d30 \u2d4f \u2d49\u2d3c\u2d54\u2d30\u2d4f \u0625\u0642\u0644\u064a\u0645 \u0625\u0641\u0631\u0627\u0646",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B64717664824106",
+        "shapeISO": "",
+        "shapeName": "Province d'Ifrane \u2d5c\u2d30\u2d59\u2d33\u2d30 \u2d4f \u2d49\u2d3c\u2d54\u2d30\u2d4f \u0625\u0642\u0644\u064a\u0645 \u0625\u0641\u0631\u0627\u0646",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.451960158367143,
+          35.45036665
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B84561517472973:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Tetouan Province",
+        "level": "ADM2",
+        "name": "Tetouan Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B84561517472973",
+        "shapeISO": "",
+        "shapeName": "Tetouan Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.793806777335461,
+          30.3138927
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B83322507681707:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Zagora Province",
+        "level": "ADM2",
+        "name": "Zagora Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B83322507681707",
+        "shapeISO": "",
+        "shapeName": "Zagora Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.715618246394621,
+          30.8337874
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B83322507681707:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Zagora Province",
+        "level": "ADM2",
+        "name": "Zagora Province",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B83322507681707",
+        "shapeISO": "",
+        "shapeName": "Zagora Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -12.980245762375407,
+          26.76121835
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B90795389022281:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Laayoune Province",
+        "level": "ADM2",
+        "name": "Laayoune Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B90795389022281",
+        "shapeISO": "",
+        "shapeName": "Laayoune Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.497520507924083,
+          33.998175599999996
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B60043813814440:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Prefecture de Mekn\u00e8s",
+        "level": "ADM2",
+        "name": "Prefecture de Mekn\u00e8s \u0639\u0645\u0627\u0644\u0629 \u0645\u0643\u0646\u0627\u0633",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B60043813814440",
+        "shapeISO": "",
+        "shapeName": "Prefecture de Mekn\u00e8s \u0639\u0645\u0627\u0644\u0629 \u0645\u0643\u0646\u0627\u0633",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -5.852944847930276,
+          35.56396235
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B99361415702964:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Prefecture of Tangier - Assilah",
+        "level": "ADM2",
+        "name": "Prefecture of Tangier - Assilah",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B99361415702964",
+        "shapeISO": "",
+        "shapeName": "Prefecture of Tangier - Assilah",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -2.4736315595894363,
+          34.855903999999995
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B69343874835814:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Berkane",
+        "level": "ADM2",
+        "name": "Province de Berkane \u0625\u0642\u0644\u064a\u0645 \u0628\u0631\u0643\u0627\u0646",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B69343874835814",
+        "shapeISO": "",
+        "shapeName": "Province de Berkane \u0625\u0642\u0644\u064a\u0645 \u0628\u0631\u0643\u0627\u0646",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -3.5435547111312418,
+          34.9147567
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B88930410593624:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Driouch",
+        "level": "ADM2",
+        "name": "Province de Driouch \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u062f\u0631\u064a\u0648\u0634",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B88930410593624",
+        "shapeISO": "",
+        "shapeName": "Province de Driouch \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u062f\u0631\u064a\u0648\u0634",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -4.9041853364275045,
+          34.44110415
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B36967765471663:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Taounate",
+        "level": "ADM2",
+        "name": "Province de Taounate \u0625\u0642\u0644\u064a\u0645 \u062a\u0627\u0648\u0646\u0627\u062a",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B36967765471663",
+        "shapeISO": "",
+        "shapeName": "Province de Taounate \u0625\u0642\u0644\u064a\u0645 \u062a\u0627\u0648\u0646\u0627\u062a",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.656359480347355,
+          33.9761584
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B6720908192283:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Prefecture of Sal\u00e9",
+        "level": "ADM2",
+        "name": "Prefecture of Sal\u00e9",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B6720908192283",
+        "shapeISO": "",
+        "shapeName": "Prefecture of Sal\u00e9",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -14.443061476734961,
+          22.07761405
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B25593504689486:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province d'Aousserd",
+        "level": "ADM2",
+        "name": "Province d'Aousserd \u0625\u0642\u0644\u064a\u0645 \u0623\u0648\u0633\u0631\u062f",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B25593504689486",
+        "shapeISO": "",
+        "shapeName": "Province d'Aousserd \u0625\u0642\u0644\u064a\u0645 \u0623\u0648\u0633\u0631\u062f",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.618756308301561,
+          33.56745225
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B69656421663665:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Prefecture of Casablanca",
+        "level": "ADM2",
+        "name": "Prefecture of Casablanca",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B69656421663665",
+        "shapeISO": "",
+        "shapeName": "Prefecture of Casablanca",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -7.615045352078541,
+          33.2586035
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B26045285741175:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Berrechid Province",
+        "level": "ADM2",
+        "name": "Berrechid Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B26045285741175",
+        "shapeISO": "",
+        "shapeName": "Berrechid Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.376903801771434,
+          33.0746455
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B5863178934624:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "El Jadida Province",
+        "level": "ADM2",
+        "name": "El Jadida Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B5863178934624",
+        "shapeISO": "",
+        "shapeName": "El Jadida Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -13.536342065029546,
+          23.311553599999947
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B78111329468616:overview",
+      "properties": {
+        "admin_level": 2,
+        "label": "Oued Ed-Dahab Province",
+        "level": "ADM2",
+        "name": "Oued Ed-Dahab Province",
+        "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B78111329468616",
+        "shapeISO": "",
+        "shapeName": "Oued Ed-Dahab Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    }
+  ],
+  "metadata": {
+    "anchor_method": "deterministic shapely representative_point (interior point) of the SAME source polygon; overview = full polygon, atlas = polygon INTERSECT real DEM coverage bbox",
+    "cartographic_note": "Label points are cartographic positions inside their own source polygon; they are never attributed to OSM segments.",
+    "dem_coverage_bbox": [
+      -8.75,
+      30.8,
+      -6.45,
+      31.65
+    ],
+    "license": "ODbL 1.0",
+    "scopes": {
+      "atlas": "representative_point of polygon INTERSECT real DEM coverage bbox; emitted only when the intersection area > 0",
+      "overview": "representative_point of the full source polygon"
+    },
+    "source": "geoBoundaries gbOpen",
+    "source_version": "9469f09",
+    "source_year": 2017
+  },
+  "name": "admin-context-labels",
+  "type": "FeatureCollection"
+}

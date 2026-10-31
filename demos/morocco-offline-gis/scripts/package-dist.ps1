@@ -30,6 +30,12 @@ if ($terrainMode -ne 'real') {
 }
 
 Write-Host "== typecheck + vite build ==" -ForegroundColor Cyan
+Write-Host "== named administrative data gate ==" -ForegroundColor Cyan
+python scripts/validate_admin_context.py --idempotence-run
+if ($LASTEXITCODE -ne 0) { Write-Host "[FAIL] named administrative data" -ForegroundColor Red; exit 1 }
+Write-Host "== isolated administrative font gate ==" -ForegroundColor Cyan
+python scripts/validate_admin_font.py
+if ($LASTEXITCODE -ne 0) { Write-Host "[FAIL] isolated administrative font" -ForegroundColor Red; exit 1 }
 npm run build
 if ($LASTEXITCODE -ne 0) { Write-Host "[FAIL] build" -ForegroundColor Red; exit 1 }
 
@@ -37,6 +43,34 @@ Write-Host "== bundle offline server + docs into dist/ ==" -ForegroundColor Cyan
 Copy-Item (Join-Path $root 'start-offline.ps1') (Join-Path $root 'dist\start-offline.ps1') -Force
 Copy-Item (Join-Path $root 'start-offline.bat') (Join-Path $root 'dist\start-offline.bat') -Force
 Copy-Item (Join-Path $root 'DATA_SOURCES_AND_LICENSES.md') (Join-Path $root 'dist\DATA_SOURCES_AND_LICENSES.md') -Force
+Copy-Item (Join-Path $root 'README.md') (Join-Path $root 'dist\README.md') -Force
+$docsDir = Join-Path $root 'dist\Docs'
+New-Item -ItemType Directory -Path $docsDir -Force | Out-Null
+foreach ($doc in @('V1_2_1_Geographic_Context_Plan.md', 'V1_2_1_Data_Sources_and_Boundaries.md',
+                   'V1_2_0_Interaction_and_Data_Contract.md', 'V1_2_1_Disconnected_Cold_Start.md')) {
+    Copy-Item (Join-Path $root "Docs\$doc") (Join-Path $docsDir $doc) -Force
+}
+# QA evidence is included when available; acceptance JSON and ZIP checksum stay
+# outside the archive to avoid a self-referential ZIP hash.
+foreach ($doc in @('V1_2_1_Visual_Acceptance.md', 'v1_2_1_runtime_evidence.json',
+                   'v1_2_1_test_results.json', 'v1_2_1_admin_click_retest.json',
+                   'geo_glyph_audit_snapshot_20261030.json',
+                   'V1_2_1_Admin_Acceptance_Correction.md', 'v1_2_1_admin_data_validation.json',
+                   'v1_2_1_admin_visibility_results.json', 'v1_2_1_test_results_admin_revision.json',
+                   'v1_2_1_runtime_admin_revision.json', 'v1_2_1_admin_visibility_rois.json',
+                   'v1_2_1_admin_font_exact_fixture.json', 'v1_2_1_admin_font_validation.json',
+                   'v1_2_1_admin_font_structural_validation.json', 'v1_2_1_admin_font_sheet.png',
+                   'V1_2_1_Admin_Font_Encoding.md', 'v1_2_1_admin_initial_roi_metrics.json',
+                   'v1_2_1_admin_visibility_initial_failure.json',
+                   'v1_2_1_full66_rev6b_results.json', 'v1_2_1_full66_rev6b_run.log')) {
+    $source = Join-Path $root "Docs\$doc"
+    if (Test-Path $source) { Copy-Item $source (Join-Path $docsDir $doc) -Force }
+}
+$screenshots = Join-Path $root 'Docs\screenshots\v1.2.1'
+if (Test-Path $screenshots) {
+    New-Item -ItemType Directory -Path (Join-Path $docsDir 'screenshots') -Force | Out-Null
+    Copy-Item $screenshots (Join-Path $docsDir 'screenshots') -Recurse -Force
+}
 
 # re-check what vite actually copied into dist (source of truth for the package)
 $distMetaPath = Join-Path $root 'dist\data\metadata.json'
@@ -53,7 +87,7 @@ $stamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
 $commit = git rev-parse --short HEAD 2>$null
 if (-not $commit -or $LASTEXITCODE -ne 0) { $commit = 'n/a' }
 $dataLine = if ($distMode -eq 'real') {
-    'data:    REAL terrain (Copernicus DEM GLO-30, EGM2008) + SIMULATED network overlay - see DATA_SOURCES_AND_LICENSES.md'
+    'data:    REAL terrain (Copernicus DEM GLO-30, EGM2008) + OPEN GEOGRAPHIC DATA (OSM/Protomaps) + CURATED/SIMULATED GEO + SIMULATED network overlay - see DATA_SOURCES_AND_LICENSES.md'
 } else {
     'data:    SIMULATED terrain - see DATA_SOURCES_AND_LICENSES.md'
 }
@@ -72,6 +106,12 @@ $must = @('index.html', 'start-offline.bat', 'start-offline.ps1',
           'data\dem-terrarium.pmtiles', 'data\hypso.pmtiles', 'data\contours.pmtiles',
           'data\roads-peaks.geojson', 'data\simulated-ran.geojson', 'data\metadata.json',
           'assets\glyphs\Noto Sans Regular\0-255.pbf')
+# v1.2.1: real geographic context archives travel in the package (task §9)
+$geoMust = @('data\morocco-overview.pmtiles', 'data\high-atlas-context.pmtiles',
+             'data\admin-context-areas.geojson', 'data\admin-context-labels.geojson',
+             'assets\glyphs\Offline Admin Latin\0-255.pbf', 'assets\glyphs\Offline Admin Latin\NOTICE.md',
+             'data\NOTICE.txt', 'licenses\ODbL-1.0.txt', 'licenses\Noto-Sans-OFL.txt')
+$must += $geoMust
 $glyphRange = 'assets\glyphs\Noto Sans Regular\9472-9727.pbf'
 if (Test-Path (Join-Path $root "public\$glyphRange")) { $must += $glyphRange }
 $missing = @($must | Where-Object { -not (Test-Path (Join-Path $root "dist\$_")) })

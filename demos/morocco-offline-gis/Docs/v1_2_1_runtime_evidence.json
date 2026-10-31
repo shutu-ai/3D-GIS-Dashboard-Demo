@@ -1,0 +1,1520 @@
+{
+  "schema": "morocco-offline-gis/v1.2.1-runtime-evidence/1",
+  "generatedAtIso": "2026-10-31T17:00:06.216Z",
+  "task": "V1.2.1 Geographic Context Plan section 8 - measured runtime performance evidence (raw)",
+  "tool": {
+    "node": "v24.19.0",
+    "playwright": "1.64.1",
+    "platform": "win32 x64",
+    "gisDemoUrl": "http://127.0.0.1:17841",
+    "gisDemoUrlSource": "default",
+    "evidenceOutPath": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\Docs\\v1_2_1_runtime_evidence.json",
+    "headless": true,
+    "freshChromiumPerViewport": true,
+    "sequentialViewports": true
+  },
+  "server_preflight": {
+    "index": {
+      "url": "http://127.0.0.1:17841/index.html",
+      "status": 200,
+      "ok": true
+    },
+    "rangeProbes": [
+      {
+        "file": "morocco-overview.pmtiles",
+        "url": "http://127.0.0.1:17841/data/morocco-overview.pmtiles",
+        "status": 206,
+        "bytesReceived": 128,
+        "expected": {
+          "status": 206,
+          "bytes": 128
+        },
+        "statusOk": true,
+        "bytesOk": true,
+        "contentRange": "bytes 0-127/65961582",
+        "acceptRanges": "bytes",
+        "ms": 22
+      },
+      {
+        "file": "high-atlas-context.pmtiles",
+        "url": "http://127.0.0.1:17841/data/high-atlas-context.pmtiles",
+        "status": 206,
+        "bytesReceived": 128,
+        "expected": {
+          "status": 206,
+          "bytes": 128
+        },
+        "statusOk": true,
+        "bytesOk": true,
+        "contentRange": "bytes 0-127/36675954",
+        "acceptRanges": "bytes",
+        "ms": 9.9
+      }
+    ],
+    "allOk": true
+  },
+  "data_files_optional": {
+    "morocco-overview.pmtiles": {
+      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\dist\\data\\morocco-overview.pmtiles",
+      "bytes": 65961582,
+      "sha256": "f5e587bd800ef7b7d846c30e3feae6bcaba89ccf91935ec1076f0006202ca119"
+    },
+    "high-atlas-context.pmtiles": {
+      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\dist\\data\\high-atlas-context.pmtiles",
+      "bytes": 36675954,
+      "sha256": "507986ca83b62f5f032ee82f52d2b57f20260ff5b4298f80c6d6716bb68a00de"
+    }
+  },
+  "physical_disconnect_verified": false,
+  "visual_verification": "none - no screenshots captured, no human visual review claimed",
+  "scope_notes": [
+    "External http request attempts are blocked via Playwright route interception (client-side abort \"blockedbyclient\"); this is NOT a physically disconnected network and this run is NOT a disconnected cold boot.",
+    "JSHeapUsedSize comes from CDP Performance metrics and measures the V8 JavaScript heap of the page only - it is NOT total browser process RAM.",
+    "All browser runtime traffic is restricted to the localhost server; the probe itself only talks to that same loopback origin.",
+    "Render stability is measured as a tile-network quiet window over the same archive set the e2e suite tracks; map.loaded() && !isMoving() was observed never to settle on this app (maplibre 5.24) and is recorded informationally (5s cap) only. Durations are wall-clock Date.now() deltas.",
+    "This file records raw measurements only; interpretation/verdicts belong to the report author."
+  ],
+  "viewports": [
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080,
+        "deviceScaleFactor": 1
+      },
+      "playwright": "1.64.1",
+      "browser": {
+        "version": "156.0.8078.4",
+        "headless": true,
+        "freshProcess": true,
+        "launchArgs": [
+          "--use-angle=d3d11",
+          "--enable-unsafe-swiftshader"
+        ],
+        "angleBackend": "d3d11",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36"
+      },
+      "boot": {
+        "url": "http://127.0.0.1:17841/?cold=1",
+        "gotoLoadMs": 351,
+        "registeredMs": 1115,
+        "registeredOk": true,
+        "registeredTimeoutMs": 120000,
+        "registeredDefinition": "page load -> window.__gisApp present with geo-admin-country + geo-water-fill layers registered",
+        "renderStability": {
+          "approxIdleObserved": false,
+          "approxIdleWaitMs": 5009,
+          "quietSettled": true,
+          "quietWaitedMs": 0,
+          "quietInFlightAtCap": null,
+          "totalMs": 5009,
+          "definition": "tile-network quiet 3000ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+        },
+        "startedAtIso": "2026-10-31T17:00:07.195Z"
+      },
+      "overview_transition": {
+        "selector": "#btn-extent-overview",
+        "definition": "stateSettleMs = click -> extent===\"overview\" && pitch<0.5 && terrain===null && !isMoving(); renderStabilityMs = then tile-network quiet window (approxIdle informational only)",
+        "clickedAtIso": "2026-10-31T17:00:13.344Z",
+        "stateSettleMs": 2793,
+        "stateSettledOk": true,
+        "renderStabilityMs": 1472,
+        "renderStability": {
+          "approxIdleObserved": true,
+          "approxIdleWaitMs": 5,
+          "quietSettled": true,
+          "quietWaitedMs": 1467,
+          "quietInFlightAtCap": null,
+          "totalMs": 1472,
+          "definition": "tile-network quiet 2000ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+        },
+        "postState": {
+          "extent": "overview",
+          "center": {
+            "lng": -9.100000000000023,
+            "lat": 28.899999999999977
+          },
+          "zoom": 6.311280850687856,
+          "pitch": 0,
+          "terrainSource": null,
+          "overviewHintVisible": true
+        }
+      },
+      "atlas_transition": {
+        "selector": "#btn-extent-atlas",
+        "definition": "stateSettleMs = click -> extent===\"atlas\" && terrain.source===\"dem\" && !isMoving(); renderStabilityMs = then tile-network quiet window (approxIdle informational only)",
+        "clickedAtIso": "2026-10-31T17:00:17.615Z",
+        "stateSettleMs": 947,
+        "stateSettledOk": true,
+        "renderStabilityMs": 5015,
+        "renderStability": {
+          "approxIdleObserved": false,
+          "approxIdleWaitMs": 5015,
+          "quietSettled": true,
+          "quietWaitedMs": 0,
+          "quietInFlightAtCap": null,
+          "totalMs": 5015,
+          "definition": "tile-network quiet 2000ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+        },
+        "postState": {
+          "extent": "atlas",
+          "center": {
+            "lng": -7.6000000000004775,
+            "lat": 31.225743957684912
+          },
+          "zoom": 9.757917731778562,
+          "pitch": 50,
+          "terrainSource": "dem",
+          "overviewHintVisible": false
+        }
+      },
+      "gis_ran_roundtrips": [
+        {
+          "index": 1,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:00:23.582Z",
+            "transitionMs": 425,
+            "transitionOk": true,
+            "renderStabilityMs": 5004,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5004,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5004,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:00:29.013Z",
+            "transitionMs": 34,
+            "transitionOk": true,
+            "renderStabilityMs": 5007,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5007,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5007,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10474
+        },
+        {
+          "index": 2,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:00:34.057Z",
+            "transitionMs": 25,
+            "transitionOk": true,
+            "renderStabilityMs": 5006,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5006,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5006,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:00:39.090Z",
+            "transitionMs": 23,
+            "transitionOk": true,
+            "renderStabilityMs": 5016,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5016,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5016,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10074
+        },
+        {
+          "index": 3,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:00:44.132Z",
+            "transitionMs": 29,
+            "transitionOk": true,
+            "renderStabilityMs": 5007,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5007,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5007,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:00:49.170Z",
+            "transitionMs": 26,
+            "transitionOk": true,
+            "renderStabilityMs": 5007,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5007,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5007,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10073
+        },
+        {
+          "index": 4,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:00:54.207Z",
+            "transitionMs": 22,
+            "transitionOk": true,
+            "renderStabilityMs": 5003,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5003,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5003,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:00:59.234Z",
+            "transitionMs": 81,
+            "transitionOk": true,
+            "renderStabilityMs": 5008,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5008,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5008,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10118
+        },
+        {
+          "index": 5,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:01:04.327Z",
+            "transitionMs": 38,
+            "transitionOk": true,
+            "renderStabilityMs": 5016,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5016,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5016,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:01:09.383Z",
+            "transitionMs": 30,
+            "transitionOk": true,
+            "renderStabilityMs": 5006,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5006,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5006,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10094
+        },
+        {
+          "index": 6,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:01:14.423Z",
+            "transitionMs": 63,
+            "transitionOk": true,
+            "renderStabilityMs": 5011,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5011,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5011,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:01:19.499Z",
+            "transitionMs": 30,
+            "transitionOk": true,
+            "renderStabilityMs": 5014,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5014,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5014,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10122
+        },
+        {
+          "index": 7,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:01:24.547Z",
+            "transitionMs": 31,
+            "transitionOk": true,
+            "renderStabilityMs": 5011,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5011,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5011,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:01:29.592Z",
+            "transitionMs": 211,
+            "transitionOk": true,
+            "renderStabilityMs": 5016,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5016,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5016,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10274
+        },
+        {
+          "index": 8,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:01:34.822Z",
+            "transitionMs": 20,
+            "transitionOk": true,
+            "renderStabilityMs": 5010,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5010,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5010,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:01:39.853Z",
+            "transitionMs": 21,
+            "transitionOk": true,
+            "renderStabilityMs": 5009,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5009,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5009,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10063
+        },
+        {
+          "index": 9,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:01:44.887Z",
+            "transitionMs": 22,
+            "transitionOk": true,
+            "renderStabilityMs": 5013,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5013,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5013,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:01:49.924Z",
+            "transitionMs": 38,
+            "transitionOk": true,
+            "renderStabilityMs": 5007,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5007,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5007,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10085
+        },
+        {
+          "index": 10,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:01:54.974Z",
+            "transitionMs": 33,
+            "transitionOk": true,
+            "renderStabilityMs": 5011,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5011,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5011,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:02:00.021Z",
+            "transitionMs": 109,
+            "transitionOk": true,
+            "renderStabilityMs": 5008,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5008,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5008,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10168
+        }
+      ],
+      "gis_ran_definition": "per leg: transitionMs = click -> banner class + geo-place-labels-local text-opacity state; stabilityMs = then tile-network quiet window; 10 full roundtrips, ends in GIS",
+      "js_heap_cdp": {
+        "postBoot": {
+          "note": "CDP Performance.getMetrics - JSHeapUsedSize is the V8 JavaScript heap in bytes; it is NOT total browser process RAM.",
+          "jsHeapUsedSizeBytes": 27449872,
+          "jsHeapTotalSizeBytes": 51449856,
+          "documents": 4,
+          "nodes": 495,
+          "jsEventListeners": 196,
+          "capturedAtIso": "2026-10-31T17:00:13.341Z"
+        },
+        "postRoundtrips": {
+          "note": "CDP Performance.getMetrics - JSHeapUsedSize is the V8 JavaScript heap in bytes; it is NOT total browser process RAM.",
+          "jsHeapUsedSizeBytes": 17862796,
+          "jsHeapTotalSizeBytes": 87433216,
+          "documents": 4,
+          "nodes": 512,
+          "jsEventListeners": 112,
+          "capturedAtIso": "2026-10-31T17:02:05.152Z"
+        },
+        "note": "JSHeapUsedSize is V8 JS heap via CDP - NOT total browser RAM."
+      },
+      "requests": {
+        "localhostOnly": true,
+        "externalRequestAttemptCount": 0,
+        "externalAttemptsZero": true,
+        "externalRequestAttemptsBlocked": [],
+        "externalAttemptsTruncated": false,
+        "tileTrafficTrackedRegex": "\\/data\\/(hypso|dem-terrarium|contours|morocco-overview|high-atlas-context)\\.pmtiles",
+        "interception": "page.route abort('blockedbyclient') - client-side interception, NOT physical disconnect"
+      },
+      "errors": {
+        "consoleErrorCount": 0,
+        "consoleErrors": [],
+        "consoleErrorsTruncated": false,
+        "pageErrorCount": 0,
+        "pageErrors": [],
+        "pageErrorsTruncated": false,
+        "mapErrorCount": 0,
+        "tileRelatedMapErrorCount": 0,
+        "mapErrors": [],
+        "mapErrorsTruncated": false,
+        "mapErrorCaptureNote": "listener attached by intercepting the __gisApp assignment; earlier errors still surface as console errors"
+      },
+      "error": null,
+      "geographic_label_style": {
+        "expected": [
+          "geo-admin-gb1-labels",
+          "geo-admin-gb1-labels-a",
+          "geo-admin-gb2-labels",
+          "geo-admin-gb2-labels-a",
+          "geo-place-labels-major",
+          "geo-place-labels-major-d",
+          "geo-place-labels-town",
+          "geo-place-labels-town-d",
+          "geo-place-labels-local",
+          "geo-place-labels-local-d",
+          "geo-peak-labels",
+          "geo-peak-labels-d",
+          "osm-place-labels",
+          "osm-pass-labels",
+          "osm-peak-labels",
+          "osm-peak-labels-top"
+        ],
+        "actual": [
+          {
+            "id": "geo-place-labels-local",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-place-labels-local-d",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-place-labels-town",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-place-labels-town-d",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-admin-gb2-labels",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-admin-gb1-labels",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-admin-gb2-labels-a",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-admin-gb1-labels-a",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-place-labels-major",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-place-labels-major-d",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-peak-labels",
+            "color": "#ffffff",
+            "halo": "rgba(18, 26, 36, 0.78)",
+            "width": 1
+          },
+          {
+            "id": "geo-peak-labels-d",
+            "color": "#ffffff",
+            "halo": "rgba(18, 26, 36, 0.78)",
+            "width": 1
+          },
+          {
+            "id": "osm-peak-labels-top",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "osm-peak-labels",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "osm-place-labels",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "osm-pass-labels",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          }
+        ],
+        "exactUsage": true,
+        "allWhite": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 768,
+        "deviceScaleFactor": 1
+      },
+      "playwright": "1.64.1",
+      "browser": {
+        "version": "156.0.8078.4",
+        "headless": true,
+        "freshProcess": true,
+        "launchArgs": [
+          "--use-angle=d3d11",
+          "--enable-unsafe-swiftshader"
+        ],
+        "angleBackend": "d3d11",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36"
+      },
+      "boot": {
+        "url": "http://127.0.0.1:17841/?cold=1",
+        "gotoLoadMs": 342,
+        "registeredMs": 1750,
+        "registeredOk": true,
+        "registeredTimeoutMs": 120000,
+        "registeredDefinition": "page load -> window.__gisApp present with geo-admin-country + geo-water-fill layers registered",
+        "renderStability": {
+          "approxIdleObserved": false,
+          "approxIdleWaitMs": 5006,
+          "quietSettled": true,
+          "quietWaitedMs": 0,
+          "quietInFlightAtCap": null,
+          "totalMs": 5006,
+          "definition": "tile-network quiet 3000ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+        },
+        "startedAtIso": "2026-10-31T17:02:05.977Z"
+      },
+      "overview_transition": {
+        "selector": "#btn-extent-overview",
+        "definition": "stateSettleMs = click -> extent===\"overview\" && pitch<0.5 && terrain===null && !isMoving(); renderStabilityMs = then tile-network quiet window (approxIdle informational only)",
+        "clickedAtIso": "2026-10-31T17:02:12.762Z",
+        "stateSettleMs": 2734,
+        "stateSettledOk": true,
+        "renderStabilityMs": 1282,
+        "renderStability": {
+          "approxIdleObserved": true,
+          "approxIdleWaitMs": 4,
+          "quietSettled": true,
+          "quietWaitedMs": 1278,
+          "quietInFlightAtCap": null,
+          "totalMs": 1282,
+          "definition": "tile-network quiet 2000ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+        },
+        "postState": {
+          "extent": "overview",
+          "center": {
+            "lng": -9.100000000000023,
+            "lat": 28.899999999999977
+          },
+          "zoom": 5.820132023369428,
+          "pitch": 0,
+          "terrainSource": null,
+          "overviewHintVisible": true
+        }
+      },
+      "atlas_transition": {
+        "selector": "#btn-extent-atlas",
+        "definition": "stateSettleMs = click -> extent===\"atlas\" && terrain.source===\"dem\" && !isMoving(); renderStabilityMs = then tile-network quiet window (approxIdle informational only)",
+        "clickedAtIso": "2026-10-31T17:02:16.783Z",
+        "stateSettleMs": 813,
+        "stateSettledOk": true,
+        "renderStabilityMs": 5005,
+        "renderStability": {
+          "approxIdleObserved": false,
+          "approxIdleWaitMs": 5005,
+          "quietSettled": true,
+          "quietWaitedMs": 0,
+          "quietInFlightAtCap": null,
+          "totalMs": 5005,
+          "definition": "tile-network quiet 2000ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+        },
+        "postState": {
+          "extent": "atlas",
+          "center": {
+            "lng": -7.600000000001501,
+            "lat": 31.225743957684912
+          },
+          "zoom": 9.266064635448876,
+          "pitch": 50,
+          "terrainSource": "dem",
+          "overviewHintVisible": false
+        }
+      },
+      "gis_ran_roundtrips": [
+        {
+          "index": 1,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:02:22.605Z",
+            "transitionMs": 474,
+            "transitionOk": true,
+            "renderStabilityMs": 5016,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5016,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5016,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:02:28.097Z",
+            "transitionMs": 29,
+            "transitionOk": true,
+            "renderStabilityMs": 5015,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5015,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5015,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10537
+        },
+        {
+          "index": 2,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:02:33.143Z",
+            "transitionMs": 29,
+            "transitionOk": true,
+            "renderStabilityMs": 5003,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5003,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5003,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:02:38.178Z",
+            "transitionMs": 29,
+            "transitionOk": true,
+            "renderStabilityMs": 5008,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5008,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5008,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10074
+        },
+        {
+          "index": 3,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:02:43.219Z",
+            "transitionMs": 20,
+            "transitionOk": true,
+            "renderStabilityMs": 5016,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5016,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5016,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:02:48.257Z",
+            "transitionMs": 36,
+            "transitionOk": true,
+            "renderStabilityMs": 5019,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5019,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5019,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10094
+        },
+        {
+          "index": 4,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:02:53.314Z",
+            "transitionMs": 24,
+            "transitionOk": true,
+            "renderStabilityMs": 5013,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5012,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5013,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:02:58.353Z",
+            "transitionMs": 18,
+            "transitionOk": true,
+            "renderStabilityMs": 5007,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5007,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5007,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10066
+        },
+        {
+          "index": 5,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:03:03.382Z",
+            "transitionMs": 25,
+            "transitionOk": true,
+            "renderStabilityMs": 5015,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5015,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5015,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:03:08.425Z",
+            "transitionMs": 32,
+            "transitionOk": true,
+            "renderStabilityMs": 5004,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5004,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5004,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10081
+        },
+        {
+          "index": 6,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:03:13.465Z",
+            "transitionMs": 22,
+            "transitionOk": true,
+            "renderStabilityMs": 5009,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5009,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5009,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:03:18.498Z",
+            "transitionMs": 24,
+            "transitionOk": true,
+            "renderStabilityMs": 5004,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5004,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5004,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10063
+        },
+        {
+          "index": 7,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:03:23.530Z",
+            "transitionMs": 26,
+            "transitionOk": true,
+            "renderStabilityMs": 5005,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5005,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5005,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:03:28.563Z",
+            "transitionMs": 28,
+            "transitionOk": true,
+            "renderStabilityMs": 5013,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5013,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5013,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10077
+        },
+        {
+          "index": 8,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:03:33.609Z",
+            "transitionMs": 31,
+            "transitionOk": true,
+            "renderStabilityMs": 5013,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5013,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5013,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:03:38.655Z",
+            "transitionMs": 35,
+            "transitionOk": true,
+            "renderStabilityMs": 5005,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5005,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5005,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10088
+        },
+        {
+          "index": 9,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:03:43.700Z",
+            "transitionMs": 155,
+            "transitionOk": true,
+            "renderStabilityMs": 5017,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5017,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5017,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:03:48.874Z",
+            "transitionMs": 31,
+            "transitionOk": true,
+            "renderStabilityMs": 5007,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5007,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5007,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10214
+        },
+        {
+          "index": 10,
+          "toRan": {
+            "selector": "#btn-view-ran",
+            "clickedAtIso": "2026-10-31T17:03:53.916Z",
+            "transitionMs": 42,
+            "transitionOk": true,
+            "renderStabilityMs": 5013,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5013,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5013,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": true,
+              "bannerClassRaw": "badge badge-sim",
+              "geoLabelTextOpacity": 0
+            }
+          },
+          "toGis": {
+            "selector": "#btn-view-gis",
+            "clickedAtIso": "2026-10-31T17:03:58.973Z",
+            "transitionMs": 34,
+            "transitionOk": true,
+            "renderStabilityMs": 5004,
+            "renderStability": {
+              "approxIdleObserved": false,
+              "approxIdleWaitMs": 5004,
+              "quietSettled": true,
+              "quietWaitedMs": 0,
+              "quietInFlightAtCap": null,
+              "totalMs": 5004,
+              "definition": "tile-network quiet 1200ms (same archive set as e2e suite); approxIdle (map.loaded() && !isMoving()) recorded informationally with 5s cap, NOT gating"
+            },
+            "postState": {
+              "bannerVisible": false,
+              "bannerClassRaw": "badge badge-sim hidden",
+              "geoLabelTextOpacity": 1
+            }
+          },
+          "roundtripTotalMs": 10097
+        }
+      ],
+      "gis_ran_definition": "per leg: transitionMs = click -> banner class + geo-place-labels-local text-opacity state; stabilityMs = then tile-network quiet window; 10 full roundtrips, ends in GIS",
+      "js_heap_cdp": {
+        "postBoot": {
+          "note": "CDP Performance.getMetrics - JSHeapUsedSize is the V8 JavaScript heap in bytes; it is NOT total browser process RAM.",
+          "jsHeapUsedSizeBytes": 20144392,
+          "jsHeapTotalSizeBytes": 50663424,
+          "documents": 4,
+          "nodes": 495,
+          "jsEventListeners": 106,
+          "capturedAtIso": "2026-10-31T17:02:12.757Z"
+        },
+        "postRoundtrips": {
+          "note": "CDP Performance.getMetrics - JSHeapUsedSize is the V8 JavaScript heap in bytes; it is NOT total browser process RAM.",
+          "jsHeapUsedSizeBytes": 42184420,
+          "jsHeapTotalSizeBytes": 89792512,
+          "documents": 4,
+          "nodes": 518,
+          "jsEventListeners": 418,
+          "capturedAtIso": "2026-10-31T17:04:04.021Z"
+        },
+        "note": "JSHeapUsedSize is V8 JS heap via CDP - NOT total browser RAM."
+      },
+      "requests": {
+        "localhostOnly": true,
+        "externalRequestAttemptCount": 0,
+        "externalAttemptsZero": true,
+        "externalRequestAttemptsBlocked": [],
+        "externalAttemptsTruncated": false,
+        "tileTrafficTrackedRegex": "\\/data\\/(hypso|dem-terrarium|contours|morocco-overview|high-atlas-context)\\.pmtiles",
+        "interception": "page.route abort('blockedbyclient') - client-side interception, NOT physical disconnect"
+      },
+      "errors": {
+        "consoleErrorCount": 0,
+        "consoleErrors": [],
+        "consoleErrorsTruncated": false,
+        "pageErrorCount": 0,
+        "pageErrors": [],
+        "pageErrorsTruncated": false,
+        "mapErrorCount": 0,
+        "tileRelatedMapErrorCount": 0,
+        "mapErrors": [],
+        "mapErrorsTruncated": false,
+        "mapErrorCaptureNote": "listener attached by intercepting the __gisApp assignment; earlier errors still surface as console errors"
+      },
+      "error": null,
+      "geographic_label_style": {
+        "expected": [
+          "geo-admin-gb1-labels",
+          "geo-admin-gb1-labels-a",
+          "geo-admin-gb2-labels",
+          "geo-admin-gb2-labels-a",
+          "geo-place-labels-major",
+          "geo-place-labels-major-d",
+          "geo-place-labels-town",
+          "geo-place-labels-town-d",
+          "geo-place-labels-local",
+          "geo-place-labels-local-d",
+          "geo-peak-labels",
+          "geo-peak-labels-d",
+          "osm-place-labels",
+          "osm-pass-labels",
+          "osm-peak-labels",
+          "osm-peak-labels-top"
+        ],
+        "actual": [
+          {
+            "id": "geo-place-labels-local",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-place-labels-local-d",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-place-labels-town",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-place-labels-town-d",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-admin-gb2-labels",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-admin-gb1-labels",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-admin-gb2-labels-a",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-admin-gb1-labels-a",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-place-labels-major",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-place-labels-major-d",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "geo-peak-labels",
+            "color": "#ffffff",
+            "halo": "rgba(18, 26, 36, 0.78)",
+            "width": 1
+          },
+          {
+            "id": "geo-peak-labels-d",
+            "color": "#ffffff",
+            "halo": "rgba(18, 26, 36, 0.78)",
+            "width": 1
+          },
+          {
+            "id": "osm-peak-labels-top",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "osm-peak-labels",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "osm-place-labels",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          },
+          {
+            "id": "osm-pass-labels",
+            "color": "#ffffff",
+            "halo": "rgba(16, 22, 30, 0.85)",
+            "width": 1
+          }
+        ],
+        "exactUsage": true,
+        "allWhite": true
+      }
+    }
+  ],
+  "completedAtIso": "2026-10-31T17:04:04.343Z"
+}

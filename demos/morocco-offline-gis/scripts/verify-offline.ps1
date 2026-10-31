@@ -5,7 +5,8 @@
 
 param(
     [string]$Dist = "",
-    [int]$Port = 17841
+    [int]$Port = 17841,
+    [string]$JsonReport = ""
 )
 $ErrorActionPreference = "Stop"
 $root = $PSScriptRoot | Split-Path
@@ -20,8 +21,10 @@ if (-not (Test-Path (Join-Path $Dist "index.html"))) {
 $stale = Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue
 if ($stale) {
     $spid = ($stale | Select-Object -First 1).OwningProcess
-    Write-Host "ERROR: port $Port already in use (pid $spid) - stop the stale server first:" -ForegroundColor Red
-    Write-Host "       Stop-Process -Id $spid -Force"
+    Write-Host "ERROR: port $Port already in use (pid $spid). Choose a free -Port or inspect the owning server." -ForegroundColor Red
+    if ($spid -eq 4) {
+        Write-Host "       PID 4 is Windows/System (HTTP.sys); never terminate it. Use another port." -ForegroundColor Yellow
+    }
     exit 1
 }
 
@@ -42,7 +45,12 @@ try {
     # 3. Playwright E2E with network interception (external requests blocked & counted)
     Push-Location $root
     $env:GIS_DEMO_URL = "http://127.0.0.1:$Port/"
-    npx playwright test --config=e2e/playwright.config.ts
+    if ($JsonReport) {
+        $env:PLAYWRIGHT_JSON_OUTPUT_FILE = $JsonReport
+        node (Join-Path $root 'node_modules\playwright\cli.js') test --config=e2e/playwright.config.ts --reporter=list,json
+    } else {
+        node (Join-Path $root 'node_modules\playwright\cli.js') test --config=e2e/playwright.config.ts
+    }
     $code = $LASTEXITCODE
     Pop-Location
     if ($code -ne 0) { Write-Host "[FAIL] E2E" -ForegroundColor Red; exit 1 }

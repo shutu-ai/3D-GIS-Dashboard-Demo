@@ -1,0 +1,584 @@
+{
+ "camera": {
+  "center": [
+   -8.306409084756796,
+   31.80633595
+  ],
+  "zoom": 7,
+  "pitch": 0,
+  "bearing": 0
+ },
+ "target": "70788906B60308563647099",
+ "views": [
+  {
+   "view": "1080p",
+   "roi": {
+    "x": 840,
+    "y": 504,
+    "w": 240,
+    "h": 72
+   },
+   "panelFree": true,
+   "variants": {
+    "A": {
+     "snapshot": {
+      "camera": {
+       "center": {
+        "lng": -8.306409084756796,
+        "lat": 31.80633595
+       },
+       "zoom": 7,
+       "pitch": 0,
+       "bearing": 0
+      },
+      "target": {
+       "shapeID": "70788906B60308563647099",
+       "label": "Marrakech-Safi",
+       "scope": "overview",
+       "source": "gb-admin-labels"
+      },
+      "anchorPx": {
+       "x": 960,
+       "y": 540
+      },
+      "textField": "[\"case\",[\"all\",[\"has\",\"label\"],[\"==\",[\"index-of\",\"ī\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"œ\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"ɛ\",[\"coalesc",
+      "fontSizeExpr": "[\"interpolate\",[\"linear\"],[\"zoom\"],5.8,10,14,12]",
+      "textColor": "#f2e9d4",
+      "haloColor": "rgba(16, 22, 30, 0.85)",
+      "haloWidth": 1.2,
+      "textOpacity": 1,
+      "terrain": null,
+      "rasterLayers": [
+       {
+        "id": "hypso-tint",
+        "visibility": "none"
+       }
+      ]
+     },
+     "metrics": {
+      "qualifying": 0,
+      "contrastMax": 1.677,
+      "deltaMax": 42,
+      "deltaP99": 11,
+      "maxDeltaPx": {
+       "x": 915,
+       "y": 517,
+       "on": [
+        70,
+        73,
+        72
+       ],
+       "off": [
+        28,
+        40,
+        34
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 16743,
+      "roiPx": 17280
+     },
+     "offDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 17244,
+      "roiPx": 17280
+     },
+     "verdict": "FAIL"
+    },
+    "A30": {
+     "note": "captured >30s after boot",
+     "metrics": {
+      "qualifying": 0,
+      "contrastMax": 1.677,
+      "deltaMax": 42,
+      "deltaP99": 11,
+      "maxDeltaPx": {
+       "x": 915,
+       "y": 517,
+       "on": [
+        70,
+        73,
+        72
+       ],
+       "off": [
+        28,
+        40,
+        34
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 16743,
+      "roiPx": 17280
+     },
+     "offDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 17244,
+      "roiPx": 17280
+     },
+     "verdict": "FAIL"
+    },
+    "B": {
+     "snapshot": {
+      "camera": {
+       "center": {
+        "lng": -8.306409084756796,
+        "lat": 31.80633595
+       },
+       "zoom": 7,
+       "pitch": 0,
+       "bearing": 0
+      },
+      "target": {
+       "shapeID": "70788906B60308563647099",
+       "label": "Marrakech-Safi",
+       "scope": "overview",
+       "source": "gb-admin-labels"
+      },
+      "anchorPx": {
+       "x": 960,
+       "y": 540
+      },
+      "textField": "[\"case\",[\"all\",[\"has\",\"label\"],[\"==\",[\"index-of\",\"ī\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"œ\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"ɛ\",[\"coalesc",
+      "fontSizeExpr": "[\"interpolate\",[\"linear\"],[\"zoom\"],5.8,10,14,12]",
+      "textColor": "#f2e9d4",
+      "haloColor": "rgba(16, 22, 30, 0.85)",
+      "haloWidth": 1.2,
+      "textOpacity": 1,
+      "terrain": null,
+      "rasterLayers": [
+       {
+        "id": "hypso-tint",
+        "visibility": "none"
+       }
+      ]
+     },
+     "fontFulfill": "TinySDF-remapped twin (edge 191.25)",
+     "metrics": {
+      "qualifying": 396,
+      "contrastMax": 12.632,
+      "deltaMax": 214,
+      "deltaP99": 184,
+      "maxDeltaPx": {
+       "x": 915,
+       "y": 517,
+       "on": [
+        242,
+        233,
+        212
+       ],
+       "off": [
+        28,
+        40,
+        34
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 16287,
+      "roiPx": 17280
+     },
+     "offDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 17232,
+      "roiPx": 17280
+     },
+     "verdict": "PASS"
+    },
+    "C": {
+     "snapshot": {
+      "camera": {
+       "center": {
+        "lng": -8.306409084756796,
+        "lat": 31.80633595
+       },
+       "zoom": 7,
+       "pitch": 0,
+       "bearing": 0
+      },
+      "target": {
+       "shapeID": "70788906B60308563647099",
+       "label": "Marrakech-Safi",
+       "scope": "overview",
+       "source": "gb-admin-labels"
+      },
+      "anchorPx": {
+       "x": 960,
+       "y": 540
+      },
+      "textField": "[\"case\",[\"all\",[\"has\",\"label\"],[\"==\",[\"index-of\",\"ī\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"œ\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"ɛ\",[\"coalesc",
+      "fontSizeExpr": "13",
+      "textColor": "#fff6e0",
+      "haloColor": "rgba(16, 22, 30, 0.85)",
+      "haloWidth": 1,
+      "textOpacity": 1,
+      "terrain": null,
+      "rasterLayers": [
+       {
+        "id": "hypso-tint",
+        "visibility": "none"
+       }
+      ]
+     },
+     "styleOverride": {
+      "textSize": 13,
+      "haloWidth": 1,
+      "textColor": "#fff6e0"
+     },
+     "metrics": {
+      "qualifying": 0,
+      "contrastMax": 1.193,
+      "deltaMax": 19,
+      "deltaP99": 10,
+      "maxDeltaPx": {
+       "x": 903,
+       "y": 511,
+       "on": [
+        46,
+        51,
+        53
+       ],
+       "off": [
+        28,
+        40,
+        34
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 16895,
+      "roiPx": 17280
+     },
+     "offDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 17244,
+      "roiPx": 17280
+     },
+     "verdict": "FAIL"
+    }
+   }
+  },
+  {
+   "view": "768p",
+   "roi": {
+    "x": 563,
+    "y": 348,
+    "w": 240,
+    "h": 72
+   },
+   "panelFree": true,
+   "variants": {
+    "A": {
+     "snapshot": {
+      "camera": {
+       "center": {
+        "lng": -8.306409084756796,
+        "lat": 31.80633595
+       },
+       "zoom": 7,
+       "pitch": 0,
+       "bearing": 0
+      },
+      "target": {
+       "shapeID": "70788906B60308563647099",
+       "label": "Marrakech-Safi",
+       "scope": "overview",
+       "source": "gb-admin-labels"
+      },
+      "anchorPx": {
+       "x": 683,
+       "y": 384
+      },
+      "textField": "[\"case\",[\"all\",[\"has\",\"label\"],[\"==\",[\"index-of\",\"ī\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"œ\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"ɛ\",[\"coalesc",
+      "fontSizeExpr": "[\"interpolate\",[\"linear\"],[\"zoom\"],5.8,10,14,12]",
+      "textColor": "#f2e9d4",
+      "haloColor": "rgba(16, 22, 30, 0.85)",
+      "haloWidth": 1.2,
+      "textOpacity": 1,
+      "terrain": null,
+      "rasterLayers": [
+       {
+        "id": "hypso-tint",
+        "visibility": "none"
+       }
+      ]
+     },
+     "metrics": {
+      "qualifying": 0,
+      "contrastMax": 1.677,
+      "deltaMax": 42,
+      "deltaP99": 11,
+      "maxDeltaPx": {
+       "x": 638,
+       "y": 361,
+       "on": [
+        70,
+        73,
+        72
+       ],
+       "off": [
+        28,
+        40,
+        34
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 16742,
+      "roiPx": 17280
+     },
+     "offDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 17244,
+      "roiPx": 17280
+     },
+     "verdict": "FAIL"
+    },
+    "A30": {
+     "note": "captured >30s after boot",
+     "metrics": {
+      "qualifying": 0,
+      "contrastMax": 1.677,
+      "deltaMax": 42,
+      "deltaP99": 11,
+      "maxDeltaPx": {
+       "x": 638,
+       "y": 361,
+       "on": [
+        70,
+        73,
+        72
+       ],
+       "off": [
+        28,
+        40,
+        34
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 16742,
+      "roiPx": 17280
+     },
+     "offDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 17244,
+      "roiPx": 17280
+     },
+     "verdict": "FAIL"
+    },
+    "B": {
+     "snapshot": {
+      "camera": {
+       "center": {
+        "lng": -8.306409084756796,
+        "lat": 31.80633595
+       },
+       "zoom": 7,
+       "pitch": 0,
+       "bearing": 0
+      },
+      "target": {
+       "shapeID": "70788906B60308563647099",
+       "label": "Marrakech-Safi",
+       "scope": "overview",
+       "source": "gb-admin-labels"
+      },
+      "anchorPx": {
+       "x": 683,
+       "y": 384
+      },
+      "textField": "[\"case\",[\"all\",[\"has\",\"label\"],[\"==\",[\"index-of\",\"ī\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"œ\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"ɛ\",[\"coalesc",
+      "fontSizeExpr": "[\"interpolate\",[\"linear\"],[\"zoom\"],5.8,10,14,12]",
+      "textColor": "#f2e9d4",
+      "haloColor": "rgba(16, 22, 30, 0.85)",
+      "haloWidth": 1.2,
+      "textOpacity": 1,
+      "terrain": null,
+      "rasterLayers": [
+       {
+        "id": "hypso-tint",
+        "visibility": "none"
+       }
+      ]
+     },
+     "fontFulfill": "TinySDF-remapped twin (edge 191.25)",
+     "metrics": {
+      "qualifying": 396,
+      "contrastMax": 12.632,
+      "deltaMax": 214,
+      "deltaP99": 184,
+      "maxDeltaPx": {
+       "x": 638,
+       "y": 361,
+       "on": [
+        242,
+        233,
+        212
+       ],
+       "off": [
+        28,
+        40,
+        34
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 16288,
+      "roiPx": 17280
+     },
+     "offDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 17232,
+      "roiPx": 17280
+     },
+     "verdict": "PASS"
+    },
+    "C": {
+     "snapshot": {
+      "camera": {
+       "center": {
+        "lng": -8.306409084756796,
+        "lat": 31.80633595
+       },
+       "zoom": 7,
+       "pitch": 0,
+       "bearing": 0
+      },
+      "target": {
+       "shapeID": "70788906B60308563647099",
+       "label": "Marrakech-Safi",
+       "scope": "overview",
+       "source": "gb-admin-labels"
+      },
+      "anchorPx": {
+       "x": 683,
+       "y": 384
+      },
+      "textField": "[\"case\",[\"all\",[\"has\",\"label\"],[\"==\",[\"index-of\",\"ī\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"œ\",[\"coalesce\",[\"get\",\"label\"],\"\"]],-1],[\"==\",[\"index-of\",\"ɛ\",[\"coalesc",
+      "fontSizeExpr": "13",
+      "textColor": "#fff6e0",
+      "haloColor": "rgba(16, 22, 30, 0.85)",
+      "haloWidth": 1,
+      "textOpacity": 1,
+      "terrain": null,
+      "rasterLayers": [
+       {
+        "id": "hypso-tint",
+        "visibility": "none"
+       }
+      ]
+     },
+     "styleOverride": {
+      "textSize": 13,
+      "haloWidth": 1,
+      "textColor": "#fff6e0"
+     },
+     "metrics": {
+      "qualifying": 0,
+      "contrastMax": 1.193,
+      "deltaMax": 19,
+      "deltaP99": 10,
+      "maxDeltaPx": {
+       "x": 626,
+       "y": 355,
+       "on": [
+        46,
+        51,
+        53
+       ],
+       "off": [
+        28,
+        40,
+        34
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 16895,
+      "roiPx": 17280
+     },
+     "offDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 17244,
+      "roiPx": 17280
+     },
+     "verdict": "FAIL"
+    }
+   }
+  }
+ ]
+}

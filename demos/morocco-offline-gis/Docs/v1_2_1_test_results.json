@@ -1,0 +1,2499 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config=e2e/playwright.config.ts",
+      "--reporter=list,json"
+    ],
+    "configFile": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\playwright.config.ts",
+    "rootDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/.data/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop-1080p",
+        "name": "desktop-1080p",
+        "testDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/.data/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop-768p",
+        "name": "desktop-768p",
+        "testDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop-1080p",
+        "testDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "snapshotDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:17841/",
+          "viewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "contextOptions": {
+            "bypassServiceWorker": false
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=d3d11",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-1080p"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop-768p",
+        "testDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "snapshotDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:17841/",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "contextOptions": {
+            "bypassServiceWorker": false
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=d3d11",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-768p"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "g1-smoke.spec.ts",
+      "file": "g1-smoke.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "G1: GIS/RAN mode switch, selection hierarchy, banner sync, GIS restore",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 420000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 24163,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:28:43.108Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d1d2287ea73a1c7e6013-678c498fa7e9645c4f4e",
+          "file": "g1-smoke.spec.ts",
+          "line": 95,
+          "column": 1
+        },
+        {
+          "title": "G1: GIS/RAN mode switch, selection hierarchy, banner sync, GIS restore",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 420000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20245,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:36:10.491Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d1d2287ea73a1c7e6013-e23905b70220e5285c31",
+          "file": "g1-smoke.spec.ts",
+          "line": 95,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "g2-linkage.spec.ts",
+      "file": "g2-linkage.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "G2: demo card completes site→road→profile chain without manual A-B",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6394,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:29:07.632Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa9f4b63ebbc1e6b1ecd-465bf8d7a219cac7696b",
+          "file": "g2-linkage.spec.ts",
+          "line": 70,
+          "column": 1
+        },
+        {
+          "title": "G2: contrast card yields CLEAR per real DEM; race guard keeps newest selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8962,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:29:14.051Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa9f4b63ebbc1e6b1ecd-5be1b80f15aa3b36df0b",
+          "file": "g2-linkage.spec.ts",
+          "line": 126,
+          "column": 1
+        },
+        {
+          "title": "G2: leaving RAN clears linkage residue; GIS view untouched",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8261,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:29:23.043Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa9f4b63ebbc1e6b1ecd-0801195cd278c9571280",
+          "file": "g2-linkage.spec.ts",
+          "line": 167,
+          "column": 1
+        },
+        {
+          "title": "G2: demo card completes site→road→profile chain without manual A-B",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4449,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:36:31.078Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa9f4b63ebbc1e6b1ecd-8bb0c6cc931f4f9b2eb8",
+          "file": "g2-linkage.spec.ts",
+          "line": 70,
+          "column": 1
+        },
+        {
+          "title": "G2: contrast card yields CLEAR per real DEM; race guard keeps newest selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7318,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:36:35.550Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa9f4b63ebbc1e6b1ecd-359d7440d890193ba560",
+          "file": "g2-linkage.spec.ts",
+          "line": 126,
+          "column": 1
+        },
+        {
+          "title": "G2: leaving RAN clears linkage residue; GIS view untouched",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5734,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:36:42.890Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa9f4b63ebbc1e6b1ecd-7d547d03c5ba3c395312",
+          "file": "g2-linkage.spec.ts",
+          "line": 167,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "g3-regression.spec.ts",
+      "file": "g3-regression.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "G3: cold start invisible + GIS/RAN loop x10 leaves zero residue",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13173,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:29:31.391Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "25c33aed11b853747ca9-fa7d50e3721ac104141b",
+          "file": "g3-regression.spec.ts",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "G3: rendered RSRP set matches GeoJSON range; color mapping is data-driven",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6362,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:29:44.595Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "25c33aed11b853747ca9-e170aa21d8e78721c3f9",
+          "file": "g3-regression.spec.ts",
+          "line": 144,
+          "column": 1
+        },
+        {
+          "title": "G3: exaggeration 1.5 leaves linkage numbers unchanged; out-of-coverage is UNKNOWN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7612,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:29:50.995Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "25c33aed11b853747ca9-b79e3b66c421df391c02",
+          "file": "g3-regression.spec.ts",
+          "line": 187,
+          "column": 1
+        },
+        {
+          "title": "G3: in-flight linkage compute cannot resurrect UI after leaving RAN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14761,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:29:58.638Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "25c33aed11b853747ca9-2763990559b6aad8f2b1",
+          "file": "g3-regression.spec.ts",
+          "line": 238,
+          "column": 1
+        },
+        {
+          "title": "G3: cold start invisible + GIS/RAN loop x10 leaves zero residue",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11648,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:36:48.679Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "25c33aed11b853747ca9-eac87606f4758529d3dd",
+          "file": "g3-regression.spec.ts",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "G3: rendered RSRP set matches GeoJSON range; color mapping is data-driven",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4332,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:37:00.348Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "25c33aed11b853747ca9-292d3dbe6756db8c18a6",
+          "file": "g3-regression.spec.ts",
+          "line": 144,
+          "column": 1
+        },
+        {
+          "title": "G3: exaggeration 1.5 leaves linkage numbers unchanged; out-of-coverage is UNKNOWN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4565,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:37:04.703Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "25c33aed11b853747ca9-b859e5bba638d797159c",
+          "file": "g3-regression.spec.ts",
+          "line": 187,
+          "column": 1
+        },
+        {
+          "title": "G3: in-flight linkage compute cannot resurrect UI after leaving RAN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12098,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:37:09.292Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "25c33aed11b853747ca9-4a85a7411a8e64bb6924",
+          "file": "g3-regression.spec.ts",
+          "line": 238,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "g4-acceptance.spec.ts",
+      "file": "g4-acceptance.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "G4: six acceptance scenarios captured per viewport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 32345,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:30:13.467Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "353737ac3617b0058500-22b8c2e6ca89e9a37434",
+          "file": "g4-acceptance.spec.ts",
+          "line": 88,
+          "column": 1
+        },
+        {
+          "title": "G4: six acceptance scenarios captured per viewport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 28215,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:37:21.442Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "353737ac3617b0058500-eed3e1864b44d217085d",
+          "file": "g4-acceptance.spec.ts",
+          "line": 88,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "offline.spec.ts",
+      "file": "offline.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "cold start: map loads, real terrain renders, zero external requests",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9085,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:30:45.875Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-223f0cafb225efffcc2d",
+          "file": "offline.spec.ts",
+          "line": 85,
+          "column": 1
+        },
+        {
+          "title": "2D/3D toggle, pitch & exaggeration controls exist and respond",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5809,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:30:54.983Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-1fa62b6f36610def4464",
+          "file": "offline.spec.ts",
+          "line": 114,
+          "column": 1
+        },
+        {
+          "title": "elevation query returns DEM value and stays constant across exaggeration change",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5988,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:31:00.814Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-0d3767f769d738aaf0ab",
+          "file": "offline.spec.ts",
+          "line": 125,
+          "column": 1
+        },
+        {
+          "title": "contour layer toggles and interval label updates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7817,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:31:06.825Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-8d6c5bc23942900f6f73",
+          "file": "offline.spec.ts",
+          "line": 176,
+          "column": 1
+        },
+        {
+          "title": "profile: select A/B points, chart & stats appear",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5595,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:31:14.669Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-2f74f15cddc9c3c3cd70",
+          "file": "offline.spec.ts",
+          "line": 201,
+          "column": 1
+        },
+        {
+          "title": "simulated RAN overlay toggles with SIMULATED NETWORK DATA banner",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7882,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:31:20.297Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-7bf96f677f8178a5c5bf",
+          "file": "offline.spec.ts",
+          "line": 216,
+          "column": 1
+        },
+        {
+          "title": "fly-to scenes navigate within coverage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13488,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:31:28.211Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-fa03418034c85beeaf69",
+          "file": "offline.spec.ts",
+          "line": 251,
+          "column": 1
+        },
+        {
+          "title": "metadata: real terrain mode and Copernicus DEM source",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 617,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:31:41.728Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-da9a8fc4627079bf73c2",
+          "file": "offline.spec.ts",
+          "line": 277,
+          "column": 1
+        },
+        {
+          "title": "boundary hint appears when booting far outside coverage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4161,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:31:42.370Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-fa62ba7a1beaf3f04fec",
+          "file": "offline.spec.ts",
+          "line": 289,
+          "column": 1
+        },
+        {
+          "title": "peak labels render at Toubkal scene without duplicates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9460,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:31:46.555Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-398e25aad0c7a860e88c",
+          "file": "offline.spec.ts",
+          "line": 302,
+          "column": 1
+        },
+        {
+          "title": "elevation near Toubkal summit is in DEM range and stays constant across exaggeration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7190,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:31:56.041Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-ff2232e93af59cac124a",
+          "file": "offline.spec.ts",
+          "line": 338,
+          "column": 1
+        },
+        {
+          "title": "capture acceptance screenshots (6 scenes x viewport project)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 900000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 79113,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:32:03.256Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-fdfd336a42dba9666e5d",
+          "file": "offline.spec.ts",
+          "line": 384,
+          "column": 1
+        },
+        {
+          "title": "cold start: map loads, real terrain renders, zero external requests",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7070,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:37:49.731Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-cdcfebf8db49ff1af3ff",
+          "file": "offline.spec.ts",
+          "line": 85,
+          "column": 1
+        },
+        {
+          "title": "2D/3D toggle, pitch & exaggeration controls exist and respond",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4323,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:37:56.825Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-d87aaa16a8b3bc1e72d0",
+          "file": "offline.spec.ts",
+          "line": 114,
+          "column": 1
+        },
+        {
+          "title": "elevation query returns DEM value and stays constant across exaggeration change",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5088,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:38:01.165Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-6b79863e0e408d121fe5",
+          "file": "offline.spec.ts",
+          "line": 125,
+          "column": 1
+        },
+        {
+          "title": "contour layer toggles and interval label updates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5252,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:38:06.269Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-860cf1cc046d2bb9cb45",
+          "file": "offline.spec.ts",
+          "line": 176,
+          "column": 1
+        },
+        {
+          "title": "profile: select A/B points, chart & stats appear",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4518,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:38:11.545Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-5a9e073f90e5beeb2aed",
+          "file": "offline.spec.ts",
+          "line": 201,
+          "column": 1
+        },
+        {
+          "title": "simulated RAN overlay toggles with SIMULATED NETWORK DATA banner",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6434,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:38:16.096Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-535e3054b61ea0ddb862",
+          "file": "offline.spec.ts",
+          "line": 216,
+          "column": 1
+        },
+        {
+          "title": "fly-to scenes navigate within coverage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11913,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:38:22.568Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-4683bf1349a4d619e845",
+          "file": "offline.spec.ts",
+          "line": 251,
+          "column": 1
+        },
+        {
+          "title": "metadata: real terrain mode and Copernicus DEM source",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 295,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:38:34.503Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-7d7e0fb79ce897077098",
+          "file": "offline.spec.ts",
+          "line": 277,
+          "column": 1
+        },
+        {
+          "title": "boundary hint appears when booting far outside coverage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3380,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:38:34.819Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-4c520b787943aaefe400",
+          "file": "offline.spec.ts",
+          "line": 289,
+          "column": 1
+        },
+        {
+          "title": "peak labels render at Toubkal scene without duplicates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8821,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:38:38.221Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-c3a23a11b187f289e8bf",
+          "file": "offline.spec.ts",
+          "line": 302,
+          "column": 1
+        },
+        {
+          "title": "elevation near Toubkal summit is in DEM range and stays constant across exaggeration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6456,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:38:47.081Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-35e20003e70e119aa331",
+          "file": "offline.spec.ts",
+          "line": 338,
+          "column": 1
+        },
+        {
+          "title": "capture acceptance screenshots (6 scenes x viewport project)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 900000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 64880,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:38:53.564Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "586fc5283fd8ec7c7982-f750dc867ded80611e5c",
+          "file": "offline.spec.ts",
+          "line": 384,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "v121-geo.spec.ts",
+      "file": "v121-geo.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "01 Morocco Overview: 2D nationwide extent, admin lines + city labels, terrain off",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9821,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:33:22.438Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-2edf46ef238077dc5dd4",
+          "file": "v121-geo.spec.ts",
+          "line": 271,
+          "column": 1
+        },
+        {
+          "title": "02 Admin Zoom: region boundaries at z7, province boundaries at z11",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14912,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:33:32.278Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-8395b263bab771bc2d6c",
+          "file": "v121-geo.spec.ts",
+          "line": 340,
+          "column": 1
+        },
+        {
+          "title": "03 real towns + roads render and are styled apart from SIMULATED layers",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10921,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:33:47.209Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-7304a99ed1e8b3a5093f",
+          "file": "v121-geo.spec.ts",
+          "line": 368,
+          "column": 1
+        },
+        {
+          "title": "04 water features + peak labels render; no same-name duplicate peak labels",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10950,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:33:58.153Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-cc7a40e0a03717df01c8",
+          "file": "v121-geo.spec.ts",
+          "line": 402,
+          "column": 1
+        },
+        {
+          "title": "05 geo layer toggles act independently and survive a GIS/RAN roundtrip",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11769,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:34:09.130Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-c6664fb7e92f56f8fd9f",
+          "file": "v121-geo.spec.ts",
+          "line": 431,
+          "column": 1
+        },
+        {
+          "title": "06 3D denied in overview with jump-back; real DEM restores inside atlas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16115,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:34:20.943Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-b1145021d9802b97fa5c",
+          "file": "v121-geo.spec.ts",
+          "line": 475,
+          "column": 1
+        },
+        {
+          "title": "07 admin click popup cites OSM provenance; disputed line popup is honest",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 19203,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:34:37.094Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-e2a9e25db27f3f30938e",
+          "file": "v121-geo.spec.ts",
+          "line": 521,
+          "column": 1
+        },
+        {
+          "title": "08 ten GIS/RAN switches: banner and geo dim/restore remain synchronized",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 23337,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:34:56.317Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-091e5f51f21d820a86b0",
+          "file": "v121-geo.spec.ts",
+          "line": 572,
+          "column": 1
+        },
+        {
+          "title": "09 RAN linkage: weak-coverage card selects site+road+profile; exit to GIS",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 280000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11545,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:35:19.671Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-757ed566fc0406de2094",
+          "file": "v121-geo.spec.ts",
+          "line": 603,
+          "column": 1
+        },
+        {
+          "title": "10 cold boot: zero external requests, geo PMTiles fetched with 206 Range",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8869,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:35:31.238Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-06f9688b391f7608e3a0",
+          "file": "v121-geo.spec.ts",
+          "line": 634,
+          "column": 1
+        },
+        {
+          "title": "11 accuracy probe: Marrakech city + Toubkal west-summit provenance from OSM snapshot",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17050,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:35:40.130Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-aea4b109800e1556ce8b",
+          "file": "v121-geo.spec.ts",
+          "line": 664,
+          "column": 1
+        },
+        {
+          "title": "12 hash compat: &m=ran restores mode; &m=ran&e=ov forces atlas; no suffix defaults GIS",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10760,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:35:57.197Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-1f6e6e9e24955aab786a",
+          "file": "v121-geo.spec.ts",
+          "line": 741,
+          "column": 1
+        },
+        {
+          "title": "01 Morocco Overview: 2D nationwide extent, admin lines + city labels, terrain off",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9462,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:39:58.506Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-8ab0bb1cbb27d6afca12",
+          "file": "v121-geo.spec.ts",
+          "line": 271,
+          "column": 1
+        },
+        {
+          "title": "02 Admin Zoom: region boundaries at z7, province boundaries at z11",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11804,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:40:07.991Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-a46f3ef2b4f427c37f25",
+          "file": "v121-geo.spec.ts",
+          "line": 340,
+          "column": 1
+        },
+        {
+          "title": "03 real towns + roads render and are styled apart from SIMULATED layers",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9121,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:40:19.812Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-33ed55cdb42a238b2aed",
+          "file": "v121-geo.spec.ts",
+          "line": 368,
+          "column": 1
+        },
+        {
+          "title": "04 water features + peak labels render; no same-name duplicate peak labels",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9168,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:40:28.961Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-cad7e32eb9c16dc682b9",
+          "file": "v121-geo.spec.ts",
+          "line": 402,
+          "column": 1
+        },
+        {
+          "title": "05 geo layer toggles act independently and survive a GIS/RAN roundtrip",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9646,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:40:38.168Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-174d1bc139c6c2817074",
+          "file": "v121-geo.spec.ts",
+          "line": 431,
+          "column": 1
+        },
+        {
+          "title": "06 3D denied in overview with jump-back; real DEM restores inside atlas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14920,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:40:47.841Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-8d81a5e97a4da3f62d55",
+          "file": "v121-geo.spec.ts",
+          "line": 475,
+          "column": 1
+        },
+        {
+          "title": "07 admin click popup cites OSM provenance; disputed line popup is honest",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 14577,
+                  "error": {
+                    "message": "Error: a disputed boundary must be clickable outside the panels\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mnull\u001b[39m",
+                    "stack": "Error: a disputed boundary must be clickable outside the panels\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mnull\u001b[39m\n    at D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts:559:76",
+                    "location": {
+                      "file": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts",
+                      "column": 76,
+                      "line": 559
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 557 |\u001b[39m   expect(disputedRendered\u001b[33m.\u001b[39mlength\u001b[33m,\u001b[39m \u001b[32m'disputed boundary lines must render (dashed) around Laâyoune'\u001b[39m)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 558 |\u001b[39m   \u001b[36mconst\u001b[39m dHit \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m findClickPoint(page\u001b[33m,\u001b[39m [\u001b[32m'geo-admin-disputed'\u001b[39m])\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 559 |\u001b[39m   expect(dHit\u001b[33m,\u001b[39m \u001b[32m'a disputed boundary must be clickable outside the panels'\u001b[39m)\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 560 |\u001b[39m   \u001b[36mif\u001b[39m (dHit) {\n \u001b[90m 561 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mmouse\u001b[33m.\u001b[39mclick(dHit\u001b[33m.\u001b[39mx\u001b[33m,\u001b[39m dHit\u001b[33m.\u001b[39my)\u001b[33m;\u001b[39m\n \u001b[90m 562 |\u001b[39m     \u001b[36mconst\u001b[39m dPopup \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.maplibregl-popup'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts",
+                        "column": 76,
+                        "line": 559
+                      },
+                      "message": "Error: a disputed boundary must be clickable outside the panels\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mnull\u001b[39m\n\n  557 |   expect(disputedRendered.length, 'disputed boundary lines must render (dashed) around Laâyoune').toBeGreaterThan(0);\n  558 |   const dHit = await findClickPoint(page, ['geo-admin-disputed']);\n> 559 |   expect(dHit, 'a disputed boundary must be clickable outside the panels').toBeTruthy();\n      |                                                                            ^\n  560 |   if (dHit) {\n  561 |     await page.mouse.click(dHit.x, dHit.y);\n  562 |     const dPopup = page.locator('.maplibregl-popup');\n    at D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts:559:76"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:41:02.784Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts\\v121-geo-07-admin-click-po-0f9d5-sputed-line-popup-is-honest-desktop-768p\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts\\v121-geo-07-admin-click-po-0f9d5-sputed-line-popup-is-honest-desktop-768p\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts\\v121-geo-07-admin-click-po-0f9d5-sputed-line-popup-is-honest-desktop-768p\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts",
+                    "column": 76,
+                    "line": 559
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-60975999828ae2536c86",
+          "file": "v121-geo.spec.ts",
+          "line": 521,
+          "column": 1
+        },
+        {
+          "title": "08 ten GIS/RAN switches: banner and geo dim/restore remain synchronized",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 23024,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:41:21.292Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-720ad14701433bd4a3bd",
+          "file": "v121-geo.spec.ts",
+          "line": 572,
+          "column": 1
+        },
+        {
+          "title": "09 RAN linkage: weak-coverage card selects site+road+profile; exit to GIS",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 280000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9967,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:41:44.573Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-a5ffeea9df31ddf7ef87",
+          "file": "v121-geo.spec.ts",
+          "line": 603,
+          "column": 1
+        },
+        {
+          "title": "10 cold boot: zero external requests, geo PMTiles fetched with 206 Range",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7879,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:41:54.579Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-5eb5ac8766990be390dd",
+          "file": "v121-geo.spec.ts",
+          "line": 634,
+          "column": 1
+        },
+        {
+          "title": "11 accuracy probe: Marrakech city + Toubkal west-summit provenance from OSM snapshot",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14309,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:42:02.489Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-bf0aaa09e35ccfdaae18",
+          "file": "v121-geo.spec.ts",
+          "line": 664,
+          "column": 1
+        },
+        {
+          "title": "12 hash compat: &m=ran restores mode; &m=ran&e=ov forces atlas; no suffix defaults GIS",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9459,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:42:16.828Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-d18f6517dfb9600ea7b7",
+          "file": "v121-geo.spec.ts",
+          "line": 741,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-30T20:28:41.662Z",
+    "duration": 825483.542,
+    "expected": 65,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

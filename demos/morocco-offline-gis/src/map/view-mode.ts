@@ -17,6 +17,7 @@
 import type { Map as MLMap } from "maplibre-gl";
 import { LAYER_IDS } from "../config";
 import type { RanOverlay } from "./ran-overlay";
+import { GEO_RAN_DIM_TABLE } from "./geographic-context";
 
 export type ViewMode = "gis" | "ran";
 
@@ -37,6 +38,16 @@ export function readHashMode(): ViewMode {
 }
 
 /**
+ * Sync the module-level activeMode from the URL hash BEFORE any map exists.
+ * The first camera moveend fires writeHash() while `activeMode` would still
+ * be 'gis', stripping `&m=ran` from a shared link before setMode() runs.
+ * main.ts calls this as the very first boot step.
+ */
+export function primeHashMode(): void {
+  activeMode = readHashMode();
+}
+
+/**
  * Base-map dampening table for RAN Coverage View. Each entry:
  * [layerId, paintProperty, gisValue, ranValue].
  * GIS values equal v1.1.0 effective rendering (opacity properties are not
@@ -53,6 +64,10 @@ const BASE_DAMPEN: Array<[string, string, unknown, unknown]> = [
   // hillshade contrast: softer relief so blue/amber RAN marks pop (RCA §1);
   // hypsometric tint stays at 1.0 — v1.1.0 proved <1.0 bleeds seams
   [LAYER_IDS.hillshade, "hillshade-exaggeration", 0.35, 0.2],
+  // v1.2.1: real geographic context follows the same one-table rule —
+  // SECONDARY geo info yields to the simulated network, high-grade context
+  // (country/region lines, cities, major roads, water) stays as background
+  ...GEO_RAN_DIM_TABLE,
 ];
 
 export class ViewModeControl {

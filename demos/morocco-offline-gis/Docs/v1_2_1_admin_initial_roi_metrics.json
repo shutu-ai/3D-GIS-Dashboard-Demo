@@ -1,0 +1,108 @@
+{
+  "scope": "Independent pixel-data check of the exact failed ADM1 text ROI; not a design verdict or root-cause claim. Background is dark green, not tan.",
+  "raw_result": "v1_2_1_admin_visibility_initial_failure.json",
+  "rows": [
+    {
+      "viewport": "desktop-1080p",
+      "roi": [
+        840,
+        504,
+        240,
+        72
+      ],
+      "on_png": "Docs\\screenshots\\v1.2.1-admin-correction-attempt1\\desktop-1080p\\02a-overview-adm1-gbopen-on.png",
+      "off_png": "Docs\\screenshots\\v1.2.1-admin-correction-attempt1\\desktop-1080p\\02a-overview-adm1-gbopen-off.png",
+      "on_sha256": "f93210b717319995ae4117382da2db0522de1e7f77f31c4958c2cec94393255f",
+      "off_sha256": "19c430bf29e07fad0f797c29e5e0042c2b8290467433766f2b4b09b6ef3547e1",
+      "off_dominant_rgb_counts": [
+        [
+          [
+            28,
+            40,
+            34
+          ],
+          17204
+        ],
+        [
+          [
+            27,
+            39,
+            34
+          ],
+          8
+        ],
+        [
+          [
+            44,
+            72,
+            94
+          ],
+          5
+        ]
+      ],
+      "max_channel_delta": 42,
+      "max_delta_on_rgb": [
+        70,
+        73,
+        72
+      ],
+      "max_delta_off_rgb": [
+        28,
+        40,
+        34
+      ],
+      "changed_pixel_count": 1505
+    },
+    {
+      "viewport": "desktop-768p",
+      "roi": [
+        563,
+        348,
+        240,
+        72
+      ],
+      "on_png": "Docs\\screenshots\\v1.2.1-admin-correction-attempt1\\desktop-768p\\02a-overview-adm1-gbopen-on.png",
+      "off_png": "Docs\\screenshots\\v1.2.1-admin-correction-attempt1\\desktop-768p\\02a-overview-adm1-gbopen-off.png",
+      "on_sha256": "96a5f4d92be25c646f6ad6b65106907c480a4527ad817c30e834928dc6539b33",
+      "off_sha256": "8f1e318fe6d06c4d5041b7ca8a3eb5f1026dcef2d2069a8461e26bbbedfe9912",
+      "off_dominant_rgb_counts": [
+        [
+          [
+            28,
+            40,
+            34
+          ],
+          17204
+        ],
+        [
+          [
+            27,
+            39,
+            34
+          ],
+          8
+        ],
+        [
+          [
+            44,
+            72,
+            94
+          ],
+          5
+        ]
+      ],
+      "max_channel_delta": 42,
+      "max_delta_on_rgb": [
+        70,
+        73,
+        72
+      ],
+      "max_delta_off_rgb": [
+        28,
+        40,
+        34
+      ],
+      "changed_pixel_count": 1505
+    }
+  ]
+}

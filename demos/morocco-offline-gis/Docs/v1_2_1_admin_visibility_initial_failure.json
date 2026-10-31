@@ -1,0 +1,428 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "v121-geo.spec.ts",
+      "-g",
+      "admin",
+      "--reporter=list,json"
+    ],
+    "configFile": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\playwright.config.ts",
+    "rootDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/.data/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop-1080p",
+        "name": "desktop-1080p",
+        "testDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/.data/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop-768p",
+        "name": "desktop-768p",
+        "testDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop-1080p",
+        "testDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "snapshotDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:17841/",
+          "viewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "contextOptions": {
+            "bypassServiceWorker": false
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=d3d11",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-1080p"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop-768p",
+        "testDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "snapshotDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:17841/",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "contextOptions": {
+            "bypassServiceWorker": false
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=d3d11",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-768p"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "v121-geo.spec.ts",
+      "file": "v121-geo.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "01 Morocco Overview: 2D nationwide extent, admin lines + city labels, terrain off",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12857,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T08:25:36.831Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11995,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T08:26:25.124Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-2edf46ef238077dc5dd4",
+          "file": "v121-geo.spec.ts",
+          "line": 660,
+          "column": 1
+        },
+        {
+          "title": "02 admin context: real ADM1/ADM2 gbOpen labels + boundaries, exact provenance, on/off contrast",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 13446,
+                  "error": {
+                    "message": "Error: ADM1 glyph ROI on/off gate failed (fixed thresholds {\"minContrastRatio\":3,\"minChannelDelta\":24,\"minQualifyingPixels\":24}): {\"qualifying\":0,\"pixels\":17280,\"maxDelta\":42,\"deltaP50\":0,\"deltaP90\":0,\"deltaP99\":11,\"contrastP50\":1,\"contrastP90\":1,\"contrastMax\":1.677}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m24\u001b[39m\nReceived:    \u001b[31m0\u001b[39m",
+                    "stack": "Error: ADM1 glyph ROI on/off gate failed (fixed thresholds {\"minContrastRatio\":3,\"minChannelDelta\":24,\"minQualifyingPixels\":24}): {\"qualifying\":0,\"pixels\":17280,\"maxDelta\":42,\"deltaP50\":0,\"deltaP90\":0,\"deltaP99\":11,\"contrastP50\":1,\"contrastP90\":1,\"contrastMax\":1.677}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m24\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n    at D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts:824:155",
+                    "location": {
+                      "file": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts",
+                      "column": 155,
+                      "line": 824
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 822 |\u001b[39m   \u001b[36mconst\u001b[39m glyphGate1 \u001b[33m=\u001b[39m pillowGate(on1\u001b[33m,\u001b[39m off1\u001b[33m,\u001b[39m glyphRoi1)\u001b[33m;\u001b[39m\n \u001b[90m 823 |\u001b[39m   \u001b[36mconst\u001b[39m boundGate1 \u001b[33m=\u001b[39m pillowGate(on1\u001b[33m,\u001b[39m off1\u001b[33m,\u001b[39m boundRoi1)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 824 |\u001b[39m   expect(glyphGate1\u001b[33m.\u001b[39mqualifying\u001b[33m,\u001b[39m \u001b[32m`ADM1 glyph ROI on/off gate failed (fixed thresholds ${JSON.stringify(VISIBILITY_GATE)}): ${JSON.stringify(glyphGate1)}`\u001b[39m)\u001b[33m.\u001b[39mtoBeGreaterThanOrEqual(\u001b[33mVISIBILITY_GATE\u001b[39m\u001b[33m.\u001b[39mminQualifyingPixels)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 825 |\u001b[39m   expect(boundGate1\u001b[33m.\u001b[39mqualifying\u001b[33m,\u001b[39m \u001b[32m`ADM1 boundary ROI on/off gate failed (fixed thresholds ${JSON.stringify(VISIBILITY_GATE)}): ${JSON.stringify(boundGate1)}`\u001b[39m)\u001b[33m.\u001b[39mtoBeGreaterThanOrEqual(\u001b[33mVISIBILITY_GATE\u001b[39m\u001b[33m.\u001b[39mminQualifyingPixels)\u001b[33m;\u001b[39m\n \u001b[90m 826 |\u001b[39m   recordRoi([\n \u001b[90m 827 |\u001b[39m     {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts",
+                        "column": 155,
+                        "line": 824
+                      },
+                      "message": "Error: ADM1 glyph ROI on/off gate failed (fixed thresholds {\"minContrastRatio\":3,\"minChannelDelta\":24,\"minQualifyingPixels\":24}): {\"qualifying\":0,\"pixels\":17280,\"maxDelta\":42,\"deltaP50\":0,\"deltaP90\":0,\"deltaP99\":11,\"contrastP50\":1,\"contrastP90\":1,\"contrastMax\":1.677}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m24\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n\n  822 |   const glyphGate1 = pillowGate(on1, off1, glyphRoi1);\n  823 |   const boundGate1 = pillowGate(on1, off1, boundRoi1);\n> 824 |   expect(glyphGate1.qualifying, `ADM1 glyph ROI on/off gate failed (fixed thresholds ${JSON.stringify(VISIBILITY_GATE)}): ${JSON.stringify(glyphGate1)}`).toBeGreaterThanOrEqual(VISIBILITY_GATE.minQualifyingPixels);\n      |                                                                                                                                                           ^\n  825 |   expect(boundGate1.qualifying, `ADM1 boundary ROI on/off gate failed (fixed thresholds ${JSON.stringify(VISIBILITY_GATE)}): ${JSON.stringify(boundGate1)}`).toBeGreaterThanOrEqual(VISIBILITY_GATE.minQualifyingPixels);\n  826 |   recordRoi([\n  827 |     {\n    at D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts:824:155"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T08:25:49.982Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts\\v121-geo-02-admin-context--f3d02--provenance-on-off-contrast-desktop-1080p\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts\\v121-geo-02-admin-context--f3d02--provenance-on-off-contrast-desktop-1080p\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts\\v121-geo-02-admin-context--f3d02--provenance-on-off-contrast-desktop-1080p\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts",
+                    "column": 155,
+                    "line": 824
+                  }
+                }
+              ],
+              "status": "unexpected"
+            },
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 13356,
+                  "error": {
+                    "message": "Error: ADM1 glyph ROI on/off gate failed (fixed thresholds {\"minContrastRatio\":3,\"minChannelDelta\":24,\"minQualifyingPixels\":24}): {\"qualifying\":0,\"pixels\":17280,\"maxDelta\":42,\"deltaP50\":0,\"deltaP90\":0,\"deltaP99\":11,\"contrastP50\":1,\"contrastP90\":1,\"contrastMax\":1.677}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m24\u001b[39m\nReceived:    \u001b[31m0\u001b[39m",
+                    "stack": "Error: ADM1 glyph ROI on/off gate failed (fixed thresholds {\"minContrastRatio\":3,\"minChannelDelta\":24,\"minQualifyingPixels\":24}): {\"qualifying\":0,\"pixels\":17280,\"maxDelta\":42,\"deltaP50\":0,\"deltaP90\":0,\"deltaP99\":11,\"contrastP50\":1,\"contrastP90\":1,\"contrastMax\":1.677}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m24\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n    at D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts:824:155",
+                    "location": {
+                      "file": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts",
+                      "column": 155,
+                      "line": 824
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 822 |\u001b[39m   \u001b[36mconst\u001b[39m glyphGate1 \u001b[33m=\u001b[39m pillowGate(on1\u001b[33m,\u001b[39m off1\u001b[33m,\u001b[39m glyphRoi1)\u001b[33m;\u001b[39m\n \u001b[90m 823 |\u001b[39m   \u001b[36mconst\u001b[39m boundGate1 \u001b[33m=\u001b[39m pillowGate(on1\u001b[33m,\u001b[39m off1\u001b[33m,\u001b[39m boundRoi1)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 824 |\u001b[39m   expect(glyphGate1\u001b[33m.\u001b[39mqualifying\u001b[33m,\u001b[39m \u001b[32m`ADM1 glyph ROI on/off gate failed (fixed thresholds ${JSON.stringify(VISIBILITY_GATE)}): ${JSON.stringify(glyphGate1)}`\u001b[39m)\u001b[33m.\u001b[39mtoBeGreaterThanOrEqual(\u001b[33mVISIBILITY_GATE\u001b[39m\u001b[33m.\u001b[39mminQualifyingPixels)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 825 |\u001b[39m   expect(boundGate1\u001b[33m.\u001b[39mqualifying\u001b[33m,\u001b[39m \u001b[32m`ADM1 boundary ROI on/off gate failed (fixed thresholds ${JSON.stringify(VISIBILITY_GATE)}): ${JSON.stringify(boundGate1)}`\u001b[39m)\u001b[33m.\u001b[39mtoBeGreaterThanOrEqual(\u001b[33mVISIBILITY_GATE\u001b[39m\u001b[33m.\u001b[39mminQualifyingPixels)\u001b[33m;\u001b[39m\n \u001b[90m 826 |\u001b[39m   recordRoi([\n \u001b[90m 827 |\u001b[39m     {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts",
+                        "column": 155,
+                        "line": 824
+                      },
+                      "message": "Error: ADM1 glyph ROI on/off gate failed (fixed thresholds {\"minContrastRatio\":3,\"minChannelDelta\":24,\"minQualifyingPixels\":24}): {\"qualifying\":0,\"pixels\":17280,\"maxDelta\":42,\"deltaP50\":0,\"deltaP90\":0,\"deltaP99\":11,\"contrastP50\":1,\"contrastP90\":1,\"contrastMax\":1.677}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m24\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n\n  822 |   const glyphGate1 = pillowGate(on1, off1, glyphRoi1);\n  823 |   const boundGate1 = pillowGate(on1, off1, boundRoi1);\n> 824 |   expect(glyphGate1.qualifying, `ADM1 glyph ROI on/off gate failed (fixed thresholds ${JSON.stringify(VISIBILITY_GATE)}): ${JSON.stringify(glyphGate1)}`).toBeGreaterThanOrEqual(VISIBILITY_GATE.minQualifyingPixels);\n      |                                                                                                                                                           ^\n  825 |   expect(boundGate1.qualifying, `ADM1 boundary ROI on/off gate failed (fixed thresholds ${JSON.stringify(VISIBILITY_GATE)}): ${JSON.stringify(boundGate1)}`).toBeGreaterThanOrEqual(VISIBILITY_GATE.minQualifyingPixels);\n  826 |   recordRoi([\n  827 |     {\n    at D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts:824:155"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T08:26:37.338Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts\\v121-geo-02-admin-context--f3d02--provenance-on-off-contrast-desktop-768p\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts\\v121-geo-02-admin-context--f3d02--provenance-on-off-contrast-desktop-768p\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts\\v121-geo-02-admin-context--f3d02--provenance-on-off-contrast-desktop-768p\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\v121-geo.spec.ts",
+                    "column": 155,
+                    "line": 824
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-af99b833e4227e4bdfed",
+          "file": "v121-geo.spec.ts",
+          "line": 729,
+          "column": 1
+        },
+        {
+          "title": "07 admin click popup cites geoBoundaries gbOpen provenance; disputed line stays honest OSM",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17820,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T08:26:05.972Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16499,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T08:26:53.234Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-403714b832e1c6f98e92",
+          "file": "v121-geo.spec.ts",
+          "line": 1126,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-31T08:25:35.944Z",
+    "duration": 94341.89600000001,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

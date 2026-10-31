@@ -1,0 +1,478 @@
+{
+ "audit": "geo-glyphs",
+ "verdict": "PASS",
+ "pinnedCodepoints": [
+  "U+012B",
+  "U+0153",
+  "U+025B",
+  "U+0263",
+  "U+0627",
+  "U+0629",
+  "U+062C",
+  "U+062F",
+  "U+0631",
+  "U+0636",
+  "U+0644",
+  "U+064A",
+  "U+1E0C",
+  "U+1E0D",
+  "U+1E24",
+  "U+1E25",
+  "U+1E6C",
+  "U+1E6D",
+  "U+2018",
+  "U+2019"
+ ],
+ "beyondPinnedCount": 0,
+ "beyondPinned": [],
+ "guardedRenderingViolations": [],
+ "archives": [
+  {
+   "archive": "morocco-overview.pmtiles",
+   "sweep": {
+    "zooms": "0-12 (every native zoom)",
+    "tilesCheckedTotal": 54461,
+    "featuresObservedTotal": 75924,
+    "note": "featuresObserved counts one observation per zoom level a feature appears at; findings are deduplicated",
+    "labeledCandidates": 73254,
+    "guardSkipped": 2922,
+    "perZoom": [
+     {
+      "zoom": 0,
+      "tilesChecked": 1,
+      "featuresObserved": 0
+     },
+     {
+      "zoom": 1,
+      "tilesChecked": 1,
+      "featuresObserved": 31
+     },
+     {
+      "zoom": 2,
+      "tilesChecked": 1,
+      "featuresObserved": 45
+     },
+     {
+      "zoom": 3,
+      "tilesChecked": 1,
+      "featuresObserved": 39
+     },
+     {
+      "zoom": 4,
+      "tilesChecked": 2,
+      "featuresObserved": 56
+     },
+     {
+      "zoom": 5,
+      "tilesChecked": 6,
+      "featuresObserved": 151
+     },
+     {
+      "zoom": 6,
+      "tilesChecked": 16,
+      "featuresObserved": 141
+     },
+     {
+      "zoom": 7,
+      "tilesChecked": 49,
+      "featuresObserved": 498
+     },
+     {
+      "zoom": 8,
+      "tilesChecked": 182,
+      "featuresObserved": 639
+     },
+     {
+      "zoom": 9,
+      "tilesChecked": 702,
+      "featuresObserved": 1067
+     },
+     {
+      "zoom": 10,
+      "tilesChecked": 2650,
+      "featuresObserved": 9666
+     },
+     {
+      "zoom": 11,
+      "tilesChecked": 10290,
+      "featuresObserved": 13657
+     },
+     {
+      "zoom": 12,
+      "tilesChecked": 40560,
+      "featuresObserved": 49934
+     }
+    ]
+   },
+   "unguardedUnsafeCodepoints": [
+    {
+     "cp": 299,
+     "hex": "U+012B",
+     "glyphRange": "256-511",
+     "reachedVia": [
+      "name(cased)"
+     ],
+     "samples": [
+      "Ḍleī’a el Ḥamra"
+     ]
+    },
+    {
+     "cp": 339,
+     "hex": "U+0153",
+     "glyphRange": "256-511",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "Richat, l’œil de l’Afrique"
+     ]
+    },
+    {
+     "cp": 603,
+     "hex": "U+025B",
+     "glyphRange": "512-767",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "Tamaɛite Izdar"
+     ]
+    },
+    {
+     "cp": 611,
+     "hex": "U+0263",
+     "glyphRange": "512-767",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "Tiɣanimine"
+     ]
+    },
+    {
+     "cp": 1575,
+     "hex": "U+0627",
+     "glyphRange": "1536-1791",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "رياض الجديدة"
+     ]
+    },
+    {
+     "cp": 1577,
+     "hex": "U+0629",
+     "glyphRange": "1536-1791",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "رياض الجديدة"
+     ]
+    },
+    {
+     "cp": 1580,
+     "hex": "U+062C",
+     "glyphRange": "1536-1791",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "رياض الجديدة"
+     ]
+    },
+    {
+     "cp": 1583,
+     "hex": "U+062F",
+     "glyphRange": "1536-1791",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "رياض الجديدة"
+     ]
+    },
+    {
+     "cp": 1585,
+     "hex": "U+0631",
+     "glyphRange": "1536-1791",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "رياض الجديدة"
+     ]
+    },
+    {
+     "cp": 1590,
+     "hex": "U+0636",
+     "glyphRange": "1536-1791",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "رياض الجديدة"
+     ]
+    },
+    {
+     "cp": 1604,
+     "hex": "U+0644",
+     "glyphRange": "1536-1791",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "رياض الجديدة"
+     ]
+    },
+    {
+     "cp": 1610,
+     "hex": "U+064A",
+     "glyphRange": "1536-1791",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "رياض الجديدة"
+     ]
+    },
+    {
+     "cp": 7692,
+     "hex": "U+1E0C",
+     "glyphRange": "7680-7935",
+     "reachedVia": [
+      "name(cased)"
+     ],
+     "samples": [
+      "Ḍâyet el Magroûnât",
+      "’Aouînet Ḍmeyyene",
+      "Ḍâyet Ould Zeïdâne"
+     ]
+    },
+    {
+     "cp": 7693,
+     "hex": "U+1E0D",
+     "glyphRange": "7680-7935",
+     "reachedVia": [
+      "name(cased)",
+      "name:fr"
+     ],
+     "samples": [
+      "Sâḥel el Abiouḍ",
+      "Amsâga el Beïḍa",
+      "Iguil Oḍrḍour"
+     ]
+    },
+    {
+     "cp": 7716,
+     "hex": "U+1E24",
+     "glyphRange": "7680-7935",
+     "reachedVia": [
+      "name(cased)"
+     ],
+     "samples": [
+      "’Aïn el Ḥâdh",
+      "Tmeïmîchât ’Aouînet el Ḥarch",
+      "Ḥofret Tegueddi"
+     ]
+    },
+    {
+     "cp": 7717,
+     "hex": "U+1E25",
+     "glyphRange": "7680-7935",
+     "reachedVia": [
+      "name(cased)"
+     ],
+     "samples": [
+      "Tuggrriḥ",
+      "Sâḥel el Abiouḍ",
+      "Baṭḥet eṭ Ṭalḥâya"
+     ]
+    },
+    {
+     "cp": 7788,
+     "hex": "U+1E6C",
+     "glyphRange": "7680-7935",
+     "reachedVia": [
+      "name(cased)"
+     ],
+     "samples": [
+      "Baṭḥet eṭ Ṭalḥâya",
+      "E-n-Ṭarazzi",
+      "Te-n-Ṭarazzi"
+     ]
+    },
+    {
+     "cp": 7789,
+     "hex": "U+1E6D",
+     "glyphRange": "7680-7935",
+     "reachedVia": [
+      "name(cased)"
+     ],
+     "samples": [
+      "Afṭoûṭ Inemmoûdene",
+      "Baṭḥet eṭ Ṭalḥâya",
+      "Baṭḥet Zouérat"
+     ]
+    },
+    {
+     "cp": 8216,
+     "hex": "U+2018",
+     "glyphRange": "8192-8447",
+     "reachedVia": [
+      "name(cased)"
+     ],
+     "samples": [
+      "‘Aoueïnât Rfâyeg",
+      "Boû ‘Agâl",
+      "Dâyet el ‘Am"
+     ]
+    },
+    {
+     "cp": 8217,
+     "hex": "U+2019",
+     "glyphRange": "8192-8447",
+     "reachedVia": [
+      "name:fr",
+      "name(cased)",
+      "name:en"
+     ],
+     "samples": [
+      "Talâat n’Tarhamt",
+      "Iferd n’ Id Lahousine",
+      "Alfa n’Tikki"
+     ]
+    }
+   ],
+   "guardedViolations": []
+  },
+  {
+   "archive": "high-atlas-context.pmtiles",
+   "sweep": {
+    "zooms": "0-14 (every native zoom)",
+    "tilesCheckedTotal": 16538,
+    "featuresObservedTotal": 22214,
+    "note": "featuresObserved counts one observation per zoom level a feature appears at; findings are deduplicated",
+    "labeledCandidates": 18448,
+    "guardSkipped": 3951,
+    "perZoom": [
+     {
+      "zoom": 0,
+      "tilesChecked": 1,
+      "featuresObserved": 0
+     },
+     {
+      "zoom": 1,
+      "tilesChecked": 1,
+      "featuresObserved": 31
+     },
+     {
+      "zoom": 2,
+      "tilesChecked": 1,
+      "featuresObserved": 45
+     },
+     {
+      "zoom": 3,
+      "tilesChecked": 1,
+      "featuresObserved": 39
+     },
+     {
+      "zoom": 4,
+      "tilesChecked": 1,
+      "featuresObserved": 24
+     },
+     {
+      "zoom": 5,
+      "tilesChecked": 2,
+      "featuresObserved": 63
+     },
+     {
+      "zoom": 6,
+      "tilesChecked": 2,
+      "featuresObserved": 31
+     },
+     {
+      "zoom": 7,
+      "tilesChecked": 4,
+      "featuresObserved": 86
+     },
+     {
+      "zoom": 8,
+      "tilesChecked": 9,
+      "featuresObserved": 67
+     },
+     {
+      "zoom": 9,
+      "tilesChecked": 24,
+      "featuresObserved": 176
+     },
+     {
+      "zoom": 10,
+      "tilesChecked": 70,
+      "featuresObserved": 2743
+     },
+     {
+      "zoom": 11,
+      "tilesChecked": 228,
+      "featuresObserved": 2728
+     },
+     {
+      "zoom": 12,
+      "tilesChecked": 814,
+      "featuresObserved": 5475
+     },
+     {
+      "zoom": 13,
+      "tilesChecked": 3168,
+      "featuresObserved": 5401
+     },
+     {
+      "zoom": 14,
+      "tilesChecked": 12212,
+      "featuresObserved": 5305
+     }
+    ]
+   },
+   "unguardedUnsafeCodepoints": [
+    {
+     "cp": 611,
+     "hex": "U+0263",
+     "glyphRange": "512-767",
+     "reachedVia": [
+      "name:fr"
+     ],
+     "samples": [
+      "Tiɣanimine"
+     ]
+    },
+    {
+     "cp": 8216,
+     "hex": "U+2018",
+     "glyphRange": "8192-8447",
+     "reachedVia": [
+      "name(cased)"
+     ],
+     "samples": [
+      "Al ‘Aïn"
+     ]
+    },
+    {
+     "cp": 8217,
+     "hex": "U+2019",
+     "glyphRange": "8192-8447",
+     "reachedVia": [
+      "name(cased)"
+     ],
+     "samples": [
+      "Douar Tagadirt N’Trhemchout",
+      "Ait ’Otmane",
+      "Talmod’at"
+     ]
+    }
+   ],
+   "guardedViolations": []
+  }
+ ],
+ "scopeNote": "Certifies the pinned snapshots only (places all kinds + pois kind peak|saddle, swept at EVERY native zoom 0..maxzoom within each metadata bbox — no lower-zoom subset assumption). Re-run after any data refresh; not a claim of all-Unicode safety."
+}

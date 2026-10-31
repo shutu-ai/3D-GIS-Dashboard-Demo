@@ -278,5 +278,1235 @@
   "ran": {
     "file": "simulated-ran.geojson",
     "note": "SIMULATED NETWORK DATA - no real operator data involved"
+  },
+  "geo_context": {
+    "mode": "real open geographic data",
+    "provider": "Protomaps Basemap v4 (planetiler; OpenStreetMap + Natural Earth)",
+    "source": {
+      "url": "https://build.protomaps.com/20261030.pmtiles",
+      "snapshot": "2026-10-30",
+      "build_version": "4.15.2",
+      "retrieved_at": "2026-10-30",
+      "size_bytes": 139202898553,
+      "md5": "6JzP3p/XlgMG7jMbTCd/NA==",
+      "b3sum": "b936e54942f13e0d5e3921409b992348a61f33953e4a6609dbef5aeb52c8f917",
+      "license": "OpenStreetMap data under ODbL 1.0; rendering via Protomaps Basemap tiles",
+      "attribution": "Geographic data: (c) OpenStreetMap contributors (ODbL) - Protomaps Basemap v4"
+    },
+    "files": {
+      "morocco-overview.pmtiles": {
+        "role": "nationwide 2D geographic overview (admin/cities/major roads/water)",
+        "sha256": "f5e587bd800ef7b7d846c30e3feae6bcaba89ccf91935ec1076f0006202ca119",
+        "size_bytes": 65961582,
+        "bbox": [
+          -17.6,
+          20.4,
+          -0.6,
+          36.35
+        ],
+        "minzoom": 0,
+        "maxzoom": 12,
+        "layers": [
+          "boundaries",
+          "buildings",
+          "earth",
+          "landcover",
+          "landuse",
+          "places",
+          "pois",
+          "roads",
+          "water"
+        ]
+      },
+      "high-atlas-context.pmtiles": {
+        "role": "High Atlas local context (local roads/villages/waterway/peaks)",
+        "sha256": "507986ca83b62f5f032ee82f52d2b57f20260ff5b4298f80c6d6716bb68a00de",
+        "size_bytes": 36675954,
+        "bbox": [
+          -9.15,
+          30.4,
+          -6.05,
+          32.0
+        ],
+        "minzoom": 0,
+        "maxzoom": 14,
+        "layers": [
+          "boundaries",
+          "buildings",
+          "earth",
+          "landcover",
+          "landuse",
+          "places",
+          "pois",
+          "roads",
+          "water"
+        ]
+      }
+    },
+    "admin_levels": {
+      "country": {
+        "kind": "country",
+        "kind_detail": 2
+      },
+      "region_adm1": {
+        "kind": "region",
+        "kind_detail": 4
+      },
+      "province_adm2": {
+        "kind": "county",
+        "kind_detail": [
+          5,
+          6
+        ]
+      }
+    },
+    "disputed_boundary_handling": "Boundary lines flagged disputed=true by the source (the Morocco/Western Sahara line, OSM admin_level=2) are rendered dashed with a disputed note on click; they are never removed, filled over, or re-attributed.",
+    "name_field_policy": "Labels prefer name:fr, then name:en, then a cased Latin name. Each candidate rejects unsupported codepoints found in the pinned snapshots; no safe candidate produces empty text. The bundled Noto Sans glyph range is 0-255 only; Arabic/Tifinagh shaping is not enabled and no custom SDF glyphs are generated.",
+    "peak_elevation_policy": "pois.elevation on peak labels is the OSM-tagged nominal value shown for context; elevation queries always return the raw DEM pixel value.",
+    "coverage_note": "Vector geographic context is nationwide; REAL 3D DEM terrain remains limited to the terrain.coverage bbox (High Atlas). Overview mode is 2D.",
+    "administrative_context": {
+      "mode": "real named administrative supplement (deterministic offline data lane)",
+      "provider": "geoBoundaries",
+      "release": "gbOpen",
+      "country": "MAR",
+      "commit": "9469f09",
+      "boundary_year_represented": 2017,
+      "areas_url": "/data/admin-context-areas.geojson",
+      "labels_url": "/data/admin-context-labels.geojson",
+      "source": {
+        "name": "geoBoundaries gbOpen",
+        "provider": "geoBoundaries",
+        "release": "gbOpen",
+        "commit": "9469f09",
+        "boundary_year_represented": 2017,
+        "upstream_update": "2023-01-19",
+        "upstream_build": "2023-12-12",
+        "license": "ODbL 1.0",
+        "retrieved_at": "2026-10-31",
+        "offline_build": true,
+        "source_uris": {
+          "1": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/MAR/ADM1/geoBoundaries-MAR-ADM1_simplified.geojson",
+          "2": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/MAR/ADM2/geoBoundaries-MAR-ADM2_simplified.geojson"
+        },
+        "local_copies": {
+          "1": {
+            "path": "data_sources/geoboundaries/geoBoundaries-MAR-ADM1_simplified.geojson",
+            "sha256": "21841ea5810305a2c6c25300e4b295e59a9706a5ae0da03b50ae3cfd2ddc5849",
+            "size_bytes": 250546,
+            "feature_count": 12
+          },
+          "2": {
+            "path": "data_sources/geoboundaries/geoBoundaries-MAR-ADM2_simplified.geojson",
+            "sha256": "0486dad7e941c1f9ec494a1106a7789737ff4224b878fc2081a1e30b88164dff",
+            "size_bytes": 587169,
+            "feature_count": 75
+          }
+        },
+        "source_fields": [
+          "shapeName",
+          "shapeISO",
+          "shapeID",
+          "shapeGroup",
+          "shapeType"
+        ]
+      },
+      "files": {
+        "admin-context-areas.geojson": {
+          "sha256": "c9443d8008b9c34a39483789239073a2f59ae9d488a1026075e0038a4c814202",
+          "size_bytes": 2396526,
+          "public_url": "/data/admin-context-areas.geojson",
+          "role": "named administrative area polygons (ADM1+ADM2), full source geometry",
+          "feature_counts": {
+            "adm1": 12,
+            "adm2": 75,
+            "total": 87
+          }
+        },
+        "admin-context-labels.geojson": {
+          "sha256": "a2051a9db3a13138500f7a8d6bc95e6439212b6ecbfed77a5d11330a582aa9dd",
+          "size_bytes": 77611,
+          "public_url": "/data/admin-context-labels.geojson",
+          "role": "deterministic cartographic label anchor points (overview/atlas)",
+          "point_counts": {
+            "overview": 87,
+            "atlas": 13,
+            "total": 100
+          }
+        }
+      },
+      "identity": {
+        "stable_id": "shapeID (geoBoundaries stable boundary ID); area feature.id == shapeID; label feature.id == shapeID + ':' + scope; properties.shapeID is the stable join key",
+        "admin_level_semantics": "admin_level is the numeric APP level (1=ADM1, 2=ADM2 per geoBoundaries shapeType); it is NOT the OSM admin_level taxonomy and no OSM kind/kind_detail numbers (4/5/6) are invented for gbOpen features.",
+        "adm1_shape_ids": [
+          "70788906B15955360211262",
+          "70788906B1820144472977",
+          "70788906B26242154300952",
+          "70788906B33851053053385",
+          "70788906B40056535803135",
+          "70788906B40522022577718",
+          "70788906B60308563647099",
+          "70788906B63032885328780",
+          "70788906B64069740334949",
+          "70788906B66040098455254",
+          "70788906B83815134303720",
+          "70788906B89532291078161"
+        ],
+        "adm2_shape_ids": [
+          "96644757B10773066300421",
+          "96644757B12662883146655",
+          "96644757B1478822582790",
+          "96644757B15248572972708",
+          "96644757B18768670389586",
+          "96644757B21316479060137",
+          "96644757B21390270390615",
+          "96644757B21870556317795",
+          "96644757B23117375948520",
+          "96644757B24539393832458",
+          "96644757B25593504689486",
+          "96644757B25654465299878",
+          "96644757B25874170222857",
+          "96644757B26045285741175",
+          "96644757B26550498921337",
+          "96644757B27397508075839",
+          "96644757B2759448404756",
+          "96644757B30309850889145",
+          "96644757B34372354169334",
+          "96644757B35891480133263",
+          "96644757B36466177595872",
+          "96644757B36967765471663",
+          "96644757B39685617616684",
+          "96644757B40957387644980",
+          "96644757B41522516415054",
+          "96644757B42104761334354",
+          "96644757B4563753155162",
+          "96644757B46616002618727",
+          "96644757B48127384361052",
+          "96644757B50122508033550",
+          "96644757B51161748863193",
+          "96644757B52167870329218",
+          "96644757B52871738396395",
+          "96644757B53695376753874",
+          "96644757B53703826618026",
+          "96644757B53936679900609",
+          "96644757B54259280648674",
+          "96644757B54306876372793",
+          "96644757B56432502406176",
+          "96644757B5863178934624",
+          "96644757B60043813814440",
+          "96644757B62254917052717",
+          "96644757B63064605054668",
+          "96644757B63187791317705",
+          "96644757B64432809888793",
+          "96644757B64717664824106",
+          "96644757B6720908192283",
+          "96644757B69343874835814",
+          "96644757B69656421663665",
+          "96644757B698999344864",
+          "96644757B70524131405695",
+          "96644757B71822601453569",
+          "96644757B75888110493475",
+          "96644757B78111329468616",
+          "96644757B80339347175881",
+          "96644757B8060198419886",
+          "96644757B81090244987905",
+          "96644757B83322507681707",
+          "96644757B84561517472973",
+          "96644757B85287588144355",
+          "96644757B88930410593624",
+          "96644757B89345886069248",
+          "96644757B89687162507810",
+          "96644757B90056368806308",
+          "96644757B90795389022281",
+          "96644757B91342156363380",
+          "96644757B91545835536411",
+          "96644757B92138134403299",
+          "96644757B93440982531475",
+          "96644757B9718685225615",
+          "96644757B9799798831472",
+          "96644757B99021473747258",
+          "96644757B99361415702964",
+          "96644757B99662254658575",
+          "96644757B99920267922653"
+        ],
+        "adm2_iso_policy": "All ADM2 shapeISO values are empty in the pinned source; shapeISO is preserved verbatim (empty string) and shapeID is the only stable identifier for ADM2 features."
+      },
+      "label_transform": {
+        "name": "verbatim original source shapeName (French/Latin/Arabic/Tifinagh as published)",
+        "label": "deterministic non-Latin suffix trim: characters from the first codepoint > U+00FF onward are removed (drops Arabic U+0600+ and Tifinagh U+2D30+ suffixes, keeps accented Latin letters); surrounding whitespace and stray wrapping double-quote characters present verbatim in some source strings are stripped. The result is the published Latin/French prefix - never invented, translated or transliterated.",
+        "validation": "rendered label is non-empty, <= 255 characters, every codepoint <= U+00FF (bundled Noto Sans glyph range 0-255)",
+        "counts": {
+          "bilingual_source_names_adm2": 41
+        }
+      },
+      "anchors": {
+        "method": "shapely representative_point (interior point), computed from the same source polygon the label belongs to; deterministic and geometry-interior by construction",
+        "scope_overview": "representative_point of the full source polygon",
+        "scope_atlas": "representative_point of polygon INTERSECT real DEM coverage bbox; emitted only when intersection area > 0 (no invented or out-of-coverage anchors)",
+        "dem_coverage_bbox": [
+          -8.75,
+          30.8,
+          -6.45,
+          31.65
+        ],
+        "cartographic_only": "Labels are cartographic positions within their own source polygon; they are not attributed to OSM segments."
+      },
+      "fixture_probe": {
+        "note": "actual pinned shapeIDs with rendered labels and anchor coordinates ([lng, lat] as emitted in admin-context-labels.geojson) for automated visible-text tests",
+        "labels": [
+          {
+            "id": "70788906B15955360211262",
+            "level": "ADM1",
+            "label": "Rabat-Salé-Kenitra",
+            "overview": [
+              -6.328725938578254,
+              34.08533075
+            ],
+            "atlas": null
+          },
+          {
+            "id": "70788906B1820144472977",
+            "level": "ADM1",
+            "label": "Souss-Massa",
+            "overview": [
+              -8.157695785778756,
+              29.7357752
+            ],
+            "atlas": [
+              -7.828497597711737,
+              30.986385300000002
+            ]
+          },
+          {
+            "id": "70788906B26242154300952",
+            "level": "ADM1",
+            "label": "Drâa-Tafilalet",
+            "overview": [
+              -5.58317463160672,
+              31.28770725
+            ],
+            "atlas": [
+              -7.060304250000003,
+              31.175936749999998
+            ]
+          },
+          {
+            "id": "70788906B33851053053385",
+            "level": "ADM1",
+            "label": "Casablanca-Settat",
+            "overview": [
+              -7.799432071783302,
+              33.065160649999996
+            ],
+            "atlas": null
+          },
+          {
+            "id": "70788906B40056535803135",
+            "level": "ADM1",
+            "label": "Oriental",
+            "overview": [
+              -2.3906063870173955,
+              33.5811814
+            ],
+            "atlas": null
+          },
+          {
+            "id": "70788906B40522022577718",
+            "level": "ADM1",
+            "label": "Dakhla-Oued Ed-Dahab",
+            "overview": [
+              -14.741994773441643,
+              22.735386249999998
+            ],
+            "atlas": null
+          },
+          {
+            "id": "70788906B60308563647099",
+            "level": "ADM1",
+            "label": "Marrakech-Safi",
+            "overview": [
+              -8.306409084756796,
+              31.806335949999998
+            ],
+            "atlas": [
+              -8.167859225,
+              31.23724945
+            ]
+          },
+          {
+            "id": "70788906B63032885328780",
+            "level": "ADM1",
+            "label": "Béni Mellal-Khénifra",
+            "overview": [
+              -6.280445836675398,
+              32.4092902
+            ],
+            "atlas": [
+              -6.864233710581274,
+              31.49519205
+            ]
+          },
+          {
+            "id": "70788906B64069740334949",
+            "level": "ADM1",
+            "label": "Guelmim-Oued Noun",
+            "overview": [
+              -10.084427221839995,
+              28.385906
+            ],
+            "atlas": null
+          },
+          {
+            "id": "70788906B66040098455254",
+            "level": "ADM1",
+            "label": "Tangier-Tetouan-Al Hoceima",
+            "overview": [
+              -5.434766372913305,
+              35.2181678
+            ],
+            "atlas": null
+          },
+          {
+            "id": "70788906B83815134303720",
+            "level": "ADM1",
+            "label": "Fez-Meknes",
+            "overview": [
+              -4.847581884998955,
+              33.74727775
+            ],
+            "atlas": null
+          },
+          {
+            "id": "70788906B89532291078161",
+            "level": "ADM1",
+            "label": "Laâyoune-Sakia El Hamra",
+            "overview": [
+              -11.487535149205273,
+              26.291022599999998
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B10773066300421",
+            "level": "ADM2",
+            "label": "Province d'Azilal",
+            "overview": [
+              -6.432251781311532,
+              31.8702262
+            ],
+            "atlas": [
+              -6.864233710581274,
+              31.49519205
+            ]
+          },
+          {
+            "id": "96644757B12662883146655",
+            "level": "ADM2",
+            "label": "Province de Kenitra",
+            "overview": [
+              -6.356702211088197,
+              34.55524585
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B1478822582790",
+            "level": "ADM2",
+            "label": "Province de Sefrou",
+            "overview": [
+              -4.64467784431813,
+              33.793091399999994
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B15248572972708",
+            "level": "ADM2",
+            "label": "Province de Khouribga",
+            "overview": [
+              -6.587446542473357,
+              32.926784
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B18768670389586",
+            "level": "ADM2",
+            "label": "Larache Province",
+            "overview": [
+              -5.851582346442612,
+              35.19589985
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B21316479060137",
+            "level": "ADM2",
+            "label": "Rhamna Province",
+            "overview": [
+              -8.076319799519935,
+              32.22411525
+            ],
+            "atlas": [
+              -7.601422151510306,
+              31.635712599999998
+            ]
+          },
+          {
+            "id": "96644757B21390270390615",
+            "level": "ADM2",
+            "label": "Province de Jerada",
+            "overview": [
+              -2.060543336037036,
+              34.1087695
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B21870556317795",
+            "level": "ADM2",
+            "label": "Province d'El Kelâat Es-Sraghna",
+            "overview": [
+              -7.37914046805748,
+              32.0331402
+            ],
+            "atlas": [
+              -7.5459004645246734,
+              31.634063949999998
+            ]
+          },
+          {
+            "id": "96644757B23117375948520",
+            "level": "ADM2",
+            "label": "Province de Safi",
+            "overview": [
+              -8.994214641639976,
+              32.250390949999996
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B24539393832458",
+            "level": "ADM2",
+            "label": "Province de Khémisset",
+            "overview": [
+              -6.26491246319585,
+              33.659657249999995
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B25593504689486",
+            "level": "ADM2",
+            "label": "Province d'Aousserd",
+            "overview": [
+              -14.443061476734961,
+              22.07761405
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B25654465299878",
+            "level": "ADM2",
+            "label": "Province de Nador",
+            "overview": [
+              -2.8235248333345875,
+              35.05220395
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B25874170222857",
+            "level": "ADM2",
+            "label": "Province de Figuig",
+            "overview": [
+              -2.627136537462538,
+              32.7038995
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B26045285741175",
+            "level": "ADM2",
+            "label": "Berrechid Province",
+            "overview": [
+              -7.615045352078541,
+              33.2586035
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B26550498921337",
+            "level": "ADM2",
+            "label": "Tata Province",
+            "overview": [
+              -8.048053013639528,
+              29.3861601
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B27397508075839",
+            "level": "ADM2",
+            "label": "Prefecture of Mohammédia",
+            "overview": [
+              -7.374383018356435,
+              33.614816399999995
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B2759448404756",
+            "level": "ADM2",
+            "label": "Préfecture de Fès",
+            "overview": [
+              -4.9097847067424745,
+              33.96012745
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B30309850889145",
+            "level": "ADM2",
+            "label": "Province de Sidi Bennour",
+            "overview": [
+              -8.525787558795653,
+              32.586269
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B34372354169334",
+            "level": "ADM2",
+            "label": "Province de Benslimane",
+            "overview": [
+              -7.058909708793859,
+              33.5148328
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B35891480133263",
+            "level": "ADM2",
+            "label": "Province d'Errachidia",
+            "overview": [
+              -4.211065166002861,
+              31.1323905
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B36466177595872",
+            "level": "ADM2",
+            "label": "Guelmim Province",
+            "overview": [
+              -10.002759097898245,
+              28.877643550000002
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B36967765471663",
+            "level": "ADM2",
+            "label": "Province de Taounate",
+            "overview": [
+              -4.9041853364275045,
+              34.44110415
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B39685617616684",
+            "level": "ADM2",
+            "label": "Province de Tinghir",
+            "overview": [
+              -5.749590478290385,
+              31.3173124
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B40957387644980",
+            "level": "ADM2",
+            "label": "Province de Beni Mellal",
+            "overview": [
+              -5.979549926375791,
+              32.444855849999996
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B41522516415054",
+            "level": "ADM2",
+            "label": "Ouarzazate Province",
+            "overview": [
+              -7.240046117038478,
+              30.82785015
+            ],
+            "atlas": [
+              -7.060304250000003,
+              31.175936749999998
+            ]
+          },
+          {
+            "id": "96644757B42104761334354",
+            "level": "ADM2",
+            "label": "Province de Moulay Yacoub",
+            "overview": [
+              -5.005421943217993,
+              34.11017795
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B4563753155162",
+            "level": "ADM2",
+            "label": "Province de Taourirt",
+            "overview": [
+              -2.7958329353426192,
+              34.04487
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B46616002618727",
+            "level": "ADM2",
+            "label": "Chichaoua Province",
+            "overview": [
+              -8.84828006924817,
+              31.29871945
+            ],
+            "atlas": [
+              -8.580660575,
+              31.23726155
+            ]
+          },
+          {
+            "id": "96644757B48127384361052",
+            "level": "ADM2",
+            "label": "Boujdour Province",
+            "overview": [
+              -13.35328628115249,
+              25.530332073165688
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B50122508033550",
+            "level": "ADM2",
+            "label": "Province de Fquih Ben Saleh",
+            "overview": [
+              -6.732465526365921,
+              32.4244025
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B51161748863193",
+            "level": "ADM2",
+            "label": "Sidi Ifni Province",
+            "overview": [
+              -9.75915017528542,
+              29.32799405
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B52167870329218",
+            "level": "ADM2",
+            "label": "Tiznit Province",
+            "overview": [
+              -9.3478000453974,
+              29.59306715
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B52871738396395",
+            "level": "ADM2",
+            "label": "Province de Khénifra",
+            "overview": [
+              -5.6913326101483275,
+              32.969710649999996
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B53695376753874",
+            "level": "ADM2",
+            "label": "Préfecture d'Oujda-Angad",
+            "overview": [
+              -2.037308409445868,
+              34.665335400000004
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B53703826618026",
+            "level": "ADM2",
+            "label": "Taroudant Province",
+            "overview": [
+              -8.498026506216112,
+              30.4442891
+            ],
+            "atlas": [
+              -7.828497597711737,
+              30.986385300000002
+            ]
+          },
+          {
+            "id": "96644757B53936679900609",
+            "level": "ADM2",
+            "label": "Essaouira Province",
+            "overview": [
+              -9.507019980451417,
+              31.3622756
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B54259280648674",
+            "level": "ADM2",
+            "label": "Province de Youssoufia",
+            "overview": [
+              -8.567133251565252,
+              32.0287
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B54306876372793",
+            "level": "ADM2",
+            "label": "Chefchaouen Province",
+            "overview": [
+              -5.0089799848952765,
+              35.0987334
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B56432502406176",
+            "level": "ADM2",
+            "label": "Fahs-Anjra Province",
+            "overview": [
+              -5.604024664005683,
+              35.750443250000004
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B5863178934624",
+            "level": "ADM2",
+            "label": "El Jadida Province",
+            "overview": [
+              -8.376903801771434,
+              33.0746455
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B60043813814440",
+            "level": "ADM2",
+            "label": "Prefecture de Meknès",
+            "overview": [
+              -5.497520507924083,
+              33.998175599999996
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B62254917052717",
+            "level": "ADM2",
+            "label": "Assa-Zag Province",
+            "overview": [
+              -9.489214973047979,
+              27.96150015
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B63064605054668",
+            "level": "ADM2",
+            "label": "Province de Guercif",
+            "overview": [
+              -3.451907585953683,
+              34.14528895
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B63187791317705",
+            "level": "ADM2",
+            "label": "Agadir Ida-Outanane Prefecture",
+            "overview": [
+              -9.602135076863952,
+              30.642919050000003
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B64432809888793",
+            "level": "ADM2",
+            "label": "Province de Sidi Slimane",
+            "overview": [
+              -6.053593094469916,
+              34.28939715
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B64717664824106",
+            "level": "ADM2",
+            "label": "Province d'Ifrane",
+            "overview": [
+              -5.251608826599604,
+              33.353001750000004
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B6720908192283",
+            "level": "ADM2",
+            "label": "Prefecture of Salé",
+            "overview": [
+              -6.656359480347355,
+              33.9761584
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B69343874835814",
+            "level": "ADM2",
+            "label": "Province de Berkane",
+            "overview": [
+              -2.4736315595894363,
+              34.855903999999995
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B69656421663665",
+            "level": "ADM2",
+            "label": "Prefecture of Casablanca",
+            "overview": [
+              -7.618756308301561,
+              33.56745225
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B698999344864",
+            "level": "ADM2",
+            "label": "Al Haouz Province",
+            "overview": [
+              -7.924565118975571,
+              31.2806715
+            ],
+            "atlas": [
+              -7.947559097115754,
+              31.2605828
+            ]
+          },
+          {
+            "id": "96644757B70524131405695",
+            "level": "ADM2",
+            "label": "Province d'Es-Semara",
+            "overview": [
+              -10.47306969881361,
+              26.88435565
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B71822601453569",
+            "level": "ADM2",
+            "label": "Province de Midelt",
+            "overview": [
+              -4.665217509262015,
+              32.490579999999994
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B75888110493475",
+            "level": "ADM2",
+            "label": "Tarfaya Province",
+            "overview": [
+              -12.576366580543986,
+              27.537593649999998
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B78111329468616",
+            "level": "ADM2",
+            "label": "Oued Ed-Dahab Province",
+            "overview": [
+              -13.536342065029546,
+              23.311553599999947
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B80339347175881",
+            "level": "ADM2",
+            "label": "Préfecture de Marrakech",
+            "overview": [
+              -8.155112122727571,
+              31.7221525
+            ],
+            "atlas": [
+              -8.25248240970857,
+              31.5070328
+            ]
+          },
+          {
+            "id": "96644757B8060198419886",
+            "level": "ADM2",
+            "label": "Province de Tan-Tan",
+            "overview": [
+              -11.087647153523513,
+              28.20989133345697
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B81090244987905",
+            "level": "ADM2",
+            "label": "Province de Boulemane",
+            "overview": [
+              -3.91021111648444,
+              33.24762
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B83322507681707",
+            "level": "ADM2",
+            "label": "Zagora Province",
+            "overview": [
+              -5.793806777335461,
+              30.3138927
+            ],
+            "atlas": [
+              -6.715618246394621,
+              30.8337874
+            ]
+          },
+          {
+            "id": "96644757B84561517472973",
+            "level": "ADM2",
+            "label": "Tetouan Province",
+            "overview": [
+              -5.451960158367143,
+              35.45036665
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B85287588144355",
+            "level": "ADM2",
+            "label": "Province de Taza",
+            "overview": [
+              -4.153521949326005,
+              34.28638745
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B88930410593624",
+            "level": "ADM2",
+            "label": "Province de Driouch",
+            "overview": [
+              -3.5435547111312418,
+              34.9147567
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B89345886069248",
+            "level": "ADM2",
+            "label": "Nouaceur Province",
+            "overview": [
+              -7.644275931478111,
+              33.4079574
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B89687162507810",
+            "level": "ADM2",
+            "label": "Préfecture de M'diq-Fnideq",
+            "overview": [
+              -5.40197937081988,
+              35.76470835000001
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B90056368806308",
+            "level": "ADM2",
+            "label": "Province d'El Hajeb",
+            "overview": [
+              -5.492859310767717,
+              33.69875155
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B90795389022281",
+            "level": "ADM2",
+            "label": "Laayoune Province",
+            "overview": [
+              -12.980245762375407,
+              26.76121835
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B91342156363380",
+            "level": "ADM2",
+            "label": "Préfecture de Skhirate-Témara",
+            "overview": [
+              -6.879002384323693,
+              33.7488371
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B91545835536411",
+            "level": "ADM2",
+            "label": "Prefecture of Rabat",
+            "overview": [
+              -6.839054119978236,
+              33.970217899999994
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B92138134403299",
+            "level": "ADM2",
+            "label": "Médiouna Province",
+            "overview": [
+              -7.467650312135236,
+              33.4939548
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B93440982531475",
+            "level": "ADM2",
+            "label": "Province d'Ouezzane",
+            "overview": [
+              -5.47343833479977,
+              34.781842999999995
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B9718685225615",
+            "level": "ADM2",
+            "label": "Province de Sidi Kacem",
+            "overview": [
+              -5.578260986182058,
+              34.47995695
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B9799798831472",
+            "level": "ADM2",
+            "label": "Settat Province",
+            "overview": [
+              -7.497380775000071,
+              32.776039850000004
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B99021473747258",
+            "level": "ADM2",
+            "label": "Chtouka-Ait Baha Province",
+            "overview": [
+              -9.337892560566079,
+              30.012591
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B99361415702964",
+            "level": "ADM2",
+            "label": "Prefecture of Tangier - Assilah",
+            "overview": [
+              -5.852944847930276,
+              35.56396235
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B99662254658575",
+            "level": "ADM2",
+            "label": "Inezgane-Ait Melloul Prefecture",
+            "overview": [
+              -9.449090180856725,
+              30.34712555
+            ],
+            "atlas": null
+          },
+          {
+            "id": "96644757B99920267922653",
+            "level": "ADM2",
+            "label": "Al Hoceima Province",
+            "overview": [
+              -4.181813636089512,
+              34.97113495000001
+            ],
+            "atlas": null
+          }
+        ]
+      },
+      "divergence": "Administrative polygons are geoBoundaries gbOpen with boundary year represented 2017 (release pinned 9469f09, retrieved 2026-10-31). They can diverge from the OSM-derived Protomaps 2026-10-30 boundary lines rendered by geo_context; the two sources are kept separate by design and this data lane asserts no reconciliation between them.",
+      "territorial_disclaimer": "The territorial extent of the MAR dataset is the source's (geoBoundaries) classification of administrative areas, reproduced verbatim; it is not a political assertion by this application.",
+      "boundary_source_precedence": "These polygons are the primary named administrative boundary source for the labeled supplement; OSM/Protomaps ADM0 lines and disputed-boundary handling remain under geo_context rendering control.",
+      "styling": "No fill, color, opacity or style defaults are defined by this data contract; all rendering is owned by the application."
+    },
+    "administrative_label_font": {
+      "note": "independent v1.2.1 record: isolated derived glyph stack used ONLY by the 16 whitelisted name label layers (4 ADM + 8 real geo + 4 curated osm); baseline font and all other consumers are untouched",
+      "fontstack": "Offline Admin Latin",
+      "glyphs_path": "assets/glyphs/Offline Admin Latin/0-255.pbf",
+      "glyph_range": "0-255",
+      "glyph_count": 224,
+      "used_by_layers": [
+        "geo-admin-gb1-labels",
+        "geo-admin-gb1-labels-a",
+        "geo-admin-gb2-labels",
+        "geo-admin-gb2-labels-a",
+        "geo-place-labels-major",
+        "geo-place-labels-major-d",
+        "geo-place-labels-town",
+        "geo-place-labels-town-d",
+        "geo-place-labels-local",
+        "geo-place-labels-local-d",
+        "geo-peak-labels",
+        "geo-peak-labels-d",
+        "osm-place-labels",
+        "osm-pass-labels",
+        "osm-peak-labels",
+        "osm-peak-labels-top"
+      ],
+      "derived_from": {
+        "fontstack": "Noto Sans Regular",
+        "path": "assets/glyphs/Noto Sans Regular/0-255.pbf",
+        "sha256": "a658f4ca95dbdaa9d54bc10a9bde07cfcb6a42317bcf55bdd1e8e46a4be59715",
+        "unchanged": true
+      },
+      "output_sha256": "2ee61f0000cfc63ca24462aa08c599a8f512b968d24bfc78c797288e6edede3b",
+      "output_size_bytes": 417018,
+      "builder": "scripts/prepare_admin_font.py",
+      "validator": "scripts/validate_admin_font.py",
+      "transform": "v' = clamp(round(191.25 + (v - 128) * 255 / 127), 0, 255) applied to glyph bitmap bytes ONLY (SDF edge 128 -> MapLibre 5.24 gamma-0.75 / TinySDF 2.1.0 cutoff-0.25 edge convention); glyph ids and metrics preserved; fontstack alias is the only other change",
+      "rationale": "baseline edge-128 SDF bytes collapse the ADM label fill below the shader paint threshold at overview sizes (halo-ink ghost labels on dark terrain); exact-fixture A/B probe: A FAIL maxDelta 42 / B (this remap) PASS contrast 12.63 maxDelta 214",
+      "notice": "assets/glyphs/Offline Admin Latin/NOTICE.md",
+      "license": "SIL Open Font License 1.1 (derivative of bundled Noto Sans glyphs; stack name avoids the Noto Reserved Font Name because rendering data is modified)"
+    }
   }
 }

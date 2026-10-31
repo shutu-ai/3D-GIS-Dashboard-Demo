@@ -1,0 +1,13 @@
+geoBoundaries gbOpen Morocco (MAR) ADM1/ADM2 simplified boundaries.
+Release pinned at 9469f09; boundary year represented 2017.
+Upstream update 2023-01-19; upstream build 2023-12-12.
+License: ODbL 1.0
+  https://opendatacommons.org/licenses/odbl/1-0/
+Sources (pinned raw URLs):
+  https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/MAR/ADM1/geoBoundaries-MAR-ADM1_simplified.geojson
+  https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/MAR/ADM2/geoBoundaries-MAR-ADM2_simplified.geojson
+Retrieved 2026-10-31. Local copies are hash-verified against the pinned
+SHA256 fingerprints in MANIFEST.json / SHA256SUMS.txt before any
+derivation. The territorial extent of the MAR dataset is the
+source's administrative classification, reproduced verbatim; it is
+not a political assertion by this application.

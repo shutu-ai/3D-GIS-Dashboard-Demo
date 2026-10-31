@@ -1,0 +1,56 @@
+{
+  "boundary_year_represented": 2017,
+  "commit": "9469f09",
+  "country": "MAR",
+  "derived_outputs": {
+    "admin-context-areas.geojson": {
+      "path": "public/data/admin-context-areas.geojson",
+      "sha256": "c9443d8008b9c34a39483789239073a2f59ae9d488a1026075e0038a4c814202",
+      "size_bytes": 2396526
+    },
+    "admin-context-labels.geojson": {
+      "path": "public/data/admin-context-labels.geojson",
+      "sha256": "a2051a9db3a13138500f7a8d6bc95e6439212b6ecbfed77a5d11330a582aa9dd",
+      "size_bytes": 77611
+    }
+  },
+  "files": {
+    "geoBoundaries-MAR-ADM1_simplified.geojson": {
+      "feature_count": 12,
+      "level": "ADM1",
+      "sha256": "21841ea5810305a2c6c25300e4b295e59a9706a5ae0da03b50ae3cfd2ddc5849",
+      "size_bytes": 250546,
+      "url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/MAR/ADM1/geoBoundaries-MAR-ADM1_simplified.geojson"
+    },
+    "geoBoundaries-MAR-ADM2_simplified.geojson": {
+      "feature_count": 75,
+      "level": "ADM2",
+      "sha256": "0486dad7e941c1f9ec494a1106a7789737ff4224b878fc2081a1e30b88164dff",
+      "size_bytes": 587169,
+      "url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/MAR/ADM2/geoBoundaries-MAR-ADM2_simplified.geojson"
+    }
+  },
+  "label_transform": "rendered label = published Latin/French prefix of shapeName (trim from first codepoint > U+00FF; strip whitespace and stray wrapping double quotes); never invented or translated",
+  "license": "ODbL 1.0",
+  "observations": {
+    "adm1_features": 12,
+    "adm1_geometry_types": [
+      "Polygon"
+    ],
+    "adm1_unique_shape_ids": 12,
+    "adm2_bilingual_names": 41,
+    "adm2_features": 75,
+    "adm2_geometry_types": [
+      "MultiPolygon",
+      "Polygon"
+    ],
+    "adm2_shape_iso_all_empty": true,
+    "adm2_unique_shape_ids": 75
+  },
+  "offline_build": true,
+  "release": "gbOpen",
+  "retrieved_at": "2026-10-31",
+  "source": "geoBoundaries",
+  "upstream_build": "2023-12-12",
+  "upstream_update": "2023-01-19"
+}

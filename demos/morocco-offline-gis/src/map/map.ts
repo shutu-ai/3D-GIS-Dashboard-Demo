@@ -3,7 +3,16 @@
 import maplibregl, { type Map as MLMap, type StyleSpecification } from "maplibre-gl";
 import { PMTiles, Protocol } from "pmtiles";
 import { FONT_STACK, LAYER_IDS, type AppMetadata } from "../config";
-import { currentViewMode } from "./view-mode";
+import { currentViewMode, readHashMode } from "./view-mode";
+import {
+  ADMIN_FONT_STACK,
+  ADMIN_GEOJSON_URLS,
+  ADMIN_SOURCES,
+  buildGeoContextLayers,
+  GEO_SOURCES,
+  GEO_TILE_URLS,
+  OVERVIEW_BBOX_FALLBACK,
+} from "./geographic-context";
 
 // register the pmtiles:// protocol exactly once
 const protocol = new Protocol();
@@ -33,6 +42,60 @@ export const demArchive = new PMTiles("/data/dem-terrarium.pmtiles");
 export const DEFAULT_PITCH = 50;
 
 /**
+ * DEM-coverage layers that must never float over the nationwide overview:
+ * contours/hypso/hillshade describe the High Atlas DEM rectangle and the
+ * curated SIMULATED OSM layers belong to the real-DEM demo area only.
+ * Each entry is [layerId, toggleCheckboxId]; in the atlas extent visibility
+ * is restored from the checkbox state (absent checkbox = visible, the
+ * v1.2.0 default). The geographic-context "d" layers need no entry — their
+ * minzoom (GEO_ZOOM_SEAM = 12.5) already exceeds any overview zoom.
+ */
+const ATLAS_ONLY_LAYERS: Array<[string, string | null]> = [
+  [LAYER_IDS.hypso, "ly-hypso"],
+  [LAYER_IDS.hillshade, "ly-hillshade"],
+  [LAYER_IDS.contoursLine, "ly-contours"],
+  [LAYER_IDS.contoursMajor, "ly-contours"],
+  [LAYER_IDS.contoursLabel, "ly-contours"],
+  [LAYER_IDS.contoursLabelMinor, "ly-contours"],
+  [LAYER_IDS.roads, "ly-osm"],
+  [LAYER_IDS.roadsCasing, "ly-osm"],
+  [LAYER_IDS.peaks, "ly-osm"],
+  [LAYER_IDS.peakLabels, "ly-osm"],
+  [LAYER_IDS.peakLabelsTop, "ly-osm"],
+  [LAYER_IDS.places, "ly-osm"],
+  [LAYER_IDS.placeLabels, "ly-osm"],
+  ["osm-passes", "ly-osm"],
+  ["osm-pass-labels", "ly-osm"],
+];
+
+/** Camera framing for the nationwide Morocco Overview (2D) extent. */
+export const OVERVIEW_CENTER: [number, number] = [-9.0, 28.9];
+export const OVERVIEW_ZOOM = 5.55;
+
+/** v1.2.1 camera coverage domain (task §5): real-DEM High Atlas vs 2D nationwide. */
+export type MapExtent = "atlas" | "overview";
+
+/**
+ * Parse the optional `&e=` suffix from the location hash. Old v1.1/v1.2 links
+ * (`#v=…`, `#v=…&m=ran`) carry no `e=` and boot in the atlas extent exactly
+ * as before; unknown values degrade to "atlas".
+ */
+export function readHashExtent(): MapExtent {
+  const m = /[?&]e=(\w+)/.exec(location.hash);
+  return m?.[1] === "ov" ? "overview" : "atlas";
+}
+
+/** Nationwide overview bbox from the metadata contract (fallback: pinned). */
+function overviewBounds(meta: AppMetadata): [[number, number], [number, number]] {
+  const b =
+    meta.geo_context?.files?.["morocco-overview.pmtiles"]?.bbox ?? OVERVIEW_BBOX_FALLBACK;
+  return [
+    [b[0], b[1]],
+    [b[2], b[3]],
+  ];
+}
+
+/**
  * Shrink a bbox by a margin (degrees) on every side so free-flight camera
  * centres stay over real terrain tiles instead of the archive edge.
  */
@@ -57,6 +120,9 @@ export class MapApp {
   meta: AppMetadata;
   private terrainRestoreTimer: number | null = null;
   private terrainRestore: ReturnType<MLMap["getTerrain"]> = null;
+  private atlasSyncTimer: number | null = null;
+  /** Current coverage domain (High Atlas real DEM vs nationwide 2D overview). */
+  extent: MapExtent = "atlas";
 
   private constructor(map: MLMap, meta: AppMetadata) {
     this.map = map;
@@ -66,6 +132,9 @@ export class MapApp {
   static async create(meta: AppMetadata): Promise<MapApp> {
     const style = buildStyle(meta);
     const initial = readHash() ?? fitBoundsView(meta);
+    // RAN mode needs the real-DEM area — it always boots in the atlas extent,
+    // even if a hand-edited link combines `&m=ran` with `&e=ov`.
+    const bootExtent: MapExtent = readHashMode() === "ran" ? "atlas" : readHashExtent();
     const map = new maplibregl.Map({
       container: "map",
       style,
@@ -77,8 +146,10 @@ export class MapApp {
       hash: false,
       attributionControl: false,
       // keep free flight inside the real DEM coverage so the camera never
-      // hovers past the "floating rectangle" data edge (C1)
-      maxBounds: shrinkBounds(meta.coverage, 0.05),
+      // hovers past the "floating rectangle" data edge (C1); the nationwide
+      // overview extent swaps in its own (larger) bounds via setExtent
+      maxBounds:
+        bootExtent === "overview" ? overviewBounds(meta) : shrinkBounds(meta.coverage, 0.05),
       // Deterministic rendering: MapLibre's symbol crossfade (default 300 ms)
       // composites previous placement quads while a placement re-commits;
       // zeroing it drops old quads immediately (symbolFadeChange() == 1),
@@ -92,9 +163,105 @@ export class MapApp {
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "bottom-right");
     map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: "metric" }), "bottom-left");
     const app = new MapApp(map, meta);
+    app.extent = bootExtent;
+    // overview boots: DEM-coverage layers (hypso/contours/curated OSM) are
+    // atlas-only — hide them as soon as the style registers (method polls
+    // until every listed layer exists)
+    if (bootExtent === "overview") app.syncAtlasOnlyLayers();
     map.on("moveend", () => app.writeHash());
-    app.wireBoundaryHint(initial);
+    // overview boots: the DEM-coverage toast would be wrong here — the
+    // overview honesty hint carries that role instead
+    app.wireBoundaryHint(bootExtent === "overview" ? null : initial);
+    if (bootExtent === "overview") app.showOverviewHint();
     return app;
+  }
+
+  // ------------------------------------------------------- coverage domains
+  /**
+   * Switch the camera coverage domain. Owns maxBounds + honesty hints;
+   * terrain enablement and extent buttons listen for the dispatched events.
+   */
+  /**
+   * Overview extent hides the DEM-coverage layers (they would render as a
+   * floating rectangle over the nationwide 2D map); the atlas extent
+   * restores each layer from its toggle checkbox (truthful to user pref).
+   * Layer-set dependent, so poll like ViewModeControl.applyDampen.
+   */
+  syncAtlasOnlyLayers() {
+    const apply = () => {
+      let ready = true;
+      const overview = this.extent === "overview";
+      for (const [id, cbId] of ATLAS_ONLY_LAYERS) {
+        if (!this.map.getLayer(id)) {
+          ready = false;
+          continue;
+        }
+        const cb = cbId ? (document.getElementById(cbId) as HTMLInputElement | null) : null;
+        const vis: "visible" | "none" =
+          overview || (cb ? !cb.checked : false) ? "none" : "visible";
+        if (this.map.getLayoutProperty(id, "visibility") !== vis) {
+          this.map.setLayoutProperty(id, "visibility", vis);
+        }
+      }
+      return ready;
+    };
+    if (apply()) return;
+    if (this.atlasSyncTimer !== null) window.clearTimeout(this.atlasSyncTimer);
+    let tries = 0;
+    const retry = () => {
+      if (apply() || ++tries > 300) {
+        this.atlasSyncTimer = null;
+        return;
+      }
+      this.atlasSyncTimer = window.setTimeout(retry, 100);
+    };
+    retry();
+  }
+
+  setExtent(extent: MapExtent, opts: { fly?: boolean } = {}) {
+    if (extent === this.extent) return;
+    this.extent = extent;
+    this.syncAtlasOnlyLayers();
+    this.map.setMaxBounds(extent === "overview" ? overviewBounds(this.meta) : shrinkBounds(this.meta.coverage, 0.05));
+    if (extent === "overview") {
+      this.hideBoundaryHint();
+      this.showOverviewHint();
+      window.dispatchEvent(new CustomEvent("gis:terrain-unavailable"));
+    } else {
+      this.hideOverviewHint();
+      window.dispatchEvent(new CustomEvent("gis:terrain-available"));
+    }
+    window.dispatchEvent(new CustomEvent("gis:extent-change", { detail: extent }));
+    void opts;
+    this.writeHash();
+  }
+
+  /** Nationwide 2D overview: no terrain, pitch 0, honest extent note. */
+  flyToOverview() {
+    this.setExtent("overview");
+    this.map.flyTo({
+      center: OVERVIEW_CENTER,
+      zoom: OVERVIEW_ZOOM,
+      pitch: 0,
+      bearing: 0,
+      duration: 2600,
+      essential: true,
+    });
+  }
+
+  /** Back to the real-DEM High Atlas domain with the default 3D framing. */
+  flyToAtlasDefault() {
+    this.setExtent("atlas");
+    this.resetView();
+    // resetView flies to pitch DEFAULT_PITCH — restore terrain per user pref
+    window.dispatchEvent(new CustomEvent("gis:request-3d"));
+  }
+
+  /** Entering RAN always returns to the real-DEM demo area (task §5.5). */
+  enterRanFocus() {
+    if (this.extent !== "overview") return;
+    this.setExtent("atlas");
+    this.resetView();
   }
 
   getViewState(): ViewState {
@@ -111,10 +278,11 @@ export class MapApp {
 
   writeHash() {
     const v = this.getViewState();
-    // mode suffix is additive; v1.1.0 `#v=…` links still parse identically
-    // (readHashMode tolerates absence and unknown values -> 'gis')
+    // mode/extent suffixes are additive; v1.1.0 `#v=…` links still parse
+    // identically (readHashMode/readHashExtent tolerate absence and unknowns)
     const modeSuffix = currentViewMode() === "ran" ? "&m=ran" : "";
-    const h = `#v=${v.lng},${v.lat},${v.zoom},${v.pitch},${v.bearing},${v.ex}${modeSuffix}`;
+    const extentSuffix = this.extent === "overview" ? "&e=ov" : "";
+    const h = `#v=${v.lng},${v.lat},${v.zoom},${v.pitch},${v.bearing},${v.ex}${modeSuffix}${extentSuffix}`;
     if (location.hash !== h) history.replaceState(null, "", h);
   }
 
@@ -188,6 +356,12 @@ export class MapApp {
   private wireBoundaryHint(bootView: ViewState | null) {
     const check = () => {
       if (this.boundarySticky) return; // boot-latched hint stays until Reset
+      // the nationwide overview is legitimately outside the DEM bbox — its
+      // own persistent hint carries the honesty message there
+      if (this.extent === "overview") {
+        this.hideBoundaryHint();
+        return;
+      }
       const c = this.map.getCenter();
       const [minLon, minLat, maxLon, maxLat] = this.meta.coverage;
       const outside =
@@ -244,6 +418,61 @@ export class MapApp {
     document.getElementById("boundary-hint")?.classList.remove("visible");
     this.boundaryShown = false;
   }
+
+  // --------------------------------------------- overview hint (task §5.1)
+  /**
+   * Persistent honesty note while in the 2D nationwide extent: the vector
+   * basemap is real nationwide data, real 3D terrain is NOT — it lives only
+   * inside the High Atlas DEM coverage. One click returns to the 3D area.
+   */
+  showOverviewHint() {
+    let toast = document.getElementById("overview-hint");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "overview-hint";
+      toast.className = "boundary-hint overview-hint";
+      toast.innerHTML =
+        `<span>2D GEOGRAPHIC OVERVIEW · 真实地形仅覆盖 High Atlas（此处无 DEM 数据）</span>` +
+        `<button id="overview-atlas" type="button">进入 High Atlas 3D</button>`;
+      toast.querySelector("#overview-atlas")?.addEventListener("click", () => {
+        this.flyToAtlasDefault();
+      });
+      document.getElementById("app")!.appendChild(toast);
+    }
+    toast.classList.add("visible");
+  }
+
+  hideOverviewHint() {
+    document.getElementById("overview-hint")?.classList.remove("visible");
+  }
+
+  // ------------------------------------- terrain denial toast (task §5.3)
+  private deniedTimer: number | null = null;
+
+  /**
+   * User asked for 3D while outside the DEM domain: explain, and offer a
+   * one-click jump back to real terrain. No fake elevation is ever rendered.
+   */
+  showTerrainDeniedToast() {
+    let toast = document.getElementById("terrain-denied-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "terrain-denied-toast";
+      toast.className = "boundary-hint";
+      toast.innerHTML =
+        `<span>此处无真实地形数据（DEM 仅覆盖 High Atlas）</span>` +
+        `<button id="terrain-denied-atlas" type="button">跳回 High Atlas 3D</button>`;
+      toast.querySelector("#terrain-denied-atlas")?.addEventListener("click", () => {
+        this.flyToAtlasDefault();
+      });
+      document.getElementById("app")!.appendChild(toast);
+    }
+    toast.classList.add("visible");
+    if (this.deniedTimer !== null) window.clearTimeout(this.deniedTimer);
+    this.deniedTimer = window.setTimeout(() => {
+      toast?.classList.remove("visible");
+    }, 7000);
+  }
 }
 
 /** Current visual exaggeration (kept here so the hash can include it). */
@@ -282,7 +511,7 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
   const demUrl = "pmtiles:///data/dem-terrarium.pmtiles/{z}/{x}/{y}";
   const hypsoUrl = "pmtiles:///data/hypso.pmtiles/{z}/{x}/{y}";
   const contourUrl = "pmtiles:///data/contours.pmtiles/{z}/{x}/{y}";
-  return {
+  const style = {
     version: 8,
     glyphs: `/assets/glyphs/{fontstack}/{range}.pbf`,
     sources: {
@@ -318,10 +547,35 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         minzoom: meta.contours ? 6 : 6,
         maxzoom: 12,
       },
+      // v1.2.1 real geographic context (Protomaps v4 / OSM extracts). Source
+      // maxzoom values are the archives' real maxzoom — beyond them MapLibre
+      // over-zooms existing tiles instead of inventing new detail (task §3.2B).
+      [GEO_SOURCES.overview]: {
+        type: "vector",
+        tiles: [GEO_TILE_URLS.overview],
+        minzoom: 0,
+        maxzoom: 12,
+      },
+      [GEO_SOURCES.detail]: {
+        type: "vector",
+        tiles: [GEO_TILE_URLS.detail],
+        minzoom: 0,
+        maxzoom: 14,
+      },
       osm: {
         type: "geojson",
         data: "/data/roads-peaks.geojson",
       },
+      // v1.2.1 revision: named ADM1/ADM2 (geoBoundaries gbOpen). Registered
+      // ONLY when metadata declares the administrative_context contract —
+      // the gated gbOpen layers reference these ids, and a missing source
+      // would make addLayer throw.
+      ...(meta.geo_context?.administrative_context
+        ? {
+            [ADMIN_SOURCES.areas]: { type: "geojson", data: ADMIN_GEOJSON_URLS.areas },
+            [ADMIN_SOURCES.labels]: { type: "geojson", data: ADMIN_GEOJSON_URLS.labels },
+          }
+        : {}),
       ran: {
         type: "geojson",
         data: "/data/simulated-ran.geojson",
@@ -475,7 +729,9 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         minzoom: 9,
         layout: {
           "text-field": ["concat", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
-          "text-font": [FONT_STACK],
+          // v1.2.1 readability (approved scope): corrected-SDF stack on the
+          // curated peak/pass labels; text-field is plain-ASCII names + " m".
+          "text-font": [ADMIN_FONT_STACK],
           "text-size": ["interpolate", ["linear"], ["zoom"], 9, 10.5, 13, 12.5],
           "symbol-sort-key": ["coalesce", ["get", "rank"], 9],
           "text-padding": 8,
@@ -484,9 +740,10 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
           "text-anchor": "top",
         },
         paint: {
-          "text-color": "#f7f0da",
-          "text-halo-color": "rgba(18, 26, 36, 0.72)",
-          "text-halo-width": 1.2,
+          // v1.2.1: uniform white + single dark halo (16-layer white-label spec)
+          "text-color": "#ffffff",
+          "text-halo-color": "rgba(16, 22, 30, 0.85)",
+          "text-halo-width": 1.0,
         },
       },
       {
@@ -497,7 +754,7 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         minzoom: 10.5,
         layout: {
           "text-field": ["concat", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
-          "text-font": [FONT_STACK],
+          "text-font": [ADMIN_FONT_STACK],
           "text-size": ["interpolate", ["linear"], ["zoom"], 10.5, 10, 13, 11.5],
           "symbol-sort-key": ["coalesce", ["get", "rank"], 9],
           "text-padding": 8,
@@ -506,9 +763,10 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
           "text-anchor": "top",
         },
         paint: {
-          "text-color": "#f7f0da",
-          "text-halo-color": "rgba(18, 26, 36, 0.72)",
-          "text-halo-width": 1.2,
+          // v1.2.1: uniform white + single dark halo (16-layer white-label spec)
+          "text-color": "#ffffff",
+          "text-halo-color": "rgba(16, 22, 30, 0.85)",
+          "text-halo-width": 1.0,
         },
       },
       {
@@ -526,7 +784,7 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         minzoom: 10,
         layout: {
           "text-field": ["get", "name"],
-          "text-font": [FONT_STACK],
+          "text-font": [ADMIN_FONT_STACK],
           "text-size": 10,
           // places rank below peaks/passes in the collision hierarchy
           "symbol-sort-key": ["+", ["coalesce", ["get", "rank"], 9], 1],
@@ -535,9 +793,10 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
           "text-anchor": "top",
         },
         paint: {
-          "text-color": "#d5e2ef",
-          "text-halo-color": "rgba(18, 26, 36, 0.72)",
-          "text-halo-width": 1.2,
+          // v1.2.1: uniform white + single dark halo (16-layer white-label spec)
+          "text-color": "#ffffff",
+          "text-halo-color": "rgba(16, 22, 30, 0.85)",
+          "text-halo-width": 1.0,
         },
       },
       // passes share peak styling but amber
@@ -556,7 +815,7 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         minzoom: 9.5,
         layout: {
           "text-field": ["concat", ["get", "name"], "\n", ["to-string", ["get", "ele"]], " m"],
-          "text-font": [FONT_STACK],
+          "text-font": [ADMIN_FONT_STACK],
           "text-size": ["interpolate", ["linear"], ["zoom"], 9.5, 9.5, 13, 11],
           // half-step after peaks of the same rank, before places
           "symbol-sort-key": ["+", ["coalesce", ["get", "rank"], 9], 0.5],
@@ -566,9 +825,12 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
           "text-anchor": "top",
         },
         paint: {
-          "text-color": "#f0d489",
-          "text-halo-color": "rgba(18, 26, 36, 0.72)",
-          "text-halo-width": 1.2,
+          // v1.2.1: uniform white + single dark halo (16-layer white-label
+          // spec). The pass category stays visible via its amber circle icon
+          // (osm-passes) and the " m" elevation line, not the glyph fill.
+          "text-color": "#ffffff",
+          "text-halo-color": "rgba(16, 22, 30, 0.85)",
+          "text-halo-width": 1.0,
         },
       },
       // --- profile highlight (below RAN so analysis stays visible) ---
@@ -740,4 +1002,15 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
       },
     ],
   } as StyleSpecification;
+
+  // v1.2.1 layering (task §4.1): terrain base -> water/admin/roads (below
+  // contours) -> contour + geo labels -> profile/RAN on top. The admin
+  // contract gates the named ADM1/ADM2 gbOpen layers (same gate as above).
+  const geo = buildGeoContextLayers(meta.geo_context?.administrative_context);
+  const layers = style.layers as StyleSpecification["layers"];
+  const hillIdx = layers.findIndex((l) => l.id === LAYER_IDS.hillshade);
+  layers.splice(hillIdx + 1, 0, ...geo.base.map((d) => d.layer));
+  const contourLabelIdx = layers.findIndex((l) => l.id === LAYER_IDS.contoursLabelMinor);
+  layers.splice(contourLabelIdx + 1, 0, ...geo.label.map((d) => d.layer));
+  return style;
 }

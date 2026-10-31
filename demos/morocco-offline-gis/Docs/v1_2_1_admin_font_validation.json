@@ -1,0 +1,283 @@
+{
+ "bundle": "assets/index-CX-pTYEn.js",
+ "views": [
+  {
+   "view": "1080p",
+   "roi": {
+    "x": 840,
+    "y": 504,
+    "w": 240,
+    "h": 72
+   },
+   "scopes": {
+    "overview": {
+     "snapshot": {
+      "camera": {
+       "center": {
+        "lng": -8.306409084756796,
+        "lat": 31.80633595
+       },
+       "zoom": 7,
+       "pitch": 0,
+       "bearing": 0
+      },
+      "target": {
+       "shapeID": "70788906B60308563647099",
+       "label": "Marrakech-Safi",
+       "scope": "overview"
+      },
+      "anchorPx": {
+       "x": 960,
+       "y": 540
+      },
+      "textFont": [
+       "Offline Admin Latin"
+      ],
+      "textFontAtlas": [
+       "Offline Admin Latin"
+      ],
+      "textSize": "[\"interpolate\",[\"linear\"],[\"zoom\"],5.8,10,14,12]",
+      "textColor": "#f2e9d4",
+      "haloWidth": 1.2,
+      "terrain": null
+     },
+     "metrics": {
+      "qualifying": 396,
+      "contrastMax": 12.632,
+      "deltaMax": 214,
+      "maxDeltaPx": {
+       "x": 915,
+       "y": 517,
+       "on": [
+        242,
+        233,
+        212
+       ],
+       "off": [
+        28,
+        40,
+        34
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 16299
+     },
+     "verdict": "PASS"
+    },
+    "atlas": {
+     "snapshot": {
+      "camera": {
+       "center": {
+        "lng": -7.828497597711737,
+        "lat": 30.9863853
+       },
+       "zoom": 10.4,
+       "pitch": 0,
+       "bearing": 0
+      },
+      "target": {
+       "shapeID": "70788906B1820144472977",
+       "label": "Souss-Massa",
+       "scope": "atlas"
+      },
+      "anchorPx": {
+       "x": 960,
+       "y": 540
+      },
+      "textFont": [
+       "Offline Admin Latin"
+      ],
+      "textFontAtlas": [
+       "Offline Admin Latin"
+      ],
+      "textSize": "[\"interpolate\",[\"linear\"],[\"zoom\"],5.8,10,14,12]",
+      "textColor": "#f2e9d4",
+      "haloWidth": 1.2,
+      "terrain": null
+     },
+     "metrics": {
+      "qualifying": 593,
+      "contrastMax": 14.035,
+      "deltaMax": 220,
+      "maxDeltaPx": {
+       "x": 965,
+       "y": 523,
+       "on": [
+        240,
+        231,
+        211
+       ],
+       "off": [
+        20,
+        28,
+        32
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 15948
+     },
+     "verdict": "PASS"
+    }
+   },
+   "glyphRequests": {
+    "adminLatinCount": 2,
+    "notoSansCount": 2,
+    "sample": [
+     "Noto%20Sans%20Regular/0-255.pbf 200",
+     "Offline%20Admin%20Latin/0-255.pbf 200"
+    ]
+   }
+  },
+  {
+   "view": "768p",
+   "roi": {
+    "x": 563,
+    "y": 348,
+    "w": 240,
+    "h": 72
+   },
+   "scopes": {
+    "overview": {
+     "snapshot": {
+      "camera": {
+       "center": {
+        "lng": -8.306409084756796,
+        "lat": 31.80633595
+       },
+       "zoom": 7,
+       "pitch": 0,
+       "bearing": 0
+      },
+      "target": {
+       "shapeID": "70788906B60308563647099",
+       "label": "Marrakech-Safi",
+       "scope": "overview"
+      },
+      "anchorPx": {
+       "x": 683,
+       "y": 384
+      },
+      "textFont": [
+       "Offline Admin Latin"
+      ],
+      "textFontAtlas": [
+       "Offline Admin Latin"
+      ],
+      "textSize": "[\"interpolate\",[\"linear\"],[\"zoom\"],5.8,10,14,12]",
+      "textColor": "#f2e9d4",
+      "haloWidth": 1.2,
+      "terrain": null
+     },
+     "metrics": {
+      "qualifying": 396,
+      "contrastMax": 12.632,
+      "deltaMax": 214,
+      "maxDeltaPx": {
+       "x": 638,
+       "y": 361,
+       "on": [
+        242,
+        233,
+        212
+       ],
+       "off": [
+        28,
+        40,
+        34
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 16300
+     },
+     "verdict": "PASS"
+    },
+    "atlas": {
+     "snapshot": {
+      "camera": {
+       "center": {
+        "lng": -7.828497597711737,
+        "lat": 30.9863853
+       },
+       "zoom": 10.4,
+       "pitch": 0,
+       "bearing": 0
+      },
+      "target": {
+       "shapeID": "70788906B1820144472977",
+       "label": "Souss-Massa",
+       "scope": "atlas"
+      },
+      "anchorPx": {
+       "x": 683,
+       "y": 384
+      },
+      "textFont": [
+       "Offline Admin Latin"
+      ],
+      "textFontAtlas": [
+       "Offline Admin Latin"
+      ],
+      "textSize": "[\"interpolate\",[\"linear\"],[\"zoom\"],5.8,10,14,12]",
+      "textColor": "#f2e9d4",
+      "haloWidth": 1.2,
+      "terrain": null
+     },
+     "metrics": {
+      "qualifying": 593,
+      "contrastMax": 14.035,
+      "deltaMax": 220,
+      "maxDeltaPx": {
+       "x": 688,
+       "y": 367,
+       "on": [
+        240,
+        231,
+        211
+       ],
+       "off": [
+        20,
+        28,
+        32
+       ]
+      }
+     },
+     "onDominant": {
+      "dominant": [
+       24,
+       40,
+       40
+      ],
+      "dominantPx": 15948
+     },
+     "verdict": "PASS"
+    }
+   },
+   "glyphRequests": {
+    "adminLatinCount": 2,
+    "notoSansCount": 2,
+    "sample": [
+     "Noto%20Sans%20Regular/0-255.pbf 200",
+     "Offline%20Admin%20Latin/0-255.pbf 200"
+    ]
+   }
+  }
+ ]
+}

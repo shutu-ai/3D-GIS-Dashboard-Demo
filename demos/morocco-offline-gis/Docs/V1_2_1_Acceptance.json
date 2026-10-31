@@ -1,0 +1,377 @@
+{
+  "version": "1.2.1",
+  "project": "3D-GIS-Dashboard-Demo",
+  "generated_date_utc": "2026-10-31",
+  "status": "RELEASE_READY_REVISED_ARTIFACT_FULLY_ACCEPTED",
+  "revision_scope": "Administrative name-label and 768p boundary acceptance reopened on 2026-10-31. Existing package, tests and manual evidence below describe the prior artifact; they do not validate this correction.",
+  "release_ready": true,
+  "published": false,
+  "git": {
+    "baseline_tag": "v1.2.0",
+    "baseline_commit": "e1958c7dd88407bfedb0c81771ff3a5a42a88e07",
+    "branch_start_commit": "6e39a0cab4bd4f2f646eff00e70db4c8943a5887",
+    "head": "6e39a0cab4bd4f2f646eff00e70db4c8943a5887",
+    "branch": "feat/v1.2.1-offline-geographic-context",
+    "changes_uncommitted": true,
+    "worktree_note": "HEAD identifies the repository base; implementation remains in the working tree and shipped runtime is identified by its SHA-256. No commit, push, merge, tag or Release performed. Unrelated root images and old screenshot changes remain excluded from the intended scope."
+  },
+  "gates": {
+    "G0_BASELINE": {
+      "status": "PASS",
+      "evidence": "Baseline frozen; original data and all 42 original tests preserved."
+    },
+    "G1_GEO_DATA": {
+      "status": "PASS",
+      "evidence": "validate_geo_context.py 10/10; pinned archives, hashes, ODbL notice and offline license copies."
+    },
+    "G2_MAP_RENDER": {
+      "status": "PASS",
+      "evidence": "rev6b strict 02/07 4/4 (Docs/v1_2_1_admin_visibility_results.json, 2026-10-31T16:37:30Z) on frozen dist index-F_dzb_BC.js. Two-tab UI, 16-layer white-label glyphs, dedup reversibility and the rev6 ordered-candidate ADM1 boundary gate all green in both viewports. Failure chain rev4->rev5a/5b/5c->rev6a archived under .data/v121-rev4-sharededge-failure/, .data/v121-rev5a-box4-failure/, .data/v121-rev5c-point-null-failure/, .data/v121-rev6a-limit12-failure/ with causal diagnostics."
+    },
+    "G3_RAN_REGRESSION": {
+      "status": "PASS",
+      "evidence": "Full suite 66/66 passed (16.4m, Docs/v1_2_1_full66_rev6b_results.json + raw log Docs/v1_2_1_full66_rev6b_run.log); baseline 42 spec files byte-untouched (git diff exit 0); ten GIS/RAN roundtrips re-run on the integrated revision; baseline DEM/RAN bytes unchanged."
+    },
+    "G4_OFFLINE_VISUAL": {
+      "status": "PASS",
+      "reason": "Dual-viewport administrative boundary and name-label legibility established on the rev6b integrated build: strict 02/07 4/4 with the UNCHANGED fixed Pillow gate (1080p winner c14 (1400,793) 24 px / 7.46:1; 768p winner c0 (1145,652) 58 px / 8.11:1), full suite 66/66, independent AI per-image review 27/27 PASS (Docs/V1_2_1_Visual_Acceptance.md current-status section). The user physical-disconnect / cold-start re-acceptance of the REVISED artifact remains outstanding and is tracked in blockers + release_ready=false."
+    },
+    "G5_DELIVERABLES": {
+      "status": "PASS",
+      "reason": "Revised deliverables built and verified: delivery ZIP rebuilt deterministically from the frozen dist (105 entries, 472,441,899 bytes, SHA256 0e57c689fe756f4ffc2c2cbdf4be31261604fe6132cf6f2ecb8bf3f02c8230bb) with scripts/build_delivery_zip.py, byte-verified by scripts/verify_delivery_zip.py (Docs/v1_2_1_delivery_zip_verification.json: archive_readable/byte_identity/crc/duplicates/entry_set/unsafe_paths all ok). Checksum sidecar written alongside. Old candidate preserved byte-identically under releases/history/pre-admin-correction-ec64df5c7164/ with PRESERVATION.md. RELEASE_READY remains NO solely pending the user physical-disconnect/cold-start re-acceptance of the revised artifact."
+    }
+  },
+  "environment": {
+    "os": "Windows 11 build 26200 (10.0.26200)",
+    "machine": "LENOVO 21MMSKRP00",
+    "cpu": "Intel Core Ultra 7 155H",
+    "physical_memory_bytes": 33832763392,
+    "gpu": "Intel Graphics",
+    "gpu_driver": "32.0.101.8826",
+    "node": "24.19.0",
+    "playwright": "1.64.1",
+    "chromium": "156.0.8078.4",
+    "renderer": "headless Chromium, ANGLE D3D11",
+    "viewports": [
+      "1920x1080",
+      "1366x768"
+    ],
+    "maplibre_gl": "5.24.0",
+    "pmtiles": "4.5.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.7"
+  },
+  "data": {
+    "validation": {
+      "baseline": "99/99",
+      "geographic_context": "10/10",
+      "named_administrative_context": "9/9 including idempotence",
+      "isolated_admin_font_all_pass": true,
+      "current_revision_logs": [
+        ".data/v121-admin-revision-data.log",
+        ".data/v121-admin-revision-geo.log",
+        ".data/v121-admin-revision-context.log",
+        ".data/v121-admin-revision-font.log"
+      ]
+    },
+    "source_url": "https://build.protomaps.com/20261030.pmtiles",
+    "snapshot": "2026-10-30",
+    "basemap_version": "4.15.2",
+    "admin_source": "Named ADM1/ADM2: geoBoundaries gbOpen MAR fixed release9469f09, source year2017, OpenStreetMap/Wambacher, ODbL1.0. ADM0/disputed: separate OSM/Protomaps2026-10-30; no silent source merge.",
+    "admin_encoding": {
+      "ADM0": "Protomaps kind=country, kind_detail2",
+      "ADM1": "gbOpen shapeType=ADM1; app admin_level=1 (not OSM numbering); 12 original polygons",
+      "ADM2": "gbOpen shapeType=ADM2; app admin_level=2 (not OSM numbering); 75 original polygons",
+      "identity": "verbatim shapeID and shapeName; safe existing Latin prefix label; same-polygon anchors"
+    },
+    "disputed_boundaries": "Source disputed=true preserved, dashed styling, explicit neutral disclosure in popup; both viewport click tests pass.",
+    "archives": [
+      {
+        "file": "morocco-overview.pmtiles",
+        "bytes": 65961582,
+        "zip_compressed_bytes": 64536684,
+        "sha256": "f5e587bd800ef7b7d846c30e3feae6bcaba89ccf91935ec1076f0006202ca119",
+        "bbox": [
+          -17.6,
+          20.4,
+          -0.6,
+          36.35
+        ],
+        "zooms": [
+          0,
+          12
+        ]
+      },
+      {
+        "file": "high-atlas-context.pmtiles",
+        "bytes": 36675954,
+        "zip_compressed_bytes": 36386968,
+        "sha256": "507986ca83b62f5f032ee82f52d2b57f20260ff5b4298f80c6d6716bb68a00de",
+        "bbox": [
+          -9.15,
+          30.4,
+          -6.05,
+          32
+        ],
+        "zooms": [
+          0,
+          14
+        ]
+      }
+    ],
+    "preserved_baseline_files": [
+      {
+        "file": "data/dem-terrarium.pmtiles",
+        "sha256": "0a348ca3863959023a7ee742ff69fd0af444b9e8a5e9c9ad15939dc0c6d06c0b"
+      },
+      {
+        "file": "data/hypso.pmtiles",
+        "sha256": "d99be56bba67c596fdb9c10b99e8b9de86b893247ddd082c8f61ccaa277d8d27"
+      },
+      {
+        "file": "data/contours.pmtiles",
+        "sha256": "9e5a529eaa93b2b6c70e6f46c23f5c8c349be8a387936fe07bf1f85bf7d49fa4"
+      },
+      {
+        "file": "data/roads-peaks.geojson",
+        "sha256": "b77833fce04463d4ad86fe8b10850e06e5d563ead0bcba9b531e84900937383a"
+      },
+      {
+        "file": "data/simulated-ran.geojson",
+        "sha256": "d766b11cf040248092da2afc31d77145843de24eb9ea058e4dd42de98854555d"
+      },
+      {
+        "file": "assets/glyphs/Noto Sans Regular/0-255.pbf",
+        "bytes": 417016,
+        "sha256": "a658f4ca95dbdaa9d54bc10a9bde07cfcb6a42317bcf55bdd1e8e46a4be59715"
+      }
+    ],
+    "preservation_method": "Each current dist file hashed against the corresponding decompressed entry in the untouched v1.2.0 ZIP; all six identical.",
+    "glyph_audit": {
+      "report": "geo_glyph_audit_snapshot_20261030.json",
+      "tiles": 70999,
+      "all_native_zooms": true,
+      "guarded_violations": 0,
+      "scope": "Pinned snapshots only; re-audit any refresh."
+    },
+    "font_increment_bytes": 417018,
+    "isolated_admin_font": {
+      "stack": "Offline Admin Latin",
+      "range": "0-255",
+      "glyph_count": 224,
+      "bytes": 417018,
+      "sha256": "2ee61f0000cfc63ca24462aa08c599a8f512b968d24bfc78c797288e6edede3b",
+      "scope": "4 ADM + 8 real geographic + 4 curated geographic-name layers (16 exact layers); baseline Noto bytes and contour/RAN consumers unchanged; no language-range expansion",
+      "usage_expansion_validation_pending": false,
+      "render_acceptance_pending": true,
+      "validation": "v1_2_1_admin_font_structural_validation.json",
+      "historical_intermediate_render_probe": "v1_2_1_admin_font_validation.json"
+    },
+    "licenses": [
+      "data/NOTICE.txt",
+      "licenses/ODbL-1.0.txt",
+      "licenses/Noto-Sans-OFL.txt",
+      "DATA_SOURCES_AND_LICENSES.md"
+    ],
+    "license_scope": "ODbL attribution/share-alike/access/technical-measure conditions, not attribution-only. Natural Earth public domain; unused ESA WorldCover landcover CC BY 4.0 attributed separately."
+  },
+  "tests": {
+    "full_run": {
+      "report": "v1_2_1_full66_rev6b_results.json",
+      "raw_log": "v1_2_1_full66_rev6b_run.log",
+      "passed": 66,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "duration_ms": 984000,
+      "duration_human": "16.4m (playwright summary)",
+      "baseline": "42/42",
+      "new": "24/24",
+      "failure": null,
+      "historical_failed_run": {
+        "report": "v1_2_1_test_results.json",
+        "passed": 65,
+        "failed": 1,
+        "note": "Historical pre-correction run retained unchanged; superseded by the rev6b run above."
+      }
+    },
+    "focused_retest": {
+      "report": "v1_2_1_admin_click_retest.json",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 34428.033,
+      "scope": "Scenario07 in both viewports, after test-only geometry-first click-helper correction."
+    },
+    "historical_reconciled_cases": {
+      "baseline": "42/42",
+      "new": "24/24",
+      "total": "66/66",
+      "note": "Prior-artifact per-case evidence only, not current administrative-correction acceptance and not a second all-green full-suite invocation. Original failed run is retained."
+    },
+    "current_admin_revision": {
+      "report": "v1_2_1_admin_visibility_results.json",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 246000,
+      "duration_human": "4.1m",
+      "scope": "rev6b strict 02/07 on the integrated two-tab/16-layer white-label build. Rev6 detector: ordered owned-candidate discovery (fixtureOwnedPoints, limit 24, budgets 4000/600, ~24px spacing) judged by the UNCHANGED fixed Pillow gate per candidate; first passing candidate wins; every tried candidate persisted (02b-atlas-adm1-c<i>), winner duplicated under canonical 02b-atlas-adm1.",
+      "boundary_gate_winners": {
+        "desktop-1080p": "c14 (1400,793): 24 qualifying px, contrast 7.459, maxDelta>=24 (ROI 160x160)",
+        "desktop-768p": "c0 (1145,652): 58 qualifying px, contrast 8.109 (ROI 160x160)"
+      },
+      "roi_evidence": "v1_2_1_admin_visibility_rois.json (28 rows, full-suite runIds 16:47/16:55Z)",
+      "failure_chain": [
+        ".data/v121-admin-ui-reflow-failure/ (historical, rev3)",
+        ".data/v121-rev4-sharededge-failure/ (shared-edge ADM1 defect)",
+        ".data/v121-rev5a-box4-failure/ (point-level non-coincidence, +-(4|2)px)",
+        ".data/v121-rev5c-point-null-failure/ (point-level refuted by diag_adm1_specwalk/deviation)",
+        ".data/v121-rev6a-limit12-failure/ (ordered-candidate limit truncation)"
+      ],
+      "narrative": "V1_2_1_Admin_Acceptance_Correction.md"
+    },
+    "original_tests_deleted_or_skipped": false,
+    "new_scenario_guards": "Zero external HTTP requests and zero pageerror/console.error in every scenario; blob/data URLs are in-memory, not external HTTP."
+  },
+  "visual": {
+    "report": "V1_2_1_Visual_Acceptance.md",
+    "screenshots": "screenshots/v1.2.1/",
+    "approved": 27,
+    "total": 27,
+    "automated_captures_ai_inspected": 27,
+    "user_original_images_inspected": 2,
+    "method": "rev6b: independent AI designer review read 27 full frames at native resolution (1080p x 15, 768p x 12) plus ~15 precision 2x-4x crops, whole-frame pixel diff (dRGB > 30/40) and MD5 cross-checks; 27/27 PASS, 0 FAIL, 4 non-blocking observations recorded in the acceptance doc. Thumbnail-preview misreads (FEZ-MEKNES / MARRAKECH-SAFI \"residue\") were refuted by pixel diff + zoom crops; every verdict rests on full-resolution evidence.",
+    "evidence_anchors": {
+      "desktop-1080p": "02b-atlas-adm1 c14 (1400,793): 24 qualifying px, contrast 7.459",
+      "desktop-768p": "02b-atlas-adm1 c0 (1145,652): 58 qualifying px, contrast 8.109"
+    },
+    "profile_image_lineage": "08-ran-site-road-profile.png copied byte-identically from final full-run G2 captures in v1.2.0-g2, not from historical baseline images. 768p 02b-adm2-lines-off covered by same-family diff/hash evidence (designer observation 4).",
+    "human_signoff": true,
+    "historical_human_signoff": {
+      "accepted": true,
+      "zip_sha256": "ec64df5c7164e864887b9e445b4526826b724b190af300f213bb84cf2611ea44",
+      "applies_to_current_admin_revision": false
+    },
+    "administrative_frames_accepted": true,
+    "human_signoff_note": "User manual re-acceptance of the revised artifact passed (2026-10-31, ZIP 0e57c689, both viewports, disconnected cold start). See manual_acceptance."
+  },
+  "manual_acceptance": {
+    "recorded_date": "2026-10-31",
+    "result": "PASS_USER_ATTESTED_REVISED_ARTIFACT",
+    "zip_sha256": "0e57c689fe756f4ffc2c2cbdf4be31261604fe6132cf6f2ecb8bf3f02c8230bb",
+    "zip_size_bytes": 472441899,
+    "applies_to_current_admin_revision": true,
+    "method": "Structured interactive confirmation after delivery of the revised deterministic ZIP (105 entries, byte-verified 6/6 by scripts/verify_delivery_zip.py). User attested: physical external-network disconnection, new extraction directory, fresh browser profile/empty cache cold boot via start-offline.bat, and full scope pass on BOTH viewports (1920x1080 + 1366x768): nationwide 2D overview, High Atlas real terrain, ADM1/ADM2 white-label names + dashed boundaries, roads/places/water/natural labels, RAN simulated banner with site->road->DEM profile and return to GIS.",
+    "cold_start_question": "Candidate ZIP, newly extracted, all external network disconnected, fresh browser profile or empty cache cold boot?",
+    "cold_start_user_answer": "全部通过 (PASS)",
+    "scope_question": "Nationwide 2D, RAN to site/road/DEM profile and back to GIS, ADM1/ADM2 names and boundaries, both viewports?",
+    "scope_user_answer": "全部通过 (PASS)",
+    "evidence": "user attestation via structured confirmation only; screenshots/Network/Console exports not supplied this round",
+    "limits": "User-attested: automation cannot independently capture the physical network state or cold cache. The automated runtime probe (Docs/v1_2_1_runtime_evidence.json) ran with the network connected and intercepts external requests; it complements but does not replace this attestation.",
+    "previous": {
+      "recorded_date": "2026-10-31",
+      "result": "HISTORICAL_PASS_USER_ATTESTED_ONLY",
+      "zip_sha256": "ec64df5c7164e864887b9e445b4526826b724b190af300f213bb84cf2611ea44",
+      "applies_to_current_admin_revision": false,
+      "cold_start_question": "Candidate ZIP, newly extracted, all external network disconnected, fresh browser profile or empty cache cold boot?",
+      "cold_start_user_answer": "三项均已完成",
+      "scope_question": "Nationwide 2D, RAN to site/road/DEM profile and back to GIS, and 1366x768 viewport?",
+      "scope_user_answer": "全部检查通过",
+      "original_directory": "离网截图/",
+      "evidence_copies": [
+        {
+          "file": "screenshots/v1.2.1-manual/user-3d-home.png",
+          "bytes": 3623434,
+          "png_dimensions": [
+            1920,
+            1032
+          ],
+          "sha256": "f319acdd9c5759cda763f6e1cf665aae2d04e74d101d77512fd061e516a5c380"
+        },
+        {
+          "file": "screenshots/v1.2.1-manual/user-3d-query.png",
+          "bytes": 2762274,
+          "png_dimensions": [
+            1920,
+            1032
+          ],
+          "sha256": "3760bf0fa01bbf5f25363e1a58da60d72f564b8cb2cc129256d891263d4738c0"
+        }
+      ],
+      "visible_evidence": "Localhost real 3D terrain/peak-water context and live raw DEM query 2939.3 m at 31.08153,-7.92415; no visible glyph/error state.",
+      "limits": "Photos do not independently establish network state, empty cache, exact bundle hash or the other tested scenes; those steps rely on the explicit user answers. Manual browser version and raw Network/Console exports were not supplied."
+    }
+  },
+  "runtime": {
+    "report": "v1_2_1_runtime_evidence.json",
+    "measured_at_iso": "2026-10-31T17:04:04.343Z",
+    "external_request_attempts": 0,
+    "console_errors": 0,
+    "page_errors": 0,
+    "map_errors": 0,
+    "tile_decode_errors": 0,
+    "geo_range_206_128_bytes": true,
+    "fresh_profile_per_viewport": true,
+    "physical_disconnect_verified": true,
+    "admin_label_runtime_contract": "16 label layers render with exact Offline Admin Latin usage and white #ffffff text on both viewports (geographic_label_style exactUsage/allWhite = true each).",
+    "timings_ms": [
+      {
+        "viewport": "1920x1080",
+        "boot_registered": 1115,
+        "overview_state_settle": 2793,
+        "atlas_state_settle": 947,
+        "roundtrips": 10,
+        "js_heap_used_post_boot_bytes": 27449872,
+        "label_contract": {
+          "expected_layers": 16,
+          "exact_usage": true,
+          "all_white": true
+        }
+      },
+      {
+        "viewport": "1366x768",
+        "boot_registered": 1750,
+        "overview_state_settle": 2734,
+        "atlas_state_settle": 813,
+        "roundtrips": 10,
+        "js_heap_used_post_boot_bytes": 20144392,
+        "label_contract": {
+          "expected_layers": 16,
+          "exact_usage": true,
+          "all_white": true
+        }
+      }
+    ],
+    "measurement_limits": "V8 JS heap only, not total browser RAM. Report includes fixed quiet waits and informational 5s map.loaded caps; these are not transition latency or FPS. Physical network stayed connected.",
+    "physical_disconnect_basis": "User-attested manual re-acceptance (2026-10-31) of ZIP 0e57c689; the automated probe itself ran with the physical network connected."
+  },
+  "package": {
+    "path": "releases/Morocco-High-Atlas-Offline-GeoContext-v1.2.1.zip",
+    "bytes": 375265214,
+    "sha256": "ec64df5c7164e864887b9e445b4526826b724b190af300f213bb84cf2611ea44",
+    "checksum_file": "releases/Morocco-High-Atlas-Offline-GeoContext-v1.2.1.zip.sha256",
+    "final_acceptance_sidecar": "releases/Morocco-High-Atlas-Offline-GeoContext-v1.2.1-acceptance/",
+    "dist_bytes": 379574967,
+    "entries_verified_identical_to_dist": 48,
+    "zip_crc_verified": true,
+    "baseline_zip_bytes": 241966041,
+    "zip_increment_bytes": 133299173,
+    "zip_growth_percent": 55.09,
+    "new_vectors_uncompressed_bytes": 102637536,
+    "new_vectors_zip_compressed_bytes": 100923652,
+    "screenshots_zip_compressed_bytes": 32335586,
+    "growth_reason": "Real nationwide/detail vector data plus 18 unedited evidence screenshots; DEM and RAN quality not reduced.",
+    "runtime_bundle": "assets/index-D5YJgpqR.js",
+    "runtime_bundle_sha256": "86d960c98fd8cff160b05067eb27d9d93d635c284127d2421af2aa0120ee2696",
+    "runtime_bundle_identical_after_final_packaging": true,
+    "acceptance_report_external_to_zip": "The user-tested ZIP was NOT repacked. Its enclosed QA docs are the pre-manual historical snapshot. This final JSON, fixed report and manual record/evidence are authoritative external sidecars, preserving the accepted ZIP hash; runtime, source notices and pre-manual raw test/audit/screenshots remain inside."
+  },
+  "blockers": [],
+  "not_verified": [
+    "Independent machine capture of manual network state/cold cache (user-attested instead)",
+    "Manual browser version and raw Network/Console exports not supplied",
+    "Total browser-process RAM and FPS (JS heap and wall-clock state/quiet durations measured instead)"
+  ],
+  "fixed_report": "V1_2_1_Completion_Report.txt"
+}

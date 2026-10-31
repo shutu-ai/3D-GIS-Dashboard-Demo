@@ -1,0 +1,56 @@
+OFFLINE GEOGRAPHIC DATA NOTICE — v1.2.1
+
+Geographic data: © OpenStreetMap contributors.
+OpenStreetMap copyright: https://www.openstreetmap.org/copyright
+Open Database License (ODbL 1.0):
+https://opendatacommons.org/licenses/odbl/1-0/
+Offline license copy: ../licenses/ODbL-1.0.txt
+
+morocco-overview.pmtiles and high-atlas-context.pmtiles are geographic
+subsets of Protomaps Basemap, offered under ODbL 1.0 for OSM-derived data.
+Attribution, share-alike for derived databases, access to the machine-readable
+database and restrictions on technical measures apply; this is NOT an
+attribution-only license. The complete extracted databases are supplied as
+the unrestricted PMTiles files alongside this notice. Changes: geographic
+and maximum-zoom extraction only; no source geometry or property edits.
+
+Protomaps: https://protomaps.com
+Pinned build: https://build.protomaps.com/20261030.pmtiles
+Build version 4.15.2; snapshot/retrieved 2026-10-30.
+Hashes, extraction ranges and provenance: metadata.json, geo_context.
+Upstream data-license record:
+https://github.com/protomaps/basemaps/blob/main/LICENSE_DATA.md
+
+Contains Natural Earth data (public domain):
+https://www.naturalearthdata.com/about/terms-of-use/
+OSM-derived coastline polygons: https://osmdata.openstreetmap.de
+
+The archives also contain an unused landcover layer. Upstream attributes
+this layer to ESA WorldCover via Daylight Landcover, under CC BY 4.0:
+https://esa-worldcover.org/en/data-access
+https://creativecommons.org/licenses/by/4.0/
+No landcover layer is rendered by this application. Extraction/subsetting
+is the only modification to the bundled layer. No endorsement is implied.
+
+Terrain: Contains Copernicus data / Copernicus DEM GLO-30 (ESA),
+processed at build time. https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM
+DEM coverage is limited to High Atlas; nationwide overview is 2D only.
+
+Legacy roads/curated locations and all RAN network data are separately
+labelled CURATED/SIMULATED; they are not OpenStreetMap observations.
+See ../DATA_SOURCES_AND_LICENSES.md for the four distinct data classes.
+Administrative area polygons (admin-context-areas.geojson and
+admin-context-labels.geojson) contain geoBoundaries gbOpen Morocco (MAR)
+ADM1/ADM2 boundaries, release pinned at 9469f09; boundary year represented
+2017. Offered under ODbL 1.0 (same license terms and conditions as the
+OSM-derived data above; attribution, share-alike and access requirements
+apply). Pinned raw sources:
+  ADM1: https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/MAR/ADM1/geoBoundaries-MAR-ADM1_simplified.geojson
+  ADM2: https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/MAR/ADM2/geoBoundaries-MAR-ADM2_simplified.geojson
+Retrieved 2026-10-31. Hashes, feature counts, label-transform provenance and
+the fixture probe are recorded in metadata.json under
+geo_context.administrative_context. The territorial extent of the MAR
+dataset is the source's (geoBoundaries) administrative classification, reproduced
+verbatim; it is not a political assertion by this application. Rendered label
+strings are the published Latin/French prefixes of the source names; nothing
+is invented, translated or re-attributed.

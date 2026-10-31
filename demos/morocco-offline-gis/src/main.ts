@@ -10,10 +10,15 @@ import { MapApp } from "./map/map";
 import { TerrainControl } from "./map/terrain";
 import { ContourControl } from "./map/contours";
 import { RanOverlay } from "./map/ran-overlay";
-import { ViewModeControl, readHashMode } from "./map/view-mode";
+import { GeoContextOverlay } from "./map/geographic-context";
+import { ViewModeControl, readHashMode, primeHashMode } from "./map/view-mode";
 import { Controls } from "./ui/controls";
 
 async function boot() {
+  // hash mode must be primed before MapApp.create: the first settle moveend
+  // writes the hash and would otherwise drop the `&m=ran` suffix (mode state
+  // still defaults to 'gis' until setMode runs)
+  primeHashMode();
   const meta = await loadMetadata();
   const app = await MapApp.create(meta);
   // debug/E2E handle: lets tests project known in-coverage points to screen
@@ -31,8 +36,11 @@ async function boot() {
     }
   }
 
-  const terrainCtl = new TerrainControl(app.map, 1.2);
+  // overview boot: terrain must start unavailable (2D nationwide extent)
+  const terrainCtl = new TerrainControl(app.map, 1.2, app.extent === "atlas");
   const ran = new RanOverlay(app.map);
+  // real geographic context: layers (declared in the style), toggles, popups
+  const geo = new GeoContextOverlay(app.map, meta);
 
   // contour interval indicator is wired through a late-bound callback
   let showInterval: (m: number | null) => void = () => {};
@@ -40,17 +48,20 @@ async function boot() {
   let controls: Controls;
   // mode state machine: one owner for RAN layers, banner, base dampening
   const viewModeCtl = new ViewModeControl(app.map, ran, (mode) => controls.syncMode(mode));
-  controls = new Controls(app.map, app, meta, terrainCtl, contourCtl, ran, viewModeCtl);
+  controls = new Controls(app.map, app, meta, terrainCtl, contourCtl, ran, viewModeCtl, geo);
   showInterval = (m) => controls.setContourInterval(m);
   contourCtl.setVisible(true);
   // honour a shared `#v=…&m=ran` link; 'gis' (or absent/unknown) is a no-op sync
   viewModeCtl.setMode(readHashMode());
 
   // attribution / data provenance footer
+  const geoAttr = meta.geo_context
+    ? ` · geographic context: ${meta.geo_context.source.attribution} (snapshot ${meta.geo_context.source.snapshot}) · disputed boundary flags preserved`
+    : "";
   document.getElementById("attribution")!.innerHTML =
     `OFFLINE GIS DEMO · ${meta.dem.source} · nominal ${meta.dem.nominal_resolution_m} · ` +
     `${meta.dem.vertical_datum} · contours: ${meta.contours.source} · font: ${meta.glyphs.fontstack} (${meta.glyphs.license}) · ` +
-    `SIMULATED NETWORK DATA when RAN layer is on · seed ${meta.seed}`;
+    `SIMULATED NETWORK DATA when RAN layer is on · seed ${meta.seed}${geoAttr}`;
 
   console.info(
     "[offline-gis] ready - all resources local. DEM:",

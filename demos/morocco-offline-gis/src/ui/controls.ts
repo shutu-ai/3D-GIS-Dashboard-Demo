@@ -9,6 +9,11 @@ import { computeProfile, drawProfileChart, type ProfileInput, type ProfileResult
 import { sampleElevation } from "../map/elevation-query";
 import { RanOverlay } from "../map/ran-overlay";
 import { ViewModeControl, type ViewMode } from "../map/view-mode";
+import {
+  GeoContextOverlay,
+  GEO_TOGGLE_GROUPS,
+  type GeoGroupKey,
+} from "../map/geographic-context";
 
 export type Mode = "query" | "profile";
 
@@ -38,18 +43,24 @@ export class Controls {
     private contourCtl: ContourControl,
     private ran: RanOverlay,
     private viewMode: ViewModeControl,
+    private geo: GeoContextOverlay,
   ) {
     this.wireTopbar();
+    this.wirePanelTabs();
     this.wireViewGroup();
+    this.wireExtent();
     this.wireScenes();
     this.wireViewMode();
     this.wireLayers();
+    this.wireGeoLayers();
     this.wireAnalysis();
     this.buildLegends();
     this.wireMapClick();
     this.wireRanSelection();
     // boot-time hash mode (e.g. `#v=…&m=ran`) must land in the UI too
     this.syncMode(this.viewMode.mode);
+    // boot-time extent (e.g. `#v=…&e=ov`) must land in the UI too
+    this.syncExtent(this.app.extent);
   }
 
   // ------------------------------------------------------------------ topbar
@@ -78,6 +89,46 @@ export class Controls {
         b.textContent = el?.classList.contains("collapsed") ? (el.id === "panel-left" ? "›" : "‹") : el!.id === "panel-left" ? "‹" : "›";
       });
     });
+  }
+
+  // -------------------------------------------------------------- panel tabs
+  /**
+   * v1.2.1: left-panel tab strip. The DEFAULT page keeps every legacy
+   * control id visible (42-test compatibility: no tab switch needed — the
+   * baseline specs click #btn-view-*, [data-ex], #scenes, #ly-contours
+   * directly). The data page is informational only. Tab choice is
+   * deliberately NOT persisted: a fresh session always boots on the map
+   * page. Keyboard: Left/Right arrows move + activate (tablist pattern).
+   */
+  private wirePanelTabs() {
+    const tabMap = document.getElementById("panel-tab-map");
+    const tabData = document.getElementById("panel-tab-data");
+    const pageMap = document.getElementById("panel-page-map");
+    const pageData = document.getElementById("panel-page-data");
+    if (!tabMap || !tabData || !pageMap || !pageData) return;
+    const select = (showData: boolean) => {
+      tabMap.classList.toggle("active", !showData);
+      tabData.classList.toggle("active", showData);
+      tabMap.setAttribute("aria-selected", String(!showData));
+      tabData.setAttribute("aria-selected", String(showData));
+      tabMap.tabIndex = showData ? -1 : 0;
+      tabData.tabIndex = showData ? 0 : -1;
+      pageMap.classList.toggle("hidden", showData);
+      pageData.classList.toggle("hidden", !showData);
+    };
+    tabMap.addEventListener("click", () => select(false));
+    tabData.addEventListener("click", () => select(true));
+    const tabs = [tabMap, tabData];
+    for (const tab of tabs) {
+      tab.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+        e.preventDefault();
+        const delta = e.key === "ArrowRight" ? 1 : tabs.length - 1;
+        const next = tabs[(tabs.indexOf(tab) + delta) % tabs.length]!;
+        next.focus();
+        next.click();
+      });
+    }
   }
 
   // -------------------------------------------------------------- view group
@@ -115,6 +166,103 @@ export class Controls {
     });
   }
 
+  // ------------------------------------------------------- extent (v1.2.1)
+  /** Morocco Overview (2D nationwide) vs High Atlas (real-DEM 3D) domains. */
+  private wireExtent() {
+    document.getElementById("btn-extent-overview")?.addEventListener("click", () => {
+      this.app.flyToOverview();
+    });
+    document.getElementById("btn-extent-atlas")?.addEventListener("click", () => {
+      this.app.flyToAtlasDefault();
+    });
+    window.addEventListener("gis:extent-change", (e) => {
+      const detail = (e as CustomEvent<string>).detail;
+      if (detail === "overview" || detail === "atlas") this.syncExtent(detail as "overview" | "atlas");
+    });
+    // honest 3D denial while outside the DEM domain (task §5.3)
+    window.addEventListener("gis:terrain-denied", () => this.app.showTerrainDeniedToast());
+  }
+
+  /** Single UI sync point for the coverage-domain switch. */
+  syncExtent(extent: "atlas" | "overview") {
+    document
+      .getElementById("btn-extent-overview")
+      ?.classList.toggle("active", extent === "overview");
+    document.getElementById("btn-extent-atlas")?.classList.toggle("active", extent === "atlas");
+    // curated-dedup follows the effective condition (checked AND atlas) so
+    // the nationwide overview never keeps real same-name names excluded
+    this.applyCuratedDedupEffective(extent);
+  }
+
+  /**
+   * Curated-dedup effective switch (v1.2.1 rev4): the real same-name label
+   * exclusion applies only while the curated context is checked AND the view
+   * is in the atlas domain. syncAtlasOnlyLayers intentionally hides the
+   * curated legacy layers in the nationwide overview even when checked —
+   * there the real nationwide names must NOT stay excluded. The checkbox
+   * preference itself is untouched (neither its checked state nor any real
+   * group visibility); boot defaults flow through this same owner via the
+   * constructor's syncExtent call.
+   */
+  private applyCuratedDedupEffective(extent: "atlas" | "overview" = this.app.extent) {
+    const el = document.getElementById("ly-osm") as HTMLInputElement | null;
+    this.geo.setCuratedDedup(!!el && el.checked && extent === "atlas");
+  }
+
+  // ------------------------------------------------------ geo layers (v1.2.1)
+  /** Geographic Context group: independent real-data layer toggles. */
+  private wireGeoLayers() {
+    const ids: Array<[string, GeoGroupKey]> = [
+      ["ly-geo-admin", "admin0"],
+      ["ly-geo-adm1", "adm1"],
+      ["ly-geo-adm2", "adm2"],
+      ["ly-geo-places", "places"],
+      ["ly-geo-roads", "roads"],
+      ["ly-geo-water", "water"],
+      ["ly-geo-natural", "natural"],
+    ];
+    for (const [elId, group] of ids) {
+      document.getElementById(elId)?.addEventListener("change", (e) => {
+        this.geo.setGroupVisible(group, (e.target as HTMLInputElement).checked);
+      });
+    }
+    // Provenance footnote (v1.2.1 revision): OSM ADM0 snapshot vs gbOpen
+    // ADM1/ADM2 release are DIFFERENT sources with different vintages — the
+    // note states that explicitly, classifies nothing beyond what each
+    // source itself declares, and asserts no political position. Injected
+    // ONLY when the administrative_context contract is present (honest
+    // degrade: no contract, no claim in the panel).
+    const adm = this.meta.geo_context?.administrative_context;
+    const geoSrc = this.meta.geo_context?.source;
+    if (adm) {
+      const host = document.getElementById("grp-geo");
+      if (host && !document.getElementById("geo-provenance")) {
+        const note = document.createElement("div");
+        note.id = "geo-provenance";
+        note.className = "hint";
+        note.textContent =
+          `国界/争议线：OSM 快照 ${geoSrc?.snapshot ?? "?"}；` +
+          `ADM1/ADM2：geoBoundaries gbOpen ${String(adm["boundary_year_represented"] ?? adm.year ?? "?")} · ${String(adm.commit ?? adm.version ?? "?")} (ODbL 1.0)。` +
+          `两类边界各依其源数据的划界口径呈现，仅为来源标注，不含政治归属断言。`;
+        host.appendChild(note);
+      }
+    }
+    // boot-race safety: re-apply the checked state once layers register
+    let tries = 0;
+    const sync = () => {
+      if (++tries > 300) return;
+      if (!this.map.getLayer(GEO_TOGGLE_GROUPS.admin0[0]!)) {
+        window.setTimeout(sync, 100);
+        return;
+      }
+      for (const [elId, group] of ids) {
+        const el = document.getElementById(elId) as HTMLInputElement | null;
+        if (el) this.geo.setGroupVisible(group, el.checked);
+      }
+    };
+    sync();
+  }
+
   // ------------------------------------------------------------------ scenes
   private wireScenes() {
     const host = document.getElementById("scenes")!;
@@ -136,12 +284,15 @@ export class Controls {
     };
     document.getElementById("ly-hypso")?.addEventListener("change", (e) => {
       setLayer([LAYER_IDS.hypso], (e.target as HTMLInputElement).checked);
+      this.app.syncAtlasOnlyLayers(); // keep overview honest if toggled there
     });
     document.getElementById("ly-hillshade")?.addEventListener("change", (e) => {
       setLayer([LAYER_IDS.hillshade], (e.target as HTMLInputElement).checked);
+      this.app.syncAtlasOnlyLayers();
     });
     document.getElementById("ly-contours")?.addEventListener("change", (e) => {
       this.contourCtl.setVisible((e.target as HTMLInputElement).checked);
+      this.app.syncAtlasOnlyLayers();
     });
     document.getElementById("ly-osm")?.addEventListener("change", (e) => {
       const on = (e.target as HTMLInputElement).checked;
@@ -159,6 +310,11 @@ export class Controls {
         ],
         on,
       );
+      this.app.syncAtlasOnlyLayers(); // keep overview honest if toggled there
+      // v1.2.1 rev4: the curated checkbox also owns the real-name dedup —
+      // unchecking must RESTORE the dedup targets' base filters, not leave
+      // real same-named labels permanently hidden behind the guard
+      this.applyCuratedDedupEffective();
     });
     document.getElementById("ly-ran")?.addEventListener("change", (e) => {
       const on = (e.target as HTMLInputElement).checked;
@@ -177,6 +333,10 @@ export class Controls {
    *  selection card, hash). Called on every setMode and at boot. */
   syncMode(mode: ViewMode) {
     const ran = mode === "ran";
+    // RAN analysis lives in the real-DEM demo area: entering RAN from the
+    // nationwide overview returns to High Atlas first (task §5.5); a no-op
+    // when already in the atlas domain
+    if (ran) this.app.enterRanFocus();
     document.getElementById("btn-view-gis")?.classList.toggle("active", !ran);
     document.getElementById("btn-view-ran")?.classList.toggle("active", ran);
     const lyRan = document.getElementById("ly-ran") as HTMLInputElement | null;

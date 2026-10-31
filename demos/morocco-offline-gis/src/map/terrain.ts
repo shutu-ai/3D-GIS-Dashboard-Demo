@@ -7,10 +7,19 @@ export class TerrainControl {
   private map: MLMap;
   private is3d = true;
   private exaggeration = 1.2;
+  /**
+   * v1.2.1 coverage-domain gate: real DEM tiles exist only inside the High
+   * Atlas coverage. When unavailable (nationwide overview) terrain stays
+   * OFF regardless of the toggle, and a 3D request fires "gis:terrain-denied"
+   * so the UI can explain + offer the jump back (no fake elevation ever).
+   */
+  private available = true;
 
-  constructor(map: MLMap, initialEx = 1.2) {
+  constructor(map: MLMap, initialEx = 1.2, initiallyAvailable = true) {
     this.map = map;
     this.exaggeration = initialEx;
+    this.available = initiallyAvailable;
+    if (!initiallyAvailable) this.is3d = false; // overview boot: stay 2D
     setExaggerationCached(initialEx);
     // MapApp.create() may return on either side of the style-load event on a
     // warm/local browser. `isStyleLoaded()` also waits for every tile manager,
@@ -20,6 +29,22 @@ export class TerrainControl {
     window.addEventListener("gis:request-3d", () => {
       if (!this.is3d) this.set3d(true);
     });
+    window.addEventListener("gis:terrain-unavailable", () => this.setAvailable(false));
+    window.addEventListener("gis:terrain-available", () => this.setAvailable(true));
+  }
+
+  setAvailable(on: boolean) {
+    this.available = on;
+    if (!on) {
+      // drop the terrain mesh immediately: with pitch 0 the nationwide view
+      // has no raised DEM rectangle at the coverage edge (task §5.3/§5.4)
+      this.is3d = false;
+      this.apply();
+    }
+  }
+
+  get isTerrainAvailable() {
+    return this.available;
   }
 
   private applyWhenReady() {
@@ -45,6 +70,11 @@ export class TerrainControl {
   }
 
   set3d(on: boolean) {
+    if (on && !this.available) {
+      // honest denial: keep terrain off, surface the coverage explanation
+      window.dispatchEvent(new CustomEvent("gis:terrain-denied"));
+      return;
+    }
     this.is3d = on;
     if (!on) {
       this.map.easeTo({ pitch: 0, duration: 600 });

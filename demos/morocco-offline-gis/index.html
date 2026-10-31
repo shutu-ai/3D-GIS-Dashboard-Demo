@@ -30,10 +30,21 @@
         <button class="btn-collapse" data-target="panel-left" title="折叠/展开">‹</button>
       </div>
       <div class="panel-body">
+        <div class="panel-tabs" role="tablist" aria-label="控制面板分组">
+          <button id="panel-tab-map" class="panel-tab active" role="tab" aria-selected="true" aria-controls="panel-page-map" title="地形渲染、视图与基础图层开关">地形 · 视图</button><button id="panel-tab-data" class="panel-tab" role="tab" aria-selected="false" aria-controls="panel-page-data" tabindex="-1" title="地理要素开关与数据来源说明">地理 · 数据</button>
+        </div>
+        <div id="panel-page-map" class="panel-page" role="tabpanel" aria-labelledby="panel-tab-map">
         <section class="group" id="grp-viewmode">
           <h3>视图模式 / View Mode</h3>
           <div class="row">
             <button id="btn-view-gis" class="seg active" title="地形优先的专业 GIS 视图">GIS View</button><button id="btn-view-ran" class="seg" title="突出模拟站点/扇区/道路 RSRP（SIMULATED）">RAN Coverage</button>
+          </div>
+        </section>
+
+        <section class="group" id="grp-extent">
+          <h3>覆盖域 / Extent</h3>
+          <div class="row">
+            <button id="btn-extent-overview" class="seg" title="摩洛哥全国概览：真实 OSM 地理底图（2D，无地形夸张）">全国概览</button><button id="btn-extent-atlas" class="seg active" title="高阿特拉斯真实 DEM 3D 域">高阿特拉斯</button>
           </div>
         </section>
 
@@ -60,7 +71,7 @@
           <label><input type="checkbox" id="ly-hypso" checked /> 高程着色 Hypsometric</label>
           <label><input type="checkbox" id="ly-hillshade" checked /> 山体阴影 Hillshade</label>
           <label><input type="checkbox" id="ly-contours" checked /> 等高线 Contours <span id="contour-interval" class="hint"></span></label>
-          <label><input type="checkbox" id="ly-osm" checked /> 道路/山峰/地名 Features <span class="hint" title="Roads are hand-generated; peak elevations are curated nominal values">· SIMULATED GEO FEATURES</span></label>
+          <label><input type="checkbox" id="ly-osm" checked /> 演示道路 / 参考地点 <span class="hint" title="道路为模拟几何；地点为人工整理参考位置；山峰/隘口标称海拔不等于 DEM 像元值">· 非真实OSM</span></label>
           <label><input type="checkbox" id="ly-ran" /> 模拟无线 overlay <span class="badge badge-sim mini">SIM</span></label>
         </section>
 
@@ -69,6 +80,33 @@
           <div id="legend-hypso" class="legend-bar"></div>
           <div id="legend-ran" class="legend-bar hidden"></div>
         </section>
+        </div>
+
+        <div id="panel-page-data" class="panel-page hidden" role="tabpanel" aria-labelledby="panel-tab-data">
+        <section class="group" id="grp-geo">
+          <h3>地理信息 / Geographic Context <span class="badge badge-real mini" title="OSM/Protomaps 与 geoBoundaries 开放数据；来源及年份见下方说明">OPEN·GEO</span></h3>
+          <label><input type="checkbox" id="ly-geo-admin" checked /> 国界（争议线虚线显示）</label>
+          <label><input type="checkbox" id="ly-geo-adm1" checked /> 一级行政区 ADM1</label>
+          <label><input type="checkbox" id="ly-geo-adm2" checked /> 二级行政区 ADM2</label>
+          <label><input type="checkbox" id="ly-geo-places" checked /> 城市/乡镇地名 Places</label>
+          <label><input type="checkbox" id="ly-geo-roads" checked /> 真实道路 Roads</label>
+          <label><input type="checkbox" id="ly-geo-water" checked /> 河流/湖泊 Water</label>
+          <label><input type="checkbox" id="ly-geo-natural" checked /> 自然地名 Natural</label>
+        </section>
+
+        <section class="group" id="grp-datainfo">
+          <h3>数据来源 / Data Sources</h3>
+          <div class="kv data-note">
+            <p><span class="badge badge-real mini">REAL·OSM</span> 地图底图、道路、水系与城镇地名来自真实 OSM/Protomaps 离线快照；地形为真实 DEM（Copernicus GLO-30），等高线由同一 DEM 生成。</p>
+            <p>行政边界：ADM1/ADM2 来自 geoBoundaries gbOpen（2017 · 9469f09），争议边界沿用 OSM 争议标记虚线显示。</p>
+          </div>
+          <h3>要素优先级 / Feature Priority</h3>
+          <div class="kv data-note">
+            <p><span class="badge badge-sim mini">SIM</span> 「演示道路 / 参考地点」包含人工整理要素：道路为模拟几何（非真实 OSM，simulated:true），使用琥珀虚线，区别于真实道路的浅色实线；地点可为近似位置。山峰/隘口标注为公布标称海拔，不等于点击查询的原始 DEM 像元值。</p>
+            <p>同名去重：保留已整理参考点的名称与标称海拔，对应的真实地名标签不重复标注；不将两种来源合并为同一数据。RAN 覆盖始终为模拟演示（SIMULATED），切换 GIS/RAN 不改变本优先级。</p>
+          </div>
+        </section>
+        </div>
       </div>
     </aside>
 

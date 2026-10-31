@@ -80,6 +80,19 @@ body {
   padding: 8px 12px; font-weight: 600; border-bottom: 1px solid var(--panel-border);
 }
 .panel-body { overflow-y: auto; padding: 4px 12px 12px; }
+
+/* ---------- panel tabs (v1.2.1) ---------- */
+.panel-tabs { display: flex; gap: 4px; margin: 8px 0 2px; }
+.panel-tab {
+  flex: 1; padding: 5px 8px; font-size: 12px; font-weight: 600;
+  color: var(--text-dim); background: transparent;
+  border: 1px solid var(--panel-border); border-radius: 5px; cursor: pointer;
+}
+.panel-tab:hover { color: var(--text); }
+.panel-tab.active { color: #fff; background: rgba(70, 120, 160, 0.55); border-color: var(--accent); }
+.panel-tab:focus-visible { outline: 2px solid rgba(120, 170, 220, 0.8); outline-offset: 1px; }
+.panel-page.hidden { display: none; }
+.data-note p { margin: 4px 0; font-size: 11.5px; line-height: 1.55; color: var(--text-dim); }
 .panel.collapsed .panel-body, .panel.collapsed .panel-head span { display: none; }
 .btn-collapse {
   background: none; border: none; color: var(--text-dim); font-size: 16px; cursor: pointer; padding: 0 4px;

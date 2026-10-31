@@ -1,0 +1,19 @@
+﻿{
+    "generated_utc":  "2026-10-31T17:01:54.6746543Z",
+    "command":  "node node_modules/playwright/cli.js test --config=e2e/playwright.config.ts --reporter=list",
+    "total":  66,
+    "passed":  66,
+    "failed":  0,
+    "skipped":  0,
+    "duration":  "16.4m",
+    "baseline_42":  "untouched (git diff exit 0)",
+    "new_24":  "24/24",
+    "strict_pre_run":  "Docs/v1_2_1_admin_visibility_results.json (4 passed, 2026-10-31T16:37:30Z)",
+    "admin_boundary_winner_1080p":  "02b-atlas-adm1 c14 (1400,793) q=24 contrast=7.459",
+    "admin_boundary_winner_768p":  "02b-atlas-adm1 c0 (1145,652) q=58 contrast=8.109",
+    "raw_log":  "Docs/v1_2_1_full66_rev6b_run.log",
+    "tail":  [
+                 "",
+                 "  66 passed (16.4m)"
+             ]
+}

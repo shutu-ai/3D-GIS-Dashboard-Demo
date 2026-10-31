@@ -1,0 +1,234 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "v121-geo.spec.ts",
+      "-g",
+      "cites",
+      "--reporter=list,json"
+    ],
+    "configFile": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\playwright.config.ts",
+    "rootDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/.data/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop-1080p",
+        "name": "desktop-1080p",
+        "testDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/.data/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop-768p",
+        "name": "desktop-768p",
+        "testDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop-1080p",
+        "testDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "snapshotDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:17841/",
+          "viewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "contextOptions": {
+            "bypassServiceWorker": false
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=d3d11",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-1080p"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop-768p",
+        "testDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "snapshotDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:17841/",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "contextOptions": {
+            "bypassServiceWorker": false
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=d3d11",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-768p"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "v121-geo.spec.ts",
+      "file": "v121-geo.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "07 admin click popup cites OSM provenance; disputed line popup is honest",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15901,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:49:16.015Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15407,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T20:49:33.283Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-e2a9e25db27f3f30938e",
+          "file": "v121-geo.spec.ts",
+          "line": 578,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-30T20:49:14.874Z",
+    "duration": 34428.033,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

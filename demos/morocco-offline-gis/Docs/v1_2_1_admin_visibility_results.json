@@ -1,0 +1,314 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\node_modules\\playwright\\cli.js",
+      "test",
+      "--config=e2e/playwright.config.ts",
+      "e2e/v121-geo.spec.ts",
+      "--grep",
+      "02 admin context|07 admin click",
+      "--reporter=list,json"
+    ],
+    "configFile": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e\\playwright.config.ts",
+    "rootDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/.data/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop-1080p",
+        "name": "desktop-1080p",
+        "testDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/.data/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop-768p",
+        "name": "desktop-768p",
+        "testDir": "D:/dev-projects/3D-GIS/demos/morocco-offline-gis/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop-1080p",
+        "testDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "snapshotDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:17841/",
+          "viewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "contextOptions": {
+            "bypassServiceWorker": false
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=d3d11",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-1080p"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\.data\\playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop-768p",
+        "testDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "snapshotDir": "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:17841/",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "contextOptions": {
+            "bypassServiceWorker": false
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=d3d11",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-768p"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "v121-geo.spec.ts",
+      "file": "v121-geo.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "02 admin context: real ADM1/ADM2 gbOpen labels + boundaries, exact provenance, on/off contrast",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 138998,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T16:37:32.121Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-af99b833e4227e4bdfed",
+          "file": "v121-geo.spec.ts",
+          "line": 1313,
+          "column": 1
+        },
+        {
+          "title": "07 admin click popup cites geoBoundaries gbOpen provenance; disputed line stays honest OSM",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-1080p",
+              "projectName": "desktop-1080p",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13198,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T16:39:51.384Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-403714b832e1c6f98e92",
+          "file": "v121-geo.spec.ts",
+          "line": 2006,
+          "column": 1
+        },
+        {
+          "title": "02 admin context: real ADM1/ADM2 gbOpen labels + boundaries, exact provenance, on/off contrast",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 79170,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T16:40:05.776Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-b55db15050057601b779",
+          "file": "v121-geo.spec.ts",
+          "line": 1313,
+          "column": 1
+        },
+        {
+          "title": "07 admin click popup cites geoBoundaries gbOpen provenance; disputed line stays honest OSM",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-768p",
+              "projectName": "desktop-768p",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12207,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T16:41:25.182Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa31d9232f2e2dd327d1-1166209a826ee4a42271",
+          "file": "v121-geo.spec.ts",
+          "line": 2006,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-31T16:37:30.649Z",
+    "duration": 247203.736,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

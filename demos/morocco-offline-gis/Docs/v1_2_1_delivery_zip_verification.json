@@ -1,0 +1,683 @@
+{
+  "archive": {
+    "sha256": "0e57c689fe756f4ffc2c2cbdf4be31261604fe6132cf6f2ecb8bf3f02c8230bb",
+    "size": 472441899
+  },
+  "checks": {
+    "archive_readable": {
+      "ok": true
+    },
+    "byte_identity": {
+      "mismatches": [],
+      "ok": true
+    },
+    "crc": {
+      "failed_entries": [],
+      "ok": true
+    },
+    "duplicates": {
+      "entries": [],
+      "ok": true
+    },
+    "entry_set": {
+      "extra_in_zip": [],
+      "missing_in_zip": [],
+      "ok": true
+    },
+    "unsafe_paths": {
+      "entries": [],
+      "ok": true
+    }
+  },
+  "dist": "dist",
+  "dist_files": 105,
+  "dist_read_errors": [],
+  "dist_total_bytes": 479450519,
+  "files": [
+    {
+      "path": "DATA_SOURCES_AND_LICENSES.md",
+      "sha256": "31fc3ad250171980a70a8592ec98a5df68572fa02fd5ec69a9bef90f0330c0b2",
+      "size": 15140
+    },
+    {
+      "path": "Docs/V1_2_0_Interaction_and_Data_Contract.md",
+      "sha256": "a731f03497e4ec7a62e801f3721f2aabfe76e54e27ee1a012c2f73ba4a279559",
+      "size": 10017
+    },
+    {
+      "path": "Docs/V1_2_1_Admin_Acceptance_Correction.md",
+      "sha256": "f621ee5b89a6cb5f91c1fc857933a26d10dbb3b7b340ed9ba750a75c4a02b40e",
+      "size": 24942
+    },
+    {
+      "path": "Docs/V1_2_1_Admin_Font_Encoding.md",
+      "sha256": "897017e96edfe26486c7ed12f8bcbbe85daa78c0ec808328f45bbd8adb87d24c",
+      "size": 8155
+    },
+    {
+      "path": "Docs/V1_2_1_Data_Sources_and_Boundaries.md",
+      "sha256": "390094312ee2d7ad1227294182aba16cfefc4ecff56dfc4443bb4d518ba6500c",
+      "size": 8350
+    },
+    {
+      "path": "Docs/V1_2_1_Disconnected_Cold_Start.md",
+      "sha256": "5966aa9aaa23b7b0ef7b697b23d5f3805fe8a61c9c9014212defefeaefe5f1e8",
+      "size": 2179
+    },
+    {
+      "path": "Docs/V1_2_1_Geographic_Context_Plan.md",
+      "sha256": "1a8e03f5a8f03c5bd4691590cc97e559a672cc7b92f27c2baea1028799637530",
+      "size": 11498
+    },
+    {
+      "path": "Docs/V1_2_1_Visual_Acceptance.md",
+      "sha256": "c0d2e7389d18d90fe75d80c6a49a29553ef91a8e6757a1e56f86d9c735fdd2c7",
+      "size": 33299
+    },
+    {
+      "path": "Docs/geo_glyph_audit_snapshot_20261030.json",
+      "sha256": "b01febc9928c88a91fb20aa340db34b348cccaeb21e41ce7ddeeacbee9ecab99",
+      "size": 8865
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/01-morocco-overview.png",
+      "sha256": "1ad2ee3a1e0d5e94ac0de876ab418cf6e788286836cb0f174e028254fa739efb",
+      "size": 259154
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02-high-atlas-admin-boundaries.png",
+      "sha256": "29d3944d26121cc6edebb6a1b4befc0a53ba8504fdb4480f30bab471f799df88",
+      "size": 3441314
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02a-overview-adm1-gbopen-labels-off.png",
+      "sha256": "81c875190b104d72ba9972be07c92269d8d116d5b9278fbaa355cb1f47d32f4e",
+      "size": 315598
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02a-overview-adm1-gbopen-lines-off.png",
+      "sha256": "18477d05fab7f46c90b66ea0d927f8ce39572de1864ba2951c5957524c3590d6",
+      "size": 230301
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02a-overview-adm1-gbopen-off.png",
+      "sha256": "df6211eecd3053680dbbdb527821c7d90833f45fb5675a6a57fce828080536f6",
+      "size": 217564
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02a-overview-adm1-gbopen-on.png",
+      "sha256": "317df127f1b91d45d587c67631e9836ceae8413e7d2a353bfb8d59e193e8a424",
+      "size": 327472
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c0-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c1-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c10-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c11-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c12-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c13-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c14-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c2-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c3-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c4-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c5-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c6-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c7-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c8-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c9-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-gbopen-labels-off.png",
+      "sha256": "c6493d90badc5ea94d2265fefb8c2f86f3975ef5a6abf6228595590697691f86",
+      "size": 3438792
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-gbopen-lines-off.png",
+      "sha256": "81389be791e353ab448c15a888cfbbc22efa632956c7538f980e46f71e074990",
+      "size": 3439674
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-gbopen-off.png",
+      "sha256": "a562cfc29d5c0b184cf068400abd40fb7dc94369722816f7734ea9366d9e6535",
+      "size": 3438169
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-gbopen-on.png",
+      "sha256": "ffb14ee1885f4e93545755bc0870d9db91227e43c355cebc8d1ca281e4fab48c",
+      "size": 3441314
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm2-gbopen-labels-off.png",
+      "sha256": "8a726f6bf862706494062843829eece40aa85083459158437a0588ac8fe4ff85",
+      "size": 3436995
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm2-gbopen-lines-off.png",
+      "sha256": "a27a76d7aea24e3d0f341333336b197e36beb1199ebd5603f1d0c92e80f996c8",
+      "size": 3414403
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm2-gbopen-off.png",
+      "sha256": "de2e24ea54bf4ce203d8a80ce5c62c4ffcec4e12e301c3c5debb0b5ba58ee8d7",
+      "size": 3410633
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm2-gbopen-on.png",
+      "sha256": "a635ca6d06c72e987ad2c7cf58ef9be46a11a7b8275dba548b5ff9d7a12f7514",
+      "size": 3441290
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/03-high-atlas-real-roads-towns.png",
+      "sha256": "f1c0e1be98a30a8afc92ad4abb736ab7f9a3b5ccb40c3e5ecd25ad0b831d18a9",
+      "size": 1950248
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/04-water-natural-labels.png",
+      "sha256": "3312b48efcf968e2c0fd6a2cfa5678b4a997c342180891ddff1448acd9a1be16",
+      "size": 2853739
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/05-geo-layer-toggles.png",
+      "sha256": "d743d28bafb2344ef1a69c640b9371f45a37dec1032da1cfee885c713445fecb",
+      "size": 3325713
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/06-real-3d-terrain-natural-labels.png",
+      "sha256": "b5ec424d608c3b4f534d10eeca07116cdde70d53235465886ab86909714f8149",
+      "size": 2739467
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/07-ran-coverage-real-geo-background.png",
+      "sha256": "53504c100fb2507a056e63ea87bc9d3a58db26b90a7fee872d5e03451352111c",
+      "size": 2681173
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/08-back-to-gis.png",
+      "sha256": "df06d91d03e5d665fa50e022c8c8ec51461c6b9a0382013437148e70555d9cf4",
+      "size": 3152182
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-1080p/08-ran-site-road-profile.png",
+      "sha256": "27171b441bfab405dc59dc2e1f33fa84a0bcb682a46ae880a263f147c29fd953",
+      "size": 2232442
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/01-morocco-overview.png",
+      "sha256": "5b8c710bb5e28a4e9922bc8430f54304915df2c20489c82e91286d02092699e3",
+      "size": 195065
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02-high-atlas-admin-boundaries.png",
+      "sha256": "8a3bbc6629c602baff8262adfb6356aca9389288aef2e7d8c7843402493e780e",
+      "size": 1633158
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02a-overview-adm1-gbopen-labels-off.png",
+      "sha256": "77eb1f97f4b2d9b45ea1777cccb6f3429ff6d6834093d243e13263b9a83ea4d1",
+      "size": 223179
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02a-overview-adm1-gbopen-lines-off.png",
+      "sha256": "faa4aebe32fe571e5327cb818dbeca00e33d2e449fbb194814528963ea093e7d",
+      "size": 169974
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02a-overview-adm1-gbopen-off.png",
+      "sha256": "15e544a8f5052e16041613791be06a7527e4d0bd27b38c7f1bac4196e04addda",
+      "size": 162927
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02a-overview-adm1-gbopen-on.png",
+      "sha256": "8efcb890e7368272a7a2013305020027fac83a8fa9ef02ca660c0e19ff022e95",
+      "size": 229789
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm1-c0-gbopen-lines-off.png",
+      "sha256": "a6390f12660f16b08b3b97c597ef46833fe585de4c515fbab44c4176744c7063",
+      "size": 1632353
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm1-gbopen-labels-off.png",
+      "sha256": "450ed9654fef52ce5063a0cd52db8f8a8cb906323424304b91168918011f2d03",
+      "size": 1631747
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm1-gbopen-lines-off.png",
+      "sha256": "a6390f12660f16b08b3b97c597ef46833fe585de4c515fbab44c4176744c7063",
+      "size": 1632353
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm1-gbopen-off.png",
+      "sha256": "692af2478397e51d47d131469260a333c2c6da1d57d78c519507285fe80849bf",
+      "size": 1630799
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm1-gbopen-on.png",
+      "sha256": "1a3fe858ac5917ea1c7d10e0e756279481c181f734da2bd763ceaa516bf5fbe8",
+      "size": 1633149
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm2-gbopen-labels-off.png",
+      "sha256": "f21aa7f1d9ce15d9ce09b33c9d80e8307d0dedc8b4869d3b16059029a3606afc",
+      "size": 1630028
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm2-gbopen-lines-off.png",
+      "sha256": "1768a224bd312f53136cdd07912621867bfa624ae9b99a9e171af302f9d54bca",
+      "size": 1620431
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm2-gbopen-off.png",
+      "sha256": "9466b8e8f902f3a6ce8758786928cabd1ada8061bfaeeb9fbb98fee45b02c4d6",
+      "size": 1617905
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm2-gbopen-on.png",
+      "sha256": "90865eb41da9b12c96b8f4b6a03655f53239d877c938ca02afaff5d0bdf28d00",
+      "size": 1633132
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/03-high-atlas-real-roads-towns.png",
+      "sha256": "339f58361a9d9fc7e187c6d77856063cc035b83e97edec137fd4f5fa9cb48f7d",
+      "size": 939375
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/04-water-natural-labels.png",
+      "sha256": "786de2c1b767ec99a474423f2d8d80fa392a9b9dd217d4e3ec273d1888be23f2",
+      "size": 1389315
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/05-geo-layer-toggles.png",
+      "sha256": "f12cb146c329726fb46442fae4df9689b3afcd5947af13fd455bb6942965c7fb",
+      "size": 1653817
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/06-real-3d-terrain-natural-labels.png",
+      "sha256": "4173b0dcc2b649e6e7f0b53290f9dcc0611e91913d6c0b80be1cda253ec4a186",
+      "size": 1200588
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/07-ran-coverage-real-geo-background.png",
+      "sha256": "718540c1dfda079a626d43f2d2640121d6e857c65484bcce9dc4bc9426868aae",
+      "size": 1334140
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/08-back-to-gis.png",
+      "sha256": "32000d9d5ce6cfe9747e7ede5b449782acbcceb8eeaf6ab1b14dd731318fab1d",
+      "size": 1506043
+    },
+    {
+      "path": "Docs/screenshots/v1.2.1/desktop-768p/08-ran-site-road-profile.png",
+      "sha256": "99d1cbd1d2daeced8647513d6426caac4f18d77108c79c04cc0e75f1e126527c",
+      "size": 1015079
+    },
+    {
+      "path": "Docs/v1_2_1_admin_click_retest.json",
+      "sha256": "c3a05210787c86e4b5c3531d292a9631f8febe82c4f390e57a1fc251958db0a1",
+      "size": 6685
+    },
+    {
+      "path": "Docs/v1_2_1_admin_data_validation.json",
+      "sha256": "d801f58a5b1945610c388ce99da794a05c1b194176f12d1f8db647775b311342",
+      "size": 7841
+    },
+    {
+      "path": "Docs/v1_2_1_admin_font_exact_fixture.json",
+      "sha256": "b3bdc4d1dc62da80b77894d14ab28981cba9580bd13492f721781da4bcffe441",
+      "size": 11854
+    },
+    {
+      "path": "Docs/v1_2_1_admin_font_sheet.png",
+      "sha256": "e47637e009836ce530246e17675c595f7c28f058df401f1e04f746defe63a148",
+      "size": 2771
+    },
+    {
+      "path": "Docs/v1_2_1_admin_font_structural_validation.json",
+      "sha256": "d91c1c31d233faa53797b1533ddb195c93b0f43b811f95e81b1af9d940c1da64",
+      "size": 1471
+    },
+    {
+      "path": "Docs/v1_2_1_admin_font_validation.json",
+      "sha256": "b0bbe19c3a9acf2a34ac0f81d6e3195dc42939ae2a3b1bbcd202cc1f29a0e0da",
+      "size": 5153
+    },
+    {
+      "path": "Docs/v1_2_1_admin_initial_roi_metrics.json",
+      "sha256": "5f923c8db247dd9256b6a6742e0793e01194831847f05962ff541e99741228a8",
+      "size": 2561
+    },
+    {
+      "path": "Docs/v1_2_1_admin_visibility_initial_failure.json",
+      "sha256": "ad3d272fe85f3f11bb6e85784af0d535ebf87fc02d97d8410871dbb2081d0c8b",
+      "size": 22605
+    },
+    {
+      "path": "Docs/v1_2_1_admin_visibility_results.json",
+      "sha256": "9358764af694846b96001b522d84e753087dc78306028164bb78f3abd7a01a53",
+      "size": 9348
+    },
+    {
+      "path": "Docs/v1_2_1_admin_visibility_rois.json",
+      "sha256": "f096f4752d991bad67b2f098ea3dc3287e1325e4e46c75e9c11117181f38a109",
+      "size": 28786
+    },
+    {
+      "path": "Docs/v1_2_1_full66_rev6b_results.json",
+      "sha256": "47b107ddb45f960978ba2adaec6be3e6c95e7c7fb93130185abb0f7c1cac5f40",
+      "size": 784
+    },
+    {
+      "path": "Docs/v1_2_1_full66_rev6b_run.log",
+      "sha256": "61f8e5b5082c0536b88a8f07a5f736608594543c6ef5876944655f6788bf4207",
+      "size": 17680
+    },
+    {
+      "path": "Docs/v1_2_1_runtime_evidence.json",
+      "sha256": "392f85697cd6e1052aec0cc9499b5de524c70885f18fa402dddc5ce858d3b652",
+      "size": 57646
+    },
+    {
+      "path": "Docs/v1_2_1_test_results.json",
+      "sha256": "0f2374ec3152ff20992c529b5981379396a8ca3b9d3ff412f875fa218fe3fdc8",
+      "size": 81545
+    },
+    {
+      "path": "README.md",
+      "sha256": "f439f8581c9b6c318daa8f5bbc4146501ee8686a05fc3f006d4f87a65c94fa9f",
+      "size": 11578
+    },
+    {
+      "path": "VERSION.txt",
+      "sha256": "5d6e0333ea94ad3af1a7fae3e35e59255b00f996777f36f92078ab0e7efe3992",
+      "size": 339
+    },
+    {
+      "path": "assets/glyphs/Noto Sans Regular/0-255.pbf",
+      "sha256": "a658f4ca95dbdaa9d54bc10a9bde07cfcb6a42317bcf55bdd1e8e46a4be59715",
+      "size": 417016
+    },
+    {
+      "path": "assets/glyphs/Offline Admin Latin/0-255.pbf",
+      "sha256": "2ee61f0000cfc63ca24462aa08c599a8f512b968d24bfc78c797288e6edede3b",
+      "size": 417018
+    },
+    {
+      "path": "assets/glyphs/Offline Admin Latin/NOTICE.md",
+      "sha256": "2b34f713095368ebafaa8aa3ee4d52eab6d2e8760d21e658566f9a8a67ed5f5f",
+      "size": 3446
+    },
+    {
+      "path": "assets/index-F_dzb_BC.js",
+      "sha256": "4701da2934d5c57af106a8cb564bbc73e3d8092f2b31a1ecb247fb4c596067a3",
+      "size": 1144682
+    },
+    {
+      "path": "assets/index-I8RiLslP.css",
+      "sha256": "12848ee34475158783cf29ad97d125e42c1e2c79af0eeec0d2b3d7033d1fa0cd",
+      "size": 75882
+    },
+    {
+      "path": "data/NOTICE.txt",
+      "sha256": "ab0b914e8b031ee9c3b981b402d56138f8792501dd39652ccbfae3842a4676f6",
+      "size": 3282
+    },
+    {
+      "path": "data/admin-context-areas.geojson",
+      "sha256": "c9443d8008b9c34a39483789239073a2f59ae9d488a1026075e0038a4c814202",
+      "size": 2396526
+    },
+    {
+      "path": "data/admin-context-labels.geojson",
+      "sha256": "a2051a9db3a13138500f7a8d6bc95e6439212b6ecbfed77a5d11330a582aa9dd",
+      "size": 77611
+    },
+    {
+      "path": "data/contours.pmtiles",
+      "sha256": "9e5a529eaa93b2b6c70e6f46c23f5c8c349be8a387936fe07bf1f85bf7d49fa4",
+      "size": 5405449
+    },
+    {
+      "path": "data/dem-terrarium.pmtiles",
+      "sha256": "0a348ca3863959023a7ee742ff69fd0af444b9e8a5e9c9ad15939dc0c6d06c0b",
+      "size": 208401064
+    },
+    {
+      "path": "data/high-atlas-context.pmtiles",
+      "sha256": "507986ca83b62f5f032ee82f52d2b57f20260ff5b4298f80c6d6716bb68a00de",
+      "size": 36675954
+    },
+    {
+      "path": "data/hypso.pmtiles",
+      "sha256": "d99be56bba67c596fdb9c10b99e8b9de86b893247ddd082c8f61ccaa277d8d27",
+      "size": 28820267
+    },
+    {
+      "path": "data/metadata.json",
+      "sha256": "a5e0d056f02dbfd97729a5ac505d84498e0eaecae5ca697991ccced5aa288c9a",
+      "size": 46998
+    },
+    {
+      "path": "data/morocco-overview.pmtiles",
+      "sha256": "f5e587bd800ef7b7d846c30e3feae6bcaba89ccf91935ec1076f0006202ca119",
+      "size": 65961582
+    },
+    {
+      "path": "data/roads-peaks.geojson",
+      "sha256": "b77833fce04463d4ad86fe8b10850e06e5d563ead0bcba9b531e84900937383a",
+      "size": 13094
+    },
+    {
+      "path": "data/simulated-ran.geojson",
+      "sha256": "d766b11cf040248092da2afc31d77145843de24eb9ea058e4dd42de98854555d",
+      "size": 53564
+    },
+    {
+      "path": "index.html",
+      "sha256": "e7e37aa118580ec3025d0aa356b0105e4d5733c880b1bec7e9e60550a8416fc7",
+      "size": 9948
+    },
+    {
+      "path": "licenses/Noto-Sans-OFL.txt",
+      "sha256": "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a",
+      "size": 4396
+    },
+    {
+      "path": "licenses/ODbL-1.0.txt",
+      "sha256": "607680718977f6f6c9607972afd98f208573f19251315ed1362a8589b51beaf5",
+      "size": 25278
+    },
+    {
+      "path": "licenses/README.txt",
+      "sha256": "8f829e90c5c7aec80d3cddffdbed371da09b89669a87541d1a0f6e205dda163b",
+      "size": 478
+    },
+    {
+      "path": "start-offline.bat",
+      "sha256": "bee287a20585cd78281c183d08f06c655aa8b0024f4d4eccb7f9a02c4fcf15b4",
+      "size": 567
+    },
+    {
+      "path": "start-offline.ps1",
+      "sha256": "7df82869a263917a896d88e898cae1d27f6dc9b8e5b0357c9684cf8c4e151fc0",
+      "size": 8232
+    }
+  ],
+  "js_bundles": [
+    {
+      "path": "assets/index-F_dzb_BC.js",
+      "sha256": "4701da2934d5c57af106a8cb564bbc73e3d8092f2b31a1ecb247fb4c596067a3",
+      "size": 1144682
+    }
+  ],
+  "report": "Docs/v1_2_1_delivery_zip_verification.json",
+  "tool": "verify_delivery_zip",
+  "verified": true,
+  "zip": "releases/Morocco-High-Atlas-Offline-GeoContext-v1.2.1.zip",
+  "zip_dir_entries": 0,
+  "zip_entry_names": [
+    "DATA_SOURCES_AND_LICENSES.md",
+    "Docs/V1_2_0_Interaction_and_Data_Contract.md",
+    "Docs/V1_2_1_Admin_Acceptance_Correction.md",
+    "Docs/V1_2_1_Admin_Font_Encoding.md",
+    "Docs/V1_2_1_Data_Sources_and_Boundaries.md",
+    "Docs/V1_2_1_Disconnected_Cold_Start.md",
+    "Docs/V1_2_1_Geographic_Context_Plan.md",
+    "Docs/V1_2_1_Visual_Acceptance.md",
+    "Docs/geo_glyph_audit_snapshot_20261030.json",
+    "Docs/screenshots/v1.2.1/desktop-1080p/01-morocco-overview.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02-high-atlas-admin-boundaries.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02a-overview-adm1-gbopen-labels-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02a-overview-adm1-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02a-overview-adm1-gbopen-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02a-overview-adm1-gbopen-on.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c0-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c1-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c10-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c11-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c12-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c13-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c14-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c2-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c3-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c4-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c5-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c6-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c7-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c8-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-c9-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-gbopen-labels-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-gbopen-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm1-gbopen-on.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm2-gbopen-labels-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm2-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm2-gbopen-off.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/02b-atlas-adm2-gbopen-on.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/03-high-atlas-real-roads-towns.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/04-water-natural-labels.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/05-geo-layer-toggles.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/06-real-3d-terrain-natural-labels.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/07-ran-coverage-real-geo-background.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/08-back-to-gis.png",
+    "Docs/screenshots/v1.2.1/desktop-1080p/08-ran-site-road-profile.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/01-morocco-overview.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02-high-atlas-admin-boundaries.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02a-overview-adm1-gbopen-labels-off.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02a-overview-adm1-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02a-overview-adm1-gbopen-off.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02a-overview-adm1-gbopen-on.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm1-c0-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm1-gbopen-labels-off.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm1-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm1-gbopen-off.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm1-gbopen-on.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm2-gbopen-labels-off.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm2-gbopen-lines-off.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm2-gbopen-off.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/02b-atlas-adm2-gbopen-on.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/03-high-atlas-real-roads-towns.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/04-water-natural-labels.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/05-geo-layer-toggles.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/06-real-3d-terrain-natural-labels.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/07-ran-coverage-real-geo-background.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/08-back-to-gis.png",
+    "Docs/screenshots/v1.2.1/desktop-768p/08-ran-site-road-profile.png",
+    "Docs/v1_2_1_admin_click_retest.json",
+    "Docs/v1_2_1_admin_data_validation.json",
+    "Docs/v1_2_1_admin_font_exact_fixture.json",
+    "Docs/v1_2_1_admin_font_sheet.png",
+    "Docs/v1_2_1_admin_font_structural_validation.json",
+    "Docs/v1_2_1_admin_font_validation.json",
+    "Docs/v1_2_1_admin_initial_roi_metrics.json",
+    "Docs/v1_2_1_admin_visibility_initial_failure.json",
+    "Docs/v1_2_1_admin_visibility_results.json",
+    "Docs/v1_2_1_admin_visibility_rois.json",
+    "Docs/v1_2_1_full66_rev6b_results.json",
+    "Docs/v1_2_1_full66_rev6b_run.log",
+    "Docs/v1_2_1_runtime_evidence.json",
+    "Docs/v1_2_1_test_results.json",
+    "README.md",
+    "VERSION.txt",
+    "assets/glyphs/Noto Sans Regular/0-255.pbf",
+    "assets/glyphs/Offline Admin Latin/0-255.pbf",
+    "assets/glyphs/Offline Admin Latin/NOTICE.md",
+    "assets/index-F_dzb_BC.js",
+    "assets/index-I8RiLslP.css",
+    "data/NOTICE.txt",
+    "data/admin-context-areas.geojson",
+    "data/admin-context-labels.geojson",
+    "data/contours.pmtiles",
+    "data/dem-terrarium.pmtiles",
+    "data/high-atlas-context.pmtiles",
+    "data/hypso.pmtiles",
+    "data/metadata.json",
+    "data/morocco-overview.pmtiles",
+    "data/roads-peaks.geojson",
+    "data/simulated-ran.geojson",
+    "index.html",
+    "licenses/Noto-Sans-OFL.txt",
+    "licenses/ODbL-1.0.txt",
+    "licenses/README.txt",
+    "start-offline.bat",
+    "start-offline.ps1"
+  ],
+  "zip_file_entries": 105
+}

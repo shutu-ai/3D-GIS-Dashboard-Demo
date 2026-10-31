@@ -1,0 +1,49 @@
+PROJECT=3D-GIS-Dashboard-Demo
+VERSION_TARGET=v1.2.1
+BASELINE_TAG=v1.2.0
+BASELINE_COMMIT=e1958c7dd88407bfedb0c81771ff3a5a42a88e07
+WORK_BRANCH=feat/v1.2.1-offline-geographic-context
+HEAD=6e39a0cab4bd4f2f646eff00e70db4c8943a5887 (implementation remains in working tree)
+G0_BASELINE=PASS
+G1_GEO_DATA=PASS
+G2_MAP_RENDER=PASS
+G3_RAN_REGRESSION=PASS (rev6b full suite 66/66 in 16.4m, strict-run winners reproduced exactly; baseline 42 spec files byte-untouched, git diff exit 0)
+G4_OFFLINE_VISUAL=PASS
+G5_DELIVERABLES=PASS
+OSM_SOURCE_SNAPSHOT=https://build.protomaps.com/20261030.pmtiles (2026-10-30, Basemap 4.15.2)
+ADMIN_SOURCE=ADM1/ADM2 geoBoundaries gbOpen MAR 9469f09 (2017, ODbL1.0); separate OSM/Protomaps ADM0/disputed
+ADMIN_LEVELS=ADM0 country/kind_detail2; gbOpen ADM1 (12 source polygons), ADM2 (75 source polygons), stable shapeID
+ADMIN_BOUNDARY_PROVENANCE=PASS
+DISPUTED_BOUNDARY_HANDLING=PASS
+REAL_ROADS_AND_PLACES=PASS
+GEOGRAPHIC_LABELS=PASS (16-layer white #ffffff + dark halo, runtime exactUsage/allWhite true on both viewports)
+WATER_AND_NATURAL_LABELS=PASS
+MOROCCO_OVERVIEW_2D=PASS
+HIGH_ATLAS_3D=PASS
+DEM_COVERAGE_HONESTY=PASS
+SIMULATED_GEO_SEPARATION=PASS
+RAN_SIMULATED_BANNER=PASS
+RAN_LINKAGE_AND_LOS=PASS
+GLYPH_GHOSTING_REGRESSION=PASS (16-layer usage exact-match verified; font QA all_pass=true; no glyph ghosting in designer 27/27 review)
+DATA_VALIDATION=99/99 (geo-context 10/10; admin-context 9/9 incl. idempotence; isolated admin font all_pass=true)
+PLAYWRIGHT_BASELINE=42/42
+PLAYWRIGHT_NEW=4/4 strict 02/07 (rev6b ordered-candidate ADM1 boundary gate, unchanged Pillow thresholds) + 66/66 full regression (16.4m; Docs/v1_2_1_full66_rev6b_results.json)
+SCREENSHOTS=42 canonical (21/viewport, dual-viewport) + 16 ordered-candidate trail (58 png); independent AI review 27/27 PASS, 0 FAIL (Docs/V1_2_1_Visual_Acceptance.md)
+OFFLINE_COLD_START=PASS (user-attested 2026-10-31 on revised ZIP 0e57c689: physical disconnect, new extraction, fresh profile/empty cache, both viewports; historical manual record for old ec64df5c preserved in manual_acceptance.previous)
+EXTERNAL_REQUESTS=0
+PMTILES_RANGE_206=PASS
+JS_WEBGL_ERRORS=0
+ZIP_PATH=releases/Morocco-High-Atlas-Offline-GeoContext-v1.2.1.zip
+ZIP_SIZE_BYTES=472441899
+ZIP_SHA256=0e57c689fe756f4ffc2c2cbdf4be31261604fe6132cf6f2ecb8bf3f02c8230bb
+RELEASE_READY=YES
+PUBLISHED=NO
+BLOCKERS=none (all gates PASS; user manual re-acceptance of revised ZIP 0e57c689 passed 2026-10-31; not published per task constraints - no push/merge/tag/Release)
+
+Implemented: real offline geographic context, honest extent/DEM policy, separate simulated data, source/license records and candidate ZIP.
+Tested: build; 99/99 terrain + 10/10 geographic validation; rev6b strict 02/07 4/4 (unchanged Pillow gate, ordered-candidate ADM1 detector) and a full 66/66 regression (16.4m, Docs/v1_2_1_full66_rev6b_results.json) reproducing the strict-run winners exactly; baseline 42 spec files byte-untouched (git diff exit 0). Historical failed runs retained unchanged (Docs/v1_2_1_test_results.json 65/66 pre-correction; failure-chain archives under .data/).
+Visual acceptance: independent AI designer review of the refreshed dual-viewport set, 27/27 PASS 0 FAIL (Docs/V1_2_1_Visual_Acceptance.md current-status section; 4 non-blocking observations recorded).
+Manual acceptance: the user's earlier disconnected cold-start PASS binds the OLD ec64df5c candidate only (preserved byte-identically in releases/history/pre-admin-correction-ec64df5c7164/). On 2026-10-31 the user re-accepted the REVISED artifact (ZIP 0e57c689) via structured confirmation: physical disconnect, new extraction, fresh-profile/empty-cache cold boot, nationwide 2D, ADM1/ADM2 names and boundaries, RAN site-road-DEM profile roundtrip, both viewports - all passed (PASS_USER_ATTESTED_REVISED_ARTIFACT in Docs/V1_2_1_Acceptance.json; screenshots/Network/Console exports not supplied this round, result is user-attested).
+Not measured: total browser RAM and FPS; JS heap and timing measurements are narrower evidence. User browser version and raw manual Network/Console exports were not supplied.
+Delivery ZIP rebuilt deterministically from the frozen dist (scripts/build_delivery_zip.py): 105 entries, 472,441,899 bytes, SHA-256 0e57c689fe756f4ffc2c2cbdf4be31261604fe6132cf6f2ecb8bf3f02c8230bb; all entries byte-verified against dist by scripts/verify_delivery_zip.py (6/6 checks ok, Docs/v1_2_1_delivery_zip_verification.json). No push, merge, tag or Release performed.
+Historical sidecars of the old candidate: releases/Morocco-High-Atlas-Offline-GeoContext-v1.2.1-acceptance/ and releases/history/pre-admin-correction-ec64df5c7164/.
