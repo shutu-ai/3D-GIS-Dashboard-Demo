@@ -5,11 +5,11 @@ BASELINE_COMMIT=e1958c7dd88407bfedb0c81771ff3a5a42a88e07
 WORK_BRANCH=feat/v1.2.1-offline-geographic-context
 HEAD=1a1acb6 (closure work commit; branch tip records this line in the immediately following finalize commit)
 G0_BASELINE=PASS
-G1_GEO_DATA=PASS
-G2_MAP_RENDER=PASS
-G3_RAN_REGRESSION=PASS (rev6b full suite 66/66 in 16.4m, strict-run winners reproduced exactly; baseline 42 spec files byte-untouched, git diff exit 0)
-G4_OFFLINE_VISUAL=PASS
-G5_DELIVERABLES=PASS
+G1_GEO_DATA=PASS (real DEM buffer expansion 2026-11-01: coverage (-8.83,30.1,-6.1,31.9) from local raw GLO-30 only, zero void fills, west edge data-driven trim per unchanged min>=150m gate; validate_data 99/99, geo 10/10, admin font exact-20 all_pass; baseline glyph/curated/SIM bytes unchanged; see Docs/V1_2_1_DEM_Buffer_Expansion.md)
+G2_MAP_RENDER=PASS (shipped dist index-CbsVWRgw.js + regenerated anchors: full regression 78/78 in 20.8m re-run post anchor rebuild, .data/full-regression-final2/; fixes landed without touching frozen specs/thresholds - declared-coverage analysis precheck, quiet() settlement fix, ADM label halo realigned to alpha-.85 recipe)
+G3_RAN_REGRESSION=PASS (full regression 78/78 on shipped dist in 20.8m, .data/full-regression-final2/; baseline 42 spec files byte-untouched; prior 66/66 rev6b is historical)
+G4_OFFLINE_VISUAL=PASS (designer five-item final review 2026-11-01 on index-Df1YemF6: 4 PASS + coverageRing full-ring PARTIAL by designed zoom floor; F3 evidence series both viewports; pixel gate 605/920px)
+G5_DELIVERABLES=PASS (delivery ZIP rebuilt deterministically 2026-11-01: 107 entries, 819,542,637 bytes, SHA256 3db540bdd5601c448c9d927d9d9fe074404734c5c9ae1e8a50f82a34730a3cbf; verify_delivery_zip 6/6 ok, .data/delivery-zip-verify-final2.json; sidecar written; source dist from post-expansion data + regenerated label anchors, full regression 78/78 on that dist)
 OSM_SOURCE_SNAPSHOT=https://build.protomaps.com/20261030.pmtiles (2026-10-30, Basemap 4.15.2)
 ADMIN_SOURCE=ADM1/ADM2 geoBoundaries gbOpen MAR 9469f09 (2017, ODbL1.0); separate OSM/Protomaps ADM0/disputed
 ADMIN_LEVELS=ADM0 country/kind_detail2; gbOpen ADM1 (12 source polygons), ADM2 (75 source polygons), stable shapeID
@@ -29,16 +29,16 @@ DATA_VALIDATION=99/99 (geo-context 10/10; admin-context 9/9 incl. idempotence; i
 PLAYWRIGHT_BASELINE=42/42
 PLAYWRIGHT_NEW=4/4 strict 02/07 (rev6b ordered-candidate ADM1 boundary gate, unchanged Pillow thresholds) + 66/66 full regression (16.4m; Docs/v1_2_1_full66_rev6b_results.json)
 SCREENSHOTS=42 canonical (21/viewport, dual-viewport) + 16 ordered-candidate trail (58 png); independent AI review 27/27 PASS, 0 FAIL (Docs/V1_2_1_Visual_Acceptance.md)
-OFFLINE_COLD_START=PASS (user-attested 2026-10-31 on revised ZIP 0e57c689: physical disconnect, new extraction, fresh profile/empty cache, both viewports; historical manual record for old ec64df5c preserved in manual_acceptance.previous)
+OFFLINE_COLD_START=PENDING (prior user-attested PASS 2026-10-31 binds ZIP 0e57c689, superseded; re-acceptance required on final ZIP 3db540bd)
 EXTERNAL_REQUESTS=0
 PMTILES_RANGE_206=PASS
 JS_WEBGL_ERRORS=0
 ZIP_PATH=releases/Morocco-High-Atlas-Offline-GeoContext-v1.2.1.zip
-ZIP_SIZE_BYTES=472441899
-ZIP_SHA256=0e57c689fe756f4ffc2c2cbdf4be31261604fe6132cf6f2ecb8bf3f02c8230bb
-RELEASE_READY=YES
+ZIP_SIZE_BYTES=819542637
+ZIP_SHA256=3db540bdd5601c448c9d927d9d9fe074404734c5c9ae1e8a50f82a34730a3cbf
+RELEASE_READY=NO
 PUBLISHED=NO
-BLOCKERS=none (all gates PASS; user manual re-acceptance of revised ZIP 0e57c689 passed 2026-10-31; not published per task constraints - no push/merge/tag/Release)
+BLOCKERS=User physical-disconnect / empty-cache cold-start re-acceptance of final ZIP 3db540bd (G0-G5 all PASS; prior manual PASS bound to ZIP 0e57c689, historical).
 
 Implemented: real offline geographic context, honest extent/DEM policy, separate simulated data, source/license records and candidate ZIP.
 Tested: build; 99/99 terrain + 10/10 geographic validation; rev6b strict 02/07 4/4 (unchanged Pillow gate, ordered-candidate ADM1 detector) and a full 66/66 regression (16.4m, Docs/v1_2_1_full66_rev6b_results.json) reproducing the strict-run winners exactly; baseline 42 spec files byte-untouched (git diff exit 0). Historical failed runs retained unchanged (Docs/v1_2_1_test_results.json 65/66 pre-correction; failure-chain archives under .data/).

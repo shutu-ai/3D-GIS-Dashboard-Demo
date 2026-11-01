@@ -19,6 +19,18 @@ const cache = new Map<string, ImageData | null>();
 const pending = new Map<string, Promise<ImageData | null>>();
 const MAX_CACHE = 40;
 
+// Declared analysis domain (metadata.coverage, set at boot in main.ts). Tiles
+// exist slightly beyond it (pipeline margin = resampling headroom, partly
+// edge-replicated at the outermost rows), so tile presence alone is NOT the
+// data contract: the analysis domain is the OPEN box of the declared coverage
+// — edge and margin points report out-of-coverage even when a tile would
+// decode (v1.2.0: UNKNOWN means "no data"; boundary claims no data).
+let analysisCoverage: [number, number, number, number] | null = null;
+
+export function setAnalysisCoverage(bbox: [number, number, number, number]) {
+  analysisCoverage = bbox;
+}
+
 function lngLatToTile(lng: number, lat: number, zoom: number): { x: number; y: number; fx: number; fy: number } {
   const n = 2 ** zoom;
   const tx = ((lng + 180) / 360) * n;
@@ -83,6 +95,15 @@ export async function sampleElevation(
   zmax = 12,
 ): Promise<SampleResult> {
   const z = zmax;
+  if (
+    analysisCoverage &&
+    (lng <= analysisCoverage[0]! ||
+      lat <= analysisCoverage[1]! ||
+      lng >= analysisCoverage[2]! ||
+      lat >= analysisCoverage[3]!)
+  ) {
+    return { status: "out-of-coverage" };
+  }
   const { x, y, fx, fy } = lngLatToTile(lng, lat, z);
   const data = await loadTileData(z, x, y);
   if (data === null) return { status: "out-of-coverage" };

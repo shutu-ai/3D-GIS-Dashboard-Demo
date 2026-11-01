@@ -560,7 +560,11 @@ function trackTileTraffic(page: Page) {
   return async (quietMs = 3_000, timeout = 180_000) => {
     const t0 = Date.now();
     for (;;) {
-      if (inFlight === 0 && Date.now() - lastActivity >= quietMs) return;
+      // Quiet must be measured from AFTER the caller's camera change: tile
+      // requests register a tick or two after jumpTo returns, so silence
+      // inherited from before the move is not settlement (full-suite flake
+      // 2026-11-01: 01-overview queried a tile-less frame 1ms after jumpTo).
+      if (inFlight === 0 && Date.now() - Math.max(lastActivity, t0) >= quietMs) return;
       if (Date.now() - t0 > timeout) throw new Error(`tile traffic did not settle within ${timeout}ms (inFlight=${inFlight})`);
       await page.waitForTimeout(250);
     }

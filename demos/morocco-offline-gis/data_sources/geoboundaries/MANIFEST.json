@@ -10,8 +10,8 @@
     },
     "admin-context-labels.geojson": {
       "path": "public/data/admin-context-labels.geojson",
-      "sha256": "a2051a9db3a13138500f7a8d6bc95e6439212b6ecbfed77a5d11330a582aa9dd",
-      "size_bytes": 77611
+      "sha256": "92d71a24f30f6eedd8f9621bef887676be7743b1dc1d120bafa5a380d3022cdf",
+      "size_bytes": 79891
     }
   },
   "files": {

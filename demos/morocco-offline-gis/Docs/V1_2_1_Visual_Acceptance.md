@@ -1,5 +1,35 @@
 # v1.2.1 Visual Acceptance Record
 
+> **Current status — F3 user-feedback round (2026-11-01): five-item final review 4 PASS + 1 PARTIAL.**
+> The five user-reported defects (national map/border, 3D line hierarchy, water
+> portrayal, zoomed-out terrain edges, dark place labels) were corrected on
+> production bundle `index-Df1YemF6` and closed by a designer visual final
+> review at BOTH acceptance viewports (1920×1080, 1366×768), evidence series
+> `F3-*` (gis-diag, F3-report.json):
+> 1. Nationwide overview complete in frame, ADM1 lines+labels at fit zoom,
+>    disputed borders stay dashed — PASS.
+> 2. Line hierarchy 2D and pitch 60/65 legible — PASS; pitch-65 contour ink is
+>    pixel-real per the fixed Pillow gate (605 px @1080p / 920 px @768p,
+>    threshold ≥24, 0 null-terrain samples through the motion).
+> 3. Rivers/lakes true polygon fills, blue and distinguishable — PASS.
+> 4. DEM rim wall gone from working views after the user-authorized real
+>    buffer expansion; navigation clamped to the original core; coverageRing
+>    renders at the real expanded edge — PASS (full-ring single-frame
+>    visibility PARTIAL: the intentional zoom floor keeps the rim off-camera
+>    by design).
+> 5. All 18 visible symbol layers #ffffff with dark halos — contour elevation
+>    digits and RAN labels included; no black residue, no SDF ghosts — PASS.
+> Tile-status chip lifecycle and pitch/2D-3D control sync verified PASS.
+> G4_OFFLINE_VISUAL=PASS. RELEASE_READY remains NO pending full regression,
+> rebuilt ZIP and user re-acceptance.
+>
+> **The rev6b section below (admin labels) and everything further down remain
+> historical record.**
+
+> **REOPENED — user feedback 2026-10-31 (now resolved above).**
+> The previously accepted ZIP (SHA-256 prefix 0e57c689) is preserved under
+> releases/history/pre-cartography-correction-0e57c689fe75/.
+
 > **Current status — rev6b dual-viewport ACCEPTANCE PASSED (2026-10-31).**
 > The reopened administrative requirements are closed by machine evidence +
 > independent AI image review: strict 02/07 **4/4**, full suite **66/66**,

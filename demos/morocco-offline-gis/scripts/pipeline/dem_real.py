@@ -32,8 +32,25 @@ from rasterio.fill import fillnodata
 
 # Far-field coverage of the four preset cameras (tilted views must not hit a
 # data cliff): superset of the synthetic GEN_BBOX.
-COVERAGE_BBOX = (-8.75, 30.80, -6.45, 31.65)
+#
+# v1.2.1 user-feedback buffer expansion (Docs/V1_2_1_DEM_Buffer_Expansion.md):
+# tiles over the old bbox sampled edge-replicated mosaic pixels (clamp=True)
+# at the archive rim, reading as a "high wall" north/east in frame.  The
+# coverage now extends into real GLO-30 data on all sides; the west edge is
+# trimmed 0.07 deg from the suggested -8.90 because the real Oued Tensift
+# riverbed (measured live: every sub-150 m window pixel sits at
+# lon <= -8.8808; window min 127.1 m at the suggested edge vs 151.0 m here)
+# would break validate_data.py's hard min-in-[150,800] m gate.  The sampling
+# window (coverage +/- MARGIN_DEG) stays strictly inside the 6-tile raw
+# pixel-centre domain — real data only, no fabricated terrain.
+COVERAGE_BBOX = (-8.83, 30.10, -6.10, 31.90)
 MARGIN_DEG = 0.05  # outer margin around COVERAGE_BBOX for bilinear edge handling
+# v1.2.1 integration convention: the pre-expansion workspace, published as
+# metadata.navigation_coverage.  The real-elevation buffer (coverage) stays
+# OUTSIDE this navigable core so map maxBounds do not widen with the archive
+# and users are not invited onto the buffer rim; the runtime reads
+# navigation_coverage ?? coverage (designer lane owns that change).
+NAVIGATION_COVERAGE = (-8.75, 30.80, -6.45, 31.65)
 
 VOID_MIN = -1000.0
 VOID_MAX = 9000.0
@@ -179,6 +196,24 @@ class RealDEM:
         mw, mh = i1 - i0, j1 - j0
         if mw <= 0 or mh <= 0:
             raise ValueError("coverage bbox does not intersect the source tiles")
+        # provenance: actual (lattice-snapped) sampling-window pixel-EDGE
+        # bounds + the raw source union — documents the authorized core vs
+        # the real-data buffer vs the raw extent (no fabricated terrain in
+        # between: window ⊆ source union is verified in preflight and holds
+        # by construction of the snapped indices).
+        self._margin_deg = float(margin_deg)
+        self._window_bounds = (
+            self.lon0 - res[0] / 2.0,
+            origin_lat_top - j1 * self.res + self.res / 2.0,
+            origin_lon + i1 * self.res - res[0] / 2.0,
+            self.lat1 + res[1] / 2.0,
+        )
+        self._source_union_bounds = (
+            min(info["bounds"][0] for info in infos),
+            min(info["bounds"][1] for info in infos),
+            max(info["bounds"][2] for info in infos),
+            max(info["bounds"][3] for info in infos),
+        )
 
         mosaic = np.full((mh, mw), np.nan, dtype=np.float32)
         for info in infos:
@@ -412,6 +447,15 @@ class RealDEM:
             "vertical_datum": VERTICAL_DATUM,
             "native_resolution_m": 30,
             "coverage": [float(v) for v in self._coverage_bbox],
+            # core vs buffer provenance (v1.2.1 buffer expansion): "coverage"
+            # is the authorized archive core; "sampling_window" is the
+            # lattice-snapped mosaic the sampler actually reads (coverage +
+            # margin); both lie inside "source_union_bounds" (raw GLO-30).
+            # Whole-tile overhang beyond the sampling window is edge-clamped
+            # at archive rims only — never filled with synthetic values.
+            "margin_deg": self._margin_deg,
+            "sampling_window": [float(v) for v in self._window_bounds],
+            "source_union_bounds": [float(v) for v in self._source_union_bounds],
             "void_pixels_filled": self.void_pixels_filled,
         }
 

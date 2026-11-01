@@ -82,6 +82,13 @@ USED_BY_LAYERS = [
     "osm-pass-labels",
     "osm-peak-labels",
     "osm-peak-labels-top",
+    # v1.2.1 user-feedback expansion (user screenshot S9 still showed black
+    # contour digits on the baseline stack): contour + RAN site labels move
+    # onto the corrected-SDF stack
+    "contour-labels",
+    "contour-labels-minor",
+    "ran-site-labels",
+    "ran-site-labels-selected",
 ]
 LICENSE_NAME = "SIL Open Font License 1.1 (derivative of bundled Noto Sans glyphs; stack name avoids the Noto Reserved Font Name because rendering data is modified)"
 LICENSE_REL_PATH = "../../../licenses/Noto-Sans-OFL.txt"
@@ -212,7 +219,7 @@ def manifest(output_sha256: str, output_size: int, glyph_count: int) -> dict:
     the runtime application never reads this key — it is provenance only.
     """
     return {
-        "note": "independent v1.2.1 record: isolated derived glyph stack used ONLY by the 16 whitelisted name label layers (4 ADM + 8 real geo + 4 curated osm); baseline font and all other consumers are untouched",
+        "note": "independent v1.2.1 record: isolated derived glyph stack used ONLY by the 20 whitelisted name label layers (4 ADM + 8 real geo + 4 curated osm + 2 contour + 2 RAN site labels); baseline font and all other consumers are untouched",
         "fontstack": NEW_NAME,
         "glyphs_path": "assets/glyphs/Offline Admin Latin/0-255.pbf",
         "glyph_range": "0-255",
@@ -239,8 +246,9 @@ def notice_text(m: dict) -> str:
     """Deterministic NOTICE.md (UTF-8, LF) for the derived fontstack."""
     return f"""# Offline Admin Latin — derived glyph fontstack NOTICE
 
-Isolated MapLibre glyph stack for the 16 whitelisted name label layers only
-(4 ADM + 8 real geo place/peak + 4 curated osm place/pass/peak):
+Isolated MapLibre glyph stack for the 20 whitelisted name label layers only
+(4 ADM + 8 real geo place/peak + 4 curated osm place/pass/peak +
+2 contour + 2 RAN site labels):
 {', '.join(m['used_by_layers'])}.
 No other layer or font consumer uses this stack.
 

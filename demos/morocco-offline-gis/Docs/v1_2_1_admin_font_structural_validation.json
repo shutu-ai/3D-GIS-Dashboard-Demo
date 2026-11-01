@@ -19,8 +19,8 @@
  "notice_valid_utf8": true,
  "notice_present_at_metadata_path": true,
  "notice_cites_output_sha_formula_license": true,
- "usage_whitelist_exact_16": true,
- "notice_lists_all_16_layers": true,
+ "usage_whitelist_exact_20": true,
+ "notice_lists_all_20_layers": true,
  "twin_bitmaps_match_probe_evidence": true,
  "visual_sheet": "Docs\\v1_2_1_admin_font_sheet.png",
  "all_pass": true

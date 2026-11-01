@@ -2,9 +2,18 @@
   "version": "1.2.1",
   "project": "3D-GIS-Dashboard-Demo",
   "generated_date_utc": "2026-10-31",
-  "status": "RELEASE_READY_REVISED_ARTIFACT_FULLY_ACCEPTED",
+  "status": "REOPENED_USER_FEEDBACK_NATIONAL_CONTEXT_3D_CARTOGRAPHY",
   "revision_scope": "Administrative name-label and 768p boundary acceptance reopened on 2026-10-31. Existing package, tests and manual evidence below describe the prior artifact; they do not validate this correction.",
-  "release_ready": true,
+  "release_ready": false,
+  "current_review": {
+    "basis": "User reported five visible defects after prior acceptance; earlier test and manual records below remain historical evidence, not proof these defects are resolved.",
+    "issues": ["National map and country border not visible", "Insufficient line-weight hierarchy, especially in 3D", "River/lake portrayal too thin; investigate polygon fill", "Missing 3D relief at zoomed-out coverage edges", "Some place labels still appear black"],
+    "resolution": "Production bundle index-Df1YemF6 built 2026-11-01 from expanded data (validate_data 99/99) + all source corrections. All 12 cartography-feedback structural tests green on this bundle (evidence archived at .data/cartography-final-Df1YemF6/): both viewport overview bbox fits unoccluded, earth polygon rendering, inland lake source+rendered, runtime font contract exact-20 all #ffffff, and the high-pitch pixel gate passing with 605 (1080p) / 920 (768p) qualifying contour-ink pixels (threshold >=24, maxDelta 138/129, contrastMax 4.27/4.96) at pitch 65 with 0 null-terrain samples across the whole motion. An earlier gate failure was a test-harness path-encoding bug (unicode arrow in test title), fixed; the same gate on the re-run passes. Designer five-item visual final review on this bundle: items 1/2/3/5 PASS, item 4 PASS for the rim wall + navigation clamp (coverageRing full-ring visibility PARTIAL by design due to the intentional zoom floor), tile-status chip and camera-UI sync PASS; evidence C:/Users/swx1536744/AppData/Local/Temp/opencode/gis-diag/F3-report.json + F3-*.png. Remaining: full regression suite, rebuilt delivery ZIP.",
+    "structural_test_evidence": ".data/cartography-final-Df1YemF6/cartography-feedback-hp-results.json + high-pitch-pass-artifacts/*/atlas-high-pitch-regression.json",
+    "structural_test_result": "12 unique tests green: 10 expected in full run (2 high-pitch failed on harness bug) + 2 expected in targeted re-run after fix; same bundle both runs",
+    "visual_remaining": ["User physical-disconnect / empty-cache cold-start re-acceptance of the final ZIP (3db540bd…30a3cbf), then RELEASE_READY=YES"],
+    "dem_buffer_decision": "User selected 扩展真实高程缓冲（推荐） on 2026-11-01: regenerate from local real source elevations, increased package size accepted; no nationwide 3D or fabricated elevations claimed."
+  },
   "published": false,
   "git": {
     "baseline_tag": "v1.2.0",
@@ -22,22 +31,27 @@
     },
     "G1_GEO_DATA": {
       "status": "PASS",
+      "current_reason": "User-authorized real-elevation buffer expansion completed 2026-11-01 (Docs/V1_2_1_DEM_Buffer_Expansion.md): coverage (-8.83,30.1,-6.1,31.9) sampled strictly inside the 6-tile raw GLO-30 union, zero void fills; west edge trimmed 0.07 deg by the unchanged min>=150 m hard gate (no threshold lowering). validate_data.py 99/99 PASS on the regenerated archives, validate_geo_context.py 10/10, admin font validator all_pass with exact 20-layer whitelist; baseline glyph PBF, curated GeoJSON and SIM network bytes unchanged; navigation_coverage pins the original workspace so camera bounds do not widen onto the buffer rim. Prior evidence below applies to the pre-expansion archives and remains historical.",
       "evidence": "validate_geo_context.py 10/10; pinned archives, hashes, ODbL notice and offline license copies."
     },
     "G2_MAP_RENDER": {
       "status": "PASS",
+      "current_reason": "Closed on the shipped dist (bundle index-CbsVWRgw.js + regenerated admin label anchors): full regression 78/78 expected / 0 failed / 0 flaky in 20.8m re-run AFTER the packaging-gate anchor regeneration (.data/full-regression-final2/), including the 12 cartography-feedback structural tests (overview bbox fit, earth fill, inland lake, pitch-65 pixel gate 605/920 px, exact-20 white-font contract) and the rev6 admin visibility tests. Earlier failures were resolved without touching any frozen spec or threshold: g3 baseline restored via the declared-coverage analysis-domain precheck (margin tiles never presented as data), v121-01 via a quiet() settlement fix (silence measured from after the camera change), v121-02 via a real readability fix (ADM label halo realigned to the proven alpha-.85 recipe after the denser contours brightened the label background). Evidence below is historical.",
       "evidence": "rev6b strict 02/07 4/4 (Docs/v1_2_1_admin_visibility_results.json, 2026-10-31T16:37:30Z) on frozen dist index-F_dzb_BC.js. Two-tab UI, 16-layer white-label glyphs, dedup reversibility and the rev6 ordered-candidate ADM1 boundary gate all green in both viewports. Failure chain rev4->rev5a/5b/5c->rev6a archived under .data/v121-rev4-sharededge-failure/, .data/v121-rev5a-box4-failure/, .data/v121-rev5c-point-null-failure/, .data/v121-rev6a-limit12-failure/ with causal diagnostics."
     },
     "G3_RAN_REGRESSION": {
       "status": "PASS",
+      "current_reason": "Full regression on the shipped dist (index-CbsVWRgw.js + regenerated label anchors): 78/78 expected / 0 failed / 0 flaky in 20.8m (.data/full-regression-final2/), covering baseline 42 spec runs byte-untouched, rev6 v121 suite and the new cartography-feedback suite; RAN roundtrips included. Prior 66/66 evidence below is historical.",
       "evidence": "Full suite 66/66 passed (16.4m, Docs/v1_2_1_full66_rev6b_results.json + raw log Docs/v1_2_1_full66_rev6b_run.log); baseline 42 spec files byte-untouched (git diff exit 0); ten GIS/RAN roundtrips re-run on the integrated revision; baseline DEM/RAN bytes unchanged."
     },
     "G4_OFFLINE_VISUAL": {
       "status": "PASS",
+      "current_reason": "Closed 2026-11-01 on bundle index-Df1YemF6 by designer five-item visual final review: nationwide fit + ADM1 at fit zoom + disputed dashes kept PASS; 2D/pitch-65 line hierarchy PASS (pixel gate 605/920 qualifying px); river/lake true polygon fills PASS; DEM rim wall gone from working views with navigation clamp active PASS (coverageRing full-ring visibility PARTIAL by design, intentional zoom floor); all 18 visible symbol layers #ffffff with dark halos, no black residue, no SDF ghosts PASS. The shipped bundle index-CbsVWRgw.js differs only by the ADM-halo strengthening (same proven white-on-dark recipe, pixel gates re-passed) and regenerated label anchors, and the full 78/78 regression re-ran green on it (.data/full-regression-final2/). Evidence: gis-diag F3-report.json + F3-*.png (both acceptance viewports), .data/cartography-final-Df1YemF6/. Prior 27-frame review and reasons below are historical.",
       "reason": "Dual-viewport administrative boundary and name-label legibility established on the rev6b integrated build: strict 02/07 4/4 with the UNCHANGED fixed Pillow gate (1080p winner c14 (1400,793) 24 px / 7.46:1; 768p winner c0 (1145,652) 58 px / 8.11:1), full suite 66/66, independent AI per-image review 27/27 PASS (Docs/V1_2_1_Visual_Acceptance.md current-status section). The user physical-disconnect / cold-start re-acceptance of the REVISED artifact remains outstanding and is tracked in blockers + release_ready=false."
     },
     "G5_DELIVERABLES": {
       "status": "PASS",
+      "current_reason": "Corrected artifact built and verified 2026-11-01: delivery ZIP rebuilt deterministically from the post-expansion dist (107 entries, 819,542,637 bytes, SHA256 3db540bdd5601c448c9d927d9d9fe074404734c5c9ae1e8a50f82a34730a3cbf) with scripts/build_delivery_zip.py, byte-verified 6/6 by scripts/verify_delivery_zip.py (.data/delivery-zip-verify-final2.json: archive_readable/byte_identity/crc/duplicates/entry_set/unsafe_paths all ok). Checksum sidecar written alongside. RELEASE_READY remains NO solely pending the user physical-disconnect/cold-start re-acceptance of this artifact. Prior reason below is historical.",
       "reason": "Revised deliverables built and verified: delivery ZIP rebuilt deterministically from the frozen dist (105 entries, 472,441,899 bytes, SHA256 0e57c689fe756f4ffc2c2cbdf4be31261604fe6132cf6f2ecb8bf3f02c8230bb) with scripts/build_delivery_zip.py, byte-verified by scripts/verify_delivery_zip.py (Docs/v1_2_1_delivery_zip_verification.json: archive_readable/byte_identity/crc/duplicates/entry_set/unsafe_paths all ok). Checksum sidecar written alongside. Old candidate preserved byte-identically under releases/history/pre-admin-correction-ec64df5c7164/ with PRESERVATION.md. RELEASE_READY remains NO solely pending the user physical-disconnect/cold-start re-acceptance of the revised artifact."
     }
   },
@@ -367,7 +381,7 @@
     "runtime_bundle_identical_after_final_packaging": true,
     "acceptance_report_external_to_zip": "The user-tested ZIP was NOT repacked. Its enclosed QA docs are the pre-manual historical snapshot. This final JSON, fixed report and manual record/evidence are authoritative external sidecars, preserving the accepted ZIP hash; runtime, source notices and pre-manual raw test/audit/screenshots remain inside."
   },
-  "blockers": [],
+  "blockers": ["User physical-disconnect / empty-cache cold-start re-acceptance of the final artifact (ZIP 3db540bd…30a3cbf) is the only outstanding item; all gates G0-G5 PASS."],
   "not_verified": [
     "Independent machine capture of manual network state/cold cache (user-attested instead)",
     "Manual browser version and raw Network/Console exports not supplied",

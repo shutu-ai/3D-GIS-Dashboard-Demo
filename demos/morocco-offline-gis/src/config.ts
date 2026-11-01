@@ -27,6 +27,17 @@ export interface AppMetadata {
   seed: number;
   bbox: [number, number, number, number];
   coverage: [number, number, number, number];
+  /**
+   * v1.2.1 real-DEM buffer integration: the smaller walkable core INSIDE the
+   * expanded data coverage. `coverage` grows to the real buffered archive,
+   * but atlas maxBounds clamp to this (shrunk) navigation extent — free
+   * flight keeps the camera away from the new data-edge cut so the user never
+   * walks up to a fresh clipping wall. Optional: absent key = old behaviour
+   * (maxBounds derive from `coverage`). Boundary-hint / coverage-edge logic
+   * must keep using the REAL `coverage`; this field is a navigation core,
+   * NOT the data boundary.
+   */
+  navigation_coverage?: [number, number, number, number];
   dem: {
     file: string;
     encoding: "terrarium";
@@ -133,10 +144,20 @@ export const LAYER_IDS = {
   geoWaterFillD: "geo-water-fill-d",
   geoWaterLine: "geo-water-line",
   geoWaterLineD: "geo-water-line-d",
+  // v1.2.1 user-feedback stream tier (stream/canal/ditch/drain) — thinner than rivers by design
+  geoWaterStreamLine: "geo-water-stream-line",
+  geoWaterStreamLineD: "geo-water-stream-line-d",
   geoAdminCountry: "geo-admin-country",
   geoAdminDisputed: "geo-admin-disputed",
   geoAdminCountryD: "geo-admin-country-d",
   geoAdminDisputedD: "geo-admin-disputed-d",
+  // v1.2.1 user-feedback: source kind=unrecognized_country — honest dot-dash, never restyled
+  geoAdminUnrecognized: "geo-admin-unrecognized",
+  geoAdminUnrecognizedD: "geo-admin-unrecognized-d",
+  // v1.2.1 user-feedback nationwide land base (overview archive `earth` polygons)
+  geoEarth: "geo-earth",
+  // v1.2.1 user-feedback honest DEM coverage frame (soft glow ring on the data edge)
+  coverageEdge: "coverage-edge",
   // --- v1.2.1 revision: named ADM1/ADM2 from geoBoundaries gbOpen ---
   // Primary admin-area geometry (lines derived from the areas polygons) +
   // interior anchor labels. ids keep the "geo-admin" prefix so the boundary

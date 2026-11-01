@@ -1,8 +1,9 @@
 # Offline Admin Latin — derived glyph fontstack NOTICE
 
-Isolated MapLibre glyph stack for the 16 whitelisted name label layers only
-(4 ADM + 8 real geo place/peak + 4 curated osm place/pass/peak):
-geo-admin-gb1-labels, geo-admin-gb1-labels-a, geo-admin-gb2-labels, geo-admin-gb2-labels-a, geo-place-labels-major, geo-place-labels-major-d, geo-place-labels-town, geo-place-labels-town-d, geo-place-labels-local, geo-place-labels-local-d, geo-peak-labels, geo-peak-labels-d, osm-place-labels, osm-pass-labels, osm-peak-labels, osm-peak-labels-top.
+Isolated MapLibre glyph stack for the 20 whitelisted name label layers only
+(4 ADM + 8 real geo place/peak + 4 curated osm place/pass/peak +
+2 contour + 2 RAN site labels):
+geo-admin-gb1-labels, geo-admin-gb1-labels-a, geo-admin-gb2-labels, geo-admin-gb2-labels-a, geo-place-labels-major, geo-place-labels-major-d, geo-place-labels-town, geo-place-labels-town-d, geo-place-labels-local, geo-place-labels-local-d, geo-peak-labels, geo-peak-labels-d, osm-place-labels, osm-pass-labels, osm-peak-labels, osm-peak-labels-top, contour-labels, contour-labels-minor, ran-site-labels, ran-site-labels-selected.
 No other layer or font consumer uses this stack.
 
 ## Derivation

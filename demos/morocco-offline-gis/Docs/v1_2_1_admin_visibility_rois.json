@@ -8,11 +8,11 @@
     "label": "Marrakech-Safi",
     "layer": "geo-admin-gb1-labels",
     "point": {
-      "x": 912,
+      "x": 904,
       "y": 524
     },
     "roi": {
-      "x": 792,
+      "x": 784,
       "y": 488,
       "width": 240,
       "height": 72
@@ -26,17 +26,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 420,
+      "qualifying": 473,
       "pixels": 17280,
-      "maxDelta": 227,
+      "maxDelta": 217,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 194,
+      "deltaP99": 188,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 15.262
+      "contrastMax": 12.731
     },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
+    "runId": "2026-11-01T09:46:02.304Z#14420"
   },
   "desktop-1080p::02a-overview-adm1::boundary": {
     "project": "desktop-1080p",
@@ -65,17 +65,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 248,
+      "qualifying": 309,
       "pixels": 25600,
-      "maxDelta": 205,
+      "maxDelta": 196,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 87,
+      "deltaP99": 96,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 11.71
+      "contrastMax": 9.86
     },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
+    "runId": "2026-11-01T09:46:02.304Z#14420"
   },
   "desktop-1080p::02b-atlas-adm2::glyph": {
     "project": "desktop-1080p",
@@ -86,12 +86,12 @@
     "label": "Al Haouz Province",
     "layer": "geo-admin-gb2-labels-a",
     "point": {
-      "x": 1056,
-      "y": 563
+      "x": 1092,
+      "y": 529
     },
     "roi": {
-      "x": 936,
-      "y": 527,
+      "x": 972,
+      "y": 493,
       "width": 240,
       "height": 72
     },
@@ -104,17 +104,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 238,
+      "qualifying": 546,
       "pixels": 17280,
-      "maxDelta": 176,
+      "maxDelta": 177,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 111,
+      "deltaP99": 131,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 5.52
+      "contrastMax": 7.967
     },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
+    "runId": "2026-11-01T09:46:02.304Z#14420"
   },
   "desktop-1080p::02b-atlas-adm2::boundary": {
     "project": "desktop-1080p",
@@ -123,14 +123,14 @@
     "level": "ADM2",
     "shapeID": "96644757B698999344864",
     "label": "Al Haouz Province",
-    "layer": "geo-admin-gb2-line",
+    "layer": "geo-admin-gb2-casing",
     "point": {
-      "x": 639,
-      "y": 404
+      "x": 404,
+      "y": 665
     },
     "roi": {
-      "x": 559,
-      "y": 324,
+      "x": 324,
+      "y": 585,
       "width": 160,
       "height": 160
     },
@@ -143,17 +143,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 365,
+      "qualifying": 223,
       "pixels": 25600,
-      "maxDelta": 126,
+      "maxDelta": 161,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 88,
+      "deltaP99": 81,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 5.504
+      "contrastMax": 7.58
     },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
+    "runId": "2026-11-01T09:46:02.304Z#14420"
   },
   "desktop-1080p::02b-atlas-adm1::glyph": {
     "project": "desktop-1080p",
@@ -164,12 +164,12 @@
     "label": "Marrakech-Safi",
     "layer": "geo-admin-gb1-labels-a",
     "point": {
-      "x": 719,
-      "y": 603
+      "x": 910,
+      "y": 389
     },
     "roi": {
-      "x": 599,
-      "y": 567,
+      "x": 790,
+      "y": 353,
       "width": 240,
       "height": 72
     },
@@ -182,17 +182,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 189,
+      "qualifying": 495,
       "pixels": 17280,
-      "maxDelta": 166,
+      "maxDelta": 176,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 123,
+      "deltaP99": 139,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 4.138
+      "contrastMax": 6.358
     },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
+    "runId": "2026-11-01T09:46:02.304Z#14420"
   },
   "desktop-1080p::02b-atlas-adm1-c0::boundary": {
     "project": "desktop-1080p",
@@ -203,11 +203,11 @@
     "label": "Marrakech-Safi",
     "layer": "geo-admin-gb1-line",
     "point": {
-      "x": 1825,
+      "x": 1806,
       "y": 557
     },
     "roi": {
-      "x": 1745,
+      "x": 1726,
       "y": 477,
       "width": 160,
       "height": 160
@@ -221,17 +221,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 5,
+      "qualifying": 11,
       "pixels": 25600,
-      "maxDelta": 90,
+      "maxDelta": 94,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 35,
+      "deltaP99": 39,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 3.437
+      "contrastMax": 3.548
     },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
+    "runId": "2026-11-01T09:46:02.304Z#14420"
   },
   "desktop-1080p::02b-atlas-adm1-c1::boundary": {
     "project": "desktop-1080p",
@@ -240,14 +240,14 @@
     "level": "ADM1",
     "shapeID": "70788906B60308563647099",
     "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
+    "layer": "geo-admin-gb1-casing",
     "point": {
-      "x": 1796,
-      "y": 563
+      "x": 1437,
+      "y": 801
     },
     "roi": {
-      "x": 1716,
-      "y": 483,
+      "x": 1357,
+      "y": 721,
       "width": 160,
       "height": 160
     },
@@ -260,524 +260,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 5,
+      "qualifying": 37,
       "pixels": 25600,
-      "maxDelta": 90,
+      "maxDelta": 154,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 37,
+      "deltaP99": 49,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 3.437
+      "contrastMax": 7.766
     },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c2::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c2",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1761,
-      "y": 597
-    },
-    "roi": {
-      "x": 1681,
-      "y": 517,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c2-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 0,
-      "pixels": 25600,
-      "maxDelta": 89,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 37,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 2.981
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c3::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c3",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1698,
-      "y": 602
-    },
-    "roi": {
-      "x": 1618,
-      "y": 522,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c3-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 4,
-      "pixels": 25600,
-      "maxDelta": 85,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 35,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 3.252
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c4::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c4",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1639,
-      "y": 607
-    },
-    "roi": {
-      "x": 1559,
-      "y": 527,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c4-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 8,
-      "pixels": 25600,
-      "maxDelta": 87,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 33,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 3.305
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c5::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c5",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1632,
-      "y": 634
-    },
-    "roi": {
-      "x": 1552,
-      "y": 554,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c5-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 9,
-      "pixels": 25600,
-      "maxDelta": 87,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 34,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 3.305
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c6::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c6",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1613,
-      "y": 669
-    },
-    "roi": {
-      "x": 1533,
-      "y": 589,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c6-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 12,
-      "pixels": 25600,
-      "maxDelta": 88,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 33,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 3.305
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c7::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c7",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1576,
-      "y": 687
-    },
-    "roi": {
-      "x": 1496,
-      "y": 607,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c7-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 13,
-      "pixels": 25600,
-      "maxDelta": 88,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 30,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 3.305
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c8::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c8",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1544,
-      "y": 701
-    },
-    "roi": {
-      "x": 1464,
-      "y": 621,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c8-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 12,
-      "pixels": 25600,
-      "maxDelta": 88,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 34,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 3.305
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c9::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c9",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1525,
-      "y": 725
-    },
-    "roi": {
-      "x": 1445,
-      "y": 645,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c9-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 9,
-      "pixels": 25600,
-      "maxDelta": 88,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 35,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 3.305
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c10::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c10",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1487,
-      "y": 741
-    },
-    "roi": {
-      "x": 1407,
-      "y": 661,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c10-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 10,
-      "pixels": 25600,
-      "maxDelta": 122,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 37,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 5.385
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c11::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c11",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1472,
-      "y": 768
-    },
-    "roi": {
-      "x": 1392,
-      "y": 688,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c11-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 14,
-      "pixels": 25600,
-      "maxDelta": 130,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 40,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 6.061
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c12::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c12",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1462,
-      "y": 796
-    },
-    "roi": {
-      "x": 1382,
-      "y": 716,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c12-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 11,
-      "pixels": 25600,
-      "maxDelta": 130,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 40,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 6.061
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c13::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c13",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1438,
-      "y": 804
-    },
-    "roi": {
-      "x": 1358,
-      "y": 724,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c13-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 17,
-      "pixels": 25600,
-      "maxDelta": 130,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 42,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 6.061
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
-  },
-  "desktop-1080p::02b-atlas-adm1-c14::boundary": {
-    "project": "desktop-1080p",
-    "capture": "02b-atlas-adm1-c14",
-    "kind": "boundary",
-    "level": "ADM1",
-    "shapeID": "70788906B60308563647099",
-    "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
-    "point": {
-      "x": 1400,
-      "y": 793
-    },
-    "roi": {
-      "x": 1320,
-      "y": 713,
-      "width": 160,
-      "height": 160
-    },
-    "pngOn": "02b-atlas-adm1-gbopen-on.png",
-    "pngOff": "02b-atlas-adm1-c14-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; glyph ink identical in both frames",
-    "gate": {
-      "thresholds": {
-        "minContrastRatio": 3,
-        "minChannelDelta": 24,
-        "minQualifyingPixels": 24
-      },
-      "qualifying": 24,
-      "pixels": 25600,
-      "maxDelta": 150,
-      "deltaP50": 0,
-      "deltaP90": 0,
-      "deltaP99": 41,
-      "contrastP50": 1,
-      "contrastP90": 1,
-      "contrastMax": 7.459
-    },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
+    "runId": "2026-11-01T09:46:02.304Z#14420"
   },
   "desktop-1080p::02b-atlas-adm1::boundary": {
     "project": "desktop-1080p",
@@ -786,37 +279,37 @@
     "level": "ADM1",
     "shapeID": "70788906B60308563647099",
     "label": "Marrakech-Safi",
-    "layer": "geo-admin-gb1-line",
+    "layer": "geo-admin-gb1-casing",
     "point": {
-      "x": 1400,
-      "y": 793
+      "x": 1437,
+      "y": 801
     },
     "roi": {
-      "x": 1320,
-      "y": 713,
+      "x": 1357,
+      "y": 721,
       "width": 160,
       "height": 160
     },
     "pngOn": "02b-atlas-adm1-gbopen-on.png",
     "pngOff": "02b-atlas-adm1-gbopen-lines-off.png",
-    "isolation": "off frame hides only the ADM1 line+casing layers; rev6 winner candidate c14 of the ordered list",
+    "isolation": "off frame hides only the ADM1 line+casing layers; rev6 winner candidate c1 of the ordered list",
     "gate": {
       "thresholds": {
         "minContrastRatio": 3,
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 24,
+      "qualifying": 37,
       "pixels": 25600,
-      "maxDelta": 150,
+      "maxDelta": 154,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 41,
+      "deltaP99": 49,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 7.459
+      "contrastMax": 7.766
     },
-    "runId": "2026-10-31T16:47:14.043Z#34560"
+    "runId": "2026-11-01T09:46:02.304Z#14420"
   },
   "desktop-768p::02a-overview-adm1::glyph": {
     "project": "desktop-768p",
@@ -827,11 +320,11 @@
     "label": "Marrakech-Safi",
     "layer": "geo-admin-gb1-labels",
     "point": {
-      "x": 635,
+      "x": 627,
       "y": 368
     },
     "roi": {
-      "x": 515,
+      "x": 507,
       "y": 332,
       "width": 240,
       "height": 72
@@ -845,17 +338,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 412,
+      "qualifying": 473,
       "pixels": 17280,
-      "maxDelta": 227,
+      "maxDelta": 217,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 194,
+      "deltaP99": 188,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 15.262
+      "contrastMax": 12.731
     },
-    "runId": "2026-10-31T16:55:26.539Z#47776"
+    "runId": "2026-11-01T09:56:44.326Z#46248"
   },
   "desktop-768p::02a-overview-adm1::boundary": {
     "project": "desktop-768p",
@@ -884,17 +377,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 248,
+      "qualifying": 309,
       "pixels": 25600,
-      "maxDelta": 205,
+      "maxDelta": 196,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 87,
+      "deltaP99": 96,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 11.71
+      "contrastMax": 9.86
     },
-    "runId": "2026-10-31T16:55:26.539Z#47776"
+    "runId": "2026-11-01T09:56:44.326Z#46248"
   },
   "desktop-768p::02b-atlas-adm2::glyph": {
     "project": "desktop-768p",
@@ -905,12 +398,12 @@
     "label": "Al Haouz Province",
     "layer": "geo-admin-gb2-labels-a",
     "point": {
-      "x": 837,
-      "y": 435
+      "x": 871,
+      "y": 401
     },
     "roi": {
-      "x": 717,
-      "y": 399,
+      "x": 751,
+      "y": 365,
       "width": 240,
       "height": 72
     },
@@ -923,17 +416,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 234,
+      "qualifying": 574,
       "pixels": 17280,
-      "maxDelta": 156,
+      "maxDelta": 173,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 111,
+      "deltaP99": 133,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 4.817
+      "contrastMax": 8.06
     },
-    "runId": "2026-10-31T16:55:26.539Z#47776"
+    "runId": "2026-11-01T09:56:44.326Z#46248"
   },
   "desktop-768p::02b-atlas-adm2::boundary": {
     "project": "desktop-768p",
@@ -962,17 +455,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 367,
+      "qualifying": 375,
       "pixels": 25600,
-      "maxDelta": 126,
+      "maxDelta": 164,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 89,
+      "deltaP99": 92,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 5.5
+      "contrastMax": 5.649
     },
-    "runId": "2026-10-31T16:55:26.539Z#47776"
+    "runId": "2026-11-01T09:56:44.326Z#46248"
   },
   "desktop-768p::02b-atlas-adm1::glyph": {
     "project": "desktop-768p",
@@ -983,12 +476,12 @@
     "label": "Marrakech-Safi",
     "layer": "geo-admin-gb1-labels-a",
     "point": {
-      "x": 499,
-      "y": 475
+      "x": 690,
+      "y": 263
     },
     "roi": {
-      "x": 379,
-      "y": 439,
+      "x": 570,
+      "y": 227,
       "width": 240,
       "height": 72
     },
@@ -1001,17 +494,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 200,
+      "qualifying": 491,
       "pixels": 17280,
-      "maxDelta": 171,
+      "maxDelta": 170,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 126,
+      "deltaP99": 136,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 4.482
+      "contrastMax": 6.532
     },
-    "runId": "2026-10-31T16:55:26.539Z#47776"
+    "runId": "2026-11-01T09:56:44.326Z#46248"
   },
   "desktop-768p::02b-atlas-adm1-c0::boundary": {
     "project": "desktop-768p",
@@ -1022,11 +515,11 @@
     "label": "Marrakech-Safi",
     "layer": "geo-admin-gb1-line",
     "point": {
-      "x": 1145,
+      "x": 1146,
       "y": 652
     },
     "roi": {
-      "x": 1065,
+      "x": 1066,
       "y": 572,
       "width": 160,
       "height": 160
@@ -1040,17 +533,17 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 58,
+      "qualifying": 65,
       "pixels": 25600,
-      "maxDelta": 157,
+      "maxDelta": 158,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 44,
+      "deltaP99": 54,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 8.109
+      "contrastMax": 8.198
     },
-    "runId": "2026-10-31T16:55:26.539Z#47776"
+    "runId": "2026-11-01T09:56:44.326Z#46248"
   },
   "desktop-768p::02b-atlas-adm1::boundary": {
     "project": "desktop-768p",
@@ -1061,11 +554,11 @@
     "label": "Marrakech-Safi",
     "layer": "geo-admin-gb1-line",
     "point": {
-      "x": 1145,
+      "x": 1146,
       "y": 652
     },
     "roi": {
-      "x": 1065,
+      "x": 1066,
       "y": 572,
       "width": 160,
       "height": 160
@@ -1079,16 +572,16 @@
         "minChannelDelta": 24,
         "minQualifyingPixels": 24
       },
-      "qualifying": 58,
+      "qualifying": 65,
       "pixels": 25600,
-      "maxDelta": 157,
+      "maxDelta": 158,
       "deltaP50": 0,
       "deltaP90": 0,
-      "deltaP99": 44,
+      "deltaP99": 54,
       "contrastP50": 1,
       "contrastP90": 1,
-      "contrastMax": 8.109
+      "contrastMax": 8.198
     },
-    "runId": "2026-10-31T16:55:26.539Z#47776"
+    "runId": "2026-11-01T09:56:44.326Z#46248"
   }
 }

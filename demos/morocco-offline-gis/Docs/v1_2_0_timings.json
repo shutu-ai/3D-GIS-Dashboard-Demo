@@ -1,7 +1,7 @@
 {
-  "boot_to_style_ready_ms": 2924,
-  "ran_enter_ms": 1087,
-  "mode_loop_10x_ms": 15388,
+  "boot_to_style_ready_ms": 2746,
+  "ran_enter_ms": 1038,
+  "mode_loop_10x_ms": 12087,
   "viewport": "1920x1080",
   "note": "recording only, no performance gate"
 }

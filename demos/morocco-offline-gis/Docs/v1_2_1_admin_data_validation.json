@@ -81,8 +81,8 @@
     },
     {
       "details": {
-        "atlas_points": 13,
-        "expected_atlas_from_source": 13,
+        "atlas_points": 16,
+        "expected_atlas_from_source": 16,
         "overview_points": 87,
         "problems": []
       },
@@ -125,26 +125,26 @@
         "identical": true,
         "performed": true,
         "run_a": {
-          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\MANIFEST.json": "c9f7feadcbb5c9e5884eaba645dd3766c29fa217254cad6491f8271bab10d6c3",
+          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\MANIFEST.json": "ed63b6799517cdfe329b3468027adc87eeefe3dc882bfb66612c33f00c1820eb",
           "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\NOTICE.txt": "57a75dd44ad013dd86b8661df98369f4c52a2995c7a458fe8b74dbeff4351d2f",
-          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\SHA256SUMS.txt": "3e671f61ff9ed988dfa64b83334496e2563c55ee9043c5d7af184e22a316553b",
+          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\SHA256SUMS.txt": "be2c10de0d8075a1112429b90a0b25cf1ad5f4fa8dec091d65d770bf22e55d10",
           "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\geoBoundaries-MAR-ADM1_simplified.geojson": "21841ea5810305a2c6c25300e4b295e59a9706a5ae0da03b50ae3cfd2ddc5849",
           "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\geoBoundaries-MAR-ADM2_simplified.geojson": "0486dad7e941c1f9ec494a1106a7789737ff4224b878fc2081a1e30b88164dff",
           "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\NOTICE.txt": "ab0b914e8b031ee9c3b981b402d56138f8792501dd39652ccbfae3842a4676f6",
           "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\admin-context-areas.geojson": "c9443d8008b9c34a39483789239073a2f59ae9d488a1026075e0038a4c814202",
-          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\admin-context-labels.geojson": "a2051a9db3a13138500f7a8d6bc95e6439212b6ecbfed77a5d11330a582aa9dd",
-          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\metadata.json": "a5e0d056f02dbfd97729a5ac505d84498e0eaecae5ca697991ccced5aa288c9a"
+          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\admin-context-labels.geojson": "92d71a24f30f6eedd8f9621bef887676be7743b1dc1d120bafa5a380d3022cdf",
+          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\metadata.json": "fe0f6fa92ff3490d2c5d01385b21632928aebb919824f2661b65b47ac6768980"
         },
         "run_b": {
-          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\MANIFEST.json": "c9f7feadcbb5c9e5884eaba645dd3766c29fa217254cad6491f8271bab10d6c3",
+          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\MANIFEST.json": "ed63b6799517cdfe329b3468027adc87eeefe3dc882bfb66612c33f00c1820eb",
           "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\NOTICE.txt": "57a75dd44ad013dd86b8661df98369f4c52a2995c7a458fe8b74dbeff4351d2f",
-          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\SHA256SUMS.txt": "3e671f61ff9ed988dfa64b83334496e2563c55ee9043c5d7af184e22a316553b",
+          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\SHA256SUMS.txt": "be2c10de0d8075a1112429b90a0b25cf1ad5f4fa8dec091d65d770bf22e55d10",
           "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\geoBoundaries-MAR-ADM1_simplified.geojson": "21841ea5810305a2c6c25300e4b295e59a9706a5ae0da03b50ae3cfd2ddc5849",
           "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\data_sources\\geoboundaries\\geoBoundaries-MAR-ADM2_simplified.geojson": "0486dad7e941c1f9ec494a1106a7789737ff4224b878fc2081a1e30b88164dff",
           "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\NOTICE.txt": "ab0b914e8b031ee9c3b981b402d56138f8792501dd39652ccbfae3842a4676f6",
           "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\admin-context-areas.geojson": "c9443d8008b9c34a39483789239073a2f59ae9d488a1026075e0038a4c814202",
-          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\admin-context-labels.geojson": "a2051a9db3a13138500f7a8d6bc95e6439212b6ecbfed77a5d11330a582aa9dd",
-          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\metadata.json": "a5e0d056f02dbfd97729a5ac505d84498e0eaecae5ca697991ccced5aa288c9a"
+          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\admin-context-labels.geojson": "92d71a24f30f6eedd8f9621bef887676be7743b1dc1d120bafa5a380d3022cdf",
+          "D:\\dev-projects\\3D-GIS\\demos\\morocco-offline-gis\\public\\data\\metadata.json": "fe0f6fa92ff3490d2c5d01385b21632928aebb919824f2661b65b47ac6768980"
         }
       },
       "name": "idempotence",
@@ -163,12 +163,12 @@
       "size_bytes": 2396526
     },
     "admin-context-labels.geojson": {
-      "sha256": "a2051a9db3a13138500f7a8d6bc95e6439212b6ecbfed77a5d11330a582aa9dd",
-      "size_bytes": 77611
+      "sha256": "92d71a24f30f6eedd8f9621bef887676be7743b1dc1d120bafa5a380d3022cdf",
+      "size_bytes": 79891
     },
     "metadata.json": {
-      "sha256": "a5e0d056f02dbfd97729a5ac505d84498e0eaecae5ca697991ccced5aa288c9a",
-      "size_bytes": 46998
+      "sha256": "fe0f6fa92ff3490d2c5d01385b21632928aebb919824f2661b65b47ac6768980",
+      "size_bytes": 47699
     }
   },
   "pinned": {

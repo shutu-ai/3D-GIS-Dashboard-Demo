@@ -14,10 +14,11 @@ written to Docs/v1_2_1_admin_font_structural_validation.json):
   5. structural provenance: metadata key geo_context.administrative_label_font
      equals the builder's contract manifest AND matches the ACTUAL asset
      (sha256/size/alias/input sha/glyph count); the usage whitelist equals
-     the pinned exact 16-layer list (4 ADM + 8 real geo + 4 curated osm —
-     usage scope must never widen) and NOTICE.md exists at the declared
-     path, cites the output sha, formula and license relative path, and
-     lists every whitelisted layer;
+     the pinned exact 20-layer list (4 ADM + 8 real geo + 4 curated osm +
+     2 contour + 2 RAN — v1.2.1 user-feedback scope; must never widen
+     further) and NOTICE.md exists at the declared path, cites the output
+     sha, formula and license relative path, and lists every whitelisted
+     layer;
   6. OPTIONAL, portable: bitmap payloads equal the diagnostic twin used for
      the authorized B-variant probe when that file happens to exist on this
      machine (never required — absence is reported, not failed);
@@ -60,9 +61,10 @@ SHEET_CHARS = "MARKECHSFI-éàçô"  # ADM1 label alphabet + French accents (all
 EXPECTED_GLYPHS = 224
 EXPECTED_ALIAS = NEW_NAME
 
-# Approved usage whitelist (v1.2.1 clear-place-name expansion), pinned HERE
-# independently of the builder: usage scope is exactly these 16 layers
-# (4 ADM + 8 real geo + 4 curated osm) — any widening fails validation.
+# Approved usage whitelist (v1.2.1 clear-place-name expansion + user-feedback
+# S9 authorization), pinned HERE independently of the builder: usage scope is
+# exactly these 20 layers (4 ADM + 8 real geo + 4 curated osm + 2 contour +
+# 2 RAN site labels) — any further widening fails validation.
 APPROVED_USAGE_LAYERS = [
     "geo-admin-gb1-labels",
     "geo-admin-gb1-labels-a",
@@ -80,6 +82,10 @@ APPROVED_USAGE_LAYERS = [
     "osm-pass-labels",
     "osm-peak-labels",
     "osm-peak-labels-top",
+    "contour-labels",
+    "contour-labels-minor",
+    "ran-site-labels",
+    "ran-site-labels-selected",
 ]
 
 
@@ -236,12 +242,13 @@ def main() -> None:
         and LICENSE_REL_PATH in notice_text
         and INPUT_SHA256 in notice_text
     )
-    # usage exactness (v1.2.1 clear-place-name expansion): the stored whitelist
-    # must equal the pinned 16-layer list (no widening, no reordering) and the
-    # NOTICE must enumerate every whitelisted layer.
+    # usage exactness (v1.2.1 clear-place-name expansion + user-feedback S9
+    # authorization): the stored whitelist must equal the pinned 20-layer
+    # list (no widening, no reordering) and the NOTICE must enumerate every
+    # whitelisted layer.
     stored_layers = stored.get("used_by_layers") if isinstance(stored, dict) else None
-    checks["usage_whitelist_exact_16"] = stored_layers == APPROVED_USAGE_LAYERS
-    checks["notice_lists_all_16_layers"] = bool(notice_text) and all(
+    checks["usage_whitelist_exact_20"] = stored_layers == APPROVED_USAGE_LAYERS
+    checks["notice_lists_all_20_layers"] = bool(notice_text) and all(
         name in notice_text for name in APPROVED_USAGE_LAYERS
     )
     for k in (
@@ -253,8 +260,8 @@ def main() -> None:
         "notice_valid_utf8",
         "notice_present_at_metadata_path",
         "notice_cites_output_sha_formula_license",
-        "usage_whitelist_exact_16",
-        "notice_lists_all_16_layers",
+        "usage_whitelist_exact_20",
+        "notice_lists_all_20_layers",
     ):
         ok &= bool(checks[k])
 

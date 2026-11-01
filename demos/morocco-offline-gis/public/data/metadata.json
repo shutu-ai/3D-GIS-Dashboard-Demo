@@ -8,10 +8,10 @@
     31.5
   ],
   "coverage": [
-    -8.75,
-    30.8,
-    -6.45,
-    31.65
+    -8.83,
+    30.1,
+    -6.1,
+    31.9
   ],
   "terrain": {
     "mode": "real",
@@ -137,10 +137,23 @@
     "vertical_datum": "EGM2008 (per Copernicus DEM product specification)",
     "native_resolution_m": 30,
     "coverage": [
-      -8.75,
-      30.8,
-      -6.45,
-      31.65
+      -8.83,
+      30.1,
+      -6.1,
+      31.9
+    ],
+    "margin_deg": 0.05,
+    "sampling_window": [
+      -8.88013888888889,
+      30.05013888888889,
+      -6.050138888888888,
+      31.950138888888887
+    ],
+    "source_union_bounds": [
+      -9.00013888888889,
+      30.000138888888888,
+      -6.0001388888888885,
+      32.00013888888889
     ],
     "void_pixels_filled": 0
   },
@@ -423,14 +436,14 @@
           }
         },
         "admin-context-labels.geojson": {
-          "sha256": "a2051a9db3a13138500f7a8d6bc95e6439212b6ecbfed77a5d11330a582aa9dd",
-          "size_bytes": 77611,
+          "sha256": "92d71a24f30f6eedd8f9621bef887676be7743b1dc1d120bafa5a380d3022cdf",
+          "size_bytes": 79891,
           "public_url": "/data/admin-context-labels.geojson",
           "role": "deterministic cartographic label anchor points (overview/atlas)",
           "point_counts": {
             "overview": 87,
-            "atlas": 13,
-            "total": 100
+            "atlas": 16,
+            "total": 103
           }
         }
       },
@@ -543,10 +556,10 @@
         "scope_overview": "representative_point of the full source polygon",
         "scope_atlas": "representative_point of polygon INTERSECT real DEM coverage bbox; emitted only when intersection area > 0 (no invented or out-of-coverage anchors)",
         "dem_coverage_bbox": [
-          -8.75,
-          30.8,
-          -6.45,
-          31.65
+          -8.83,
+          30.1,
+          -6.1,
+          31.9
         ],
         "cartographic_only": "Labels are cartographic positions within their own source polygon; they are not attributed to OSM segments."
       },
@@ -572,8 +585,8 @@
               29.7357752
             ],
             "atlas": [
-              -7.828497597711737,
-              30.986385300000002
+              -8.19618295,
+              30.62072595
             ]
           },
           {
@@ -585,8 +598,8 @@
               31.28770725
             ],
             "atlas": [
-              -7.060304250000003,
-              31.175936749999998
+              -6.916860574999999,
+              30.8967637
             ]
           },
           {
@@ -628,8 +641,8 @@
               31.806335949999998
             ],
             "atlas": [
-              -8.167859225,
-              31.23724945
+              -8.0366889,
+              31.3618019
             ]
           },
           {
@@ -641,8 +654,8 @@
               32.4092902
             ],
             "atlas": [
-              -6.864233710581274,
-              31.49519205
+              -6.784417925183445,
+              31.61423685
             ]
           },
           {
@@ -694,8 +707,8 @@
               31.8702262
             ],
             "atlas": [
-              -6.864233710581274,
-              31.49519205
+              -6.784417925183445,
+              31.61423685
             ]
           },
           {
@@ -747,8 +760,8 @@
               32.22411525
             ],
             "atlas": [
-              -7.601422151510306,
-              31.635712599999998
+              -7.756938866040828,
+              31.75908575
             ]
           },
           {
@@ -770,8 +783,8 @@
               32.0331402
             ],
             "atlas": [
-              -7.5459004645246734,
-              31.634063949999998
+              -7.4163577345248,
+              31.75904835
             ]
           },
           {
@@ -842,7 +855,10 @@
               -8.048053013639528,
               29.3861601
             ],
-            "atlas": null
+            "atlas": [
+              -6.889945358503718,
+              30.275010899999998
+            ]
           },
           {
             "id": "96644757B27397508075839",
@@ -922,7 +938,10 @@
               -5.749590478290385,
               31.3173124
             ],
-            "atlas": null
+            "atlas": [
+              -6.195475174999999,
+              31.328774799999998
+            ]
           },
           {
             "id": "96644757B40957387644980",
@@ -943,8 +962,8 @@
               30.82785015
             ],
             "atlas": [
-              -7.060304250000003,
-              31.175936749999998
+              -7.240046117038478,
+              30.82785015
             ]
           },
           {
@@ -976,8 +995,8 @@
               31.29871945
             ],
             "atlas": [
-              -8.580660575,
-              31.23726155
+              -8.6185148,
+              31.2665647
             ]
           },
           {
@@ -1049,8 +1068,8 @@
               30.4442891
             ],
             "atlas": [
-              -7.828497597711737,
-              30.986385300000002
+              -8.19618295,
+              30.62072595
             ]
           },
           {
@@ -1071,7 +1090,10 @@
               -8.567133251565252,
               32.0287
             ],
-            "atlas": null
+            "atlas": [
+              -8.6265125,
+              31.821199999999997
+            ]
           },
           {
             "id": "96644757B54306876372793",
@@ -1202,8 +1224,8 @@
               31.2806715
             ],
             "atlas": [
-              -7.947559097115754,
-              31.2605828
+              -7.924565118975571,
+              31.2806715
             ]
           },
           {
@@ -1255,8 +1277,8 @@
               31.7221525
             ],
             "atlas": [
-              -8.25248240970857,
-              31.5070328
+              -8.076958054106722,
+              31.6301816
             ]
           },
           {
@@ -1288,8 +1310,8 @@
               30.3138927
             ],
             "atlas": [
-              -6.715618246394621,
-              30.8337874
+              -6.521411,
+              30.55068395
             ]
           },
           {
@@ -1470,7 +1492,7 @@
       "styling": "No fill, color, opacity or style defaults are defined by this data contract; all rendering is owned by the application."
     },
     "administrative_label_font": {
-      "note": "independent v1.2.1 record: isolated derived glyph stack used ONLY by the 16 whitelisted name label layers (4 ADM + 8 real geo + 4 curated osm); baseline font and all other consumers are untouched",
+      "note": "independent v1.2.1 record: isolated derived glyph stack used ONLY by the 20 whitelisted name label layers (4 ADM + 8 real geo + 4 curated osm + 2 contour + 2 RAN site labels); baseline font and all other consumers are untouched",
       "fontstack": "Offline Admin Latin",
       "glyphs_path": "assets/glyphs/Offline Admin Latin/0-255.pbf",
       "glyph_range": "0-255",
@@ -1491,7 +1513,11 @@
         "osm-place-labels",
         "osm-pass-labels",
         "osm-peak-labels",
-        "osm-peak-labels-top"
+        "osm-peak-labels-top",
+        "contour-labels",
+        "contour-labels-minor",
+        "ran-site-labels",
+        "ran-site-labels-selected"
       ],
       "derived_from": {
         "fontstack": "Noto Sans Regular",
@@ -1508,5 +1534,11 @@
       "notice": "assets/glyphs/Offline Admin Latin/NOTICE.md",
       "license": "SIL Open Font License 1.1 (derivative of bundled Noto Sans glyphs; stack name avoids the Noto Reserved Font Name because rendering data is modified)"
     }
-  }
+  },
+  "navigation_coverage": [
+    -8.75,
+    30.8,
+    -6.45,
+    31.65
+  ]
 }

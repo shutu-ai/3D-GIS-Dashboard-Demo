@@ -62,6 +62,33 @@ body {
 .boundary-hint button { padding: 2px 10px; font-size: 11px; }
 .topbar-actions { display: flex; gap: 8px; pointer-events: auto; }
 
+/* ---------- offline tile status chip (v1.2.1) ----------
+   Small status pill, same slot as the hint toasts but quieter and
+   non-interactive: never intercepts map input, never covers the map body
+   (one line, bottom-centre above the attribution strip). */
+.tile-status {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translate(-50%, 8px);
+  z-index: 10; /* below the boundary-hint toasts (11) */
+  padding: 3px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(150, 170, 190, 0.35);
+  background: rgba(16, 20, 26, 0.82);
+  color: rgba(220, 230, 240, 0.85);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.tile-status.visible { opacity: 1; transform: translate(-50%, 0); }
+.tile-status.error {
+  border-color: rgba(224, 120, 64, 0.55);
+  color: #f0c8a0;
+}
+
 /* ---------- panels ---------- */
 .panel {
   position: absolute; z-index: 9; top: 52px;

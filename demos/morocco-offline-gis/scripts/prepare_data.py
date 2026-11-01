@@ -48,7 +48,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pipeline import mvt, pmtiles_writer
 from pipeline.contours import STEPS_PER_TILE, build_contour_tile, tile_fraction_to_lonlat
 from pipeline.dem import ANCHORS, GEN_BBOX, SEED, TARGET_BBOX, elevation, elevation_scalar
-from pipeline.dem_real import COVERAGE_BBOX, HYPSO_STOPS_REAL, RealDEM
+from pipeline.dem_real import (
+    COVERAGE_BBOX,
+    HYPSO_STOPS_REAL,
+    NAVIGATION_COVERAGE,
+    RealDEM,
+)
 from pipeline.glyphs import generate_glyph_pbf
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -727,39 +732,21 @@ def _run_synthetic(fast: bool) -> None:
 
 # --------------------------------------------------------------------- real --
 
-def _run_real(args, fast: bool) -> None:
-    dem_dir = args.dem_dir if os.path.isabs(args.dem_dir) else os.path.join(ROOT, args.dem_dir)
-    print(f"== Real DEM: {dem_dir} ==", flush=True)
-    demr = RealDEM(dem_dir)
-    stats = demr.elevation_stats()
-    print(
-        f"[dem_real] coverage {tuple(demr.coverage_bbox())} "
-        f"elevation min {stats['min_m']:.1f} / mean {stats['mean_m']:.1f} / max {stats['max_m']:.1f} m; "
-        f"void pixels filled: {demr.void_pixels_filled}",
-        flush=True,
-    )
+def _real_metadata(demr: RealDEM, zmax_dem: int) -> dict:
+    """The metadata document prepare_data owns in real mode.
 
-    print("== DEM + hypsometric tiles (real, pyramid-filtered) ==", flush=True)
-    dem_tiles, hypso_tiles = build_dem_tiles_real(demr, fast)
-    zmax_dem = DEM_ZOOMS[1] if not fast else 11
-    print("== Contour vector tiles (real) ==", flush=True)
-    contour_tiles = build_contour_tiles_real(demr, fast)
-    _write_archives(dem_tiles, hypso_tiles, contour_tiles, COVERAGE_BBOX, zmax_dem,
-                    CONTOUR_ZOOMS[1] if not fast else 11)
-
-    print("== GeoJSON ==", flush=True)
-    sampler = lambda lon, lat: demr.sample_scalar(lon, lat)  # noqa: E731
-    _write_geojsons(build_roads_peaks(sampler=sampler, dem=demr), build_simulated_ran(sampler=sampler))
-
-    print("== Glyphs ==", flush=True)
-    _write_glyphs()
-
-    print("== metadata.json (real terrain) ==", flush=True)
-    meta = {
+    Merged over the stored file by _write_metadata_real (everything not in
+    here — geo_context provenance, admin font contract, … — is preserved).
+    navigation_coverage (v1.2.1 integration convention) pins the ORIGINAL
+    pre-expansion workspace so camera maxBounds do not widen with the real
+    buffer archive; coverage stays the expanded real extent.
+    """
+    return {
         "simulated": False,
         "seed": SEED,
         "bbox": TARGET_BBOX,
         "coverage": [float(v) for v in COVERAGE_BBOX],
+        "navigation_coverage": [float(v) for v in NAVIGATION_COVERAGE],
         "terrain": {"mode": "real", **demr.provenance()},
         "network_data": {"mode": "simulated"},
         "geo_features": {"mode": "simulated roads / curated nominal peaks"},
@@ -789,9 +776,78 @@ def _run_real(args, fast: bool) -> None:
             "note": "SIMULATED NETWORK DATA - no real operator data involved",
         },
     }
-    with open(os.path.join(DATA_DIR, "metadata.json"), "w", encoding="utf-8") as f:
-        json.dump(meta, f, ensure_ascii=False, indent=2)
-    print("metadata.json written")
+
+
+def _write_metadata_real(meta: dict) -> None:
+    """RMW of public/data/metadata.json for real mode.
+
+    prepare_data owns only the terrain/data keys it builds (simulated, seed,
+    bbox, coverage, terrain, network_data, geo_features, dem, contours,
+    hypso, glyphs, scenes, ran); every OTHER top-level section — the
+    geo_context provenance block and the administrative_label_font contract
+    included — is PRESERVED instead of being dropped by a wholesale rewrite.
+    Serialized in the file's established dialect (CRLF, 2-space indent,
+    UTF-8 literal non-ASCII, trailing newline, existing key order kept).
+    When the stored document is already semantically equal the file is left
+    BYTE-IDENTICAL, so regeneration is idempotent.
+    """
+    path = os.path.join(DATA_DIR, "metadata.json")
+    existing: dict = {}
+    if os.path.isfile(path):
+        with open(path, "rb") as f:
+            raw = f.read()
+        try:
+            parsed = json.loads(raw.decode("utf-8"))
+            if isinstance(parsed, dict):
+                existing = parsed
+            else:
+                print("[warn] metadata.json is not an object - writing fresh document")
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            print("[warn] metadata.json unreadable - writing fresh document")
+    merged = {**existing, **meta}
+    text = json.dumps(merged, ensure_ascii=False, indent=2) + "\n"
+    data = text.replace("\n", "\r\n").encode("utf-8")
+    if os.path.isfile(path):
+        with open(path, "rb") as f:
+            old = f.read()
+        if old == data:
+            print("metadata.json (unchanged)")
+            return
+    with open(path, "wb") as f:
+        f.write(data)
+    preserved = sorted(set(existing) - set(meta))
+    print(f"metadata.json written ({len(data)} bytes; preserved sections: {preserved or 'none'})")
+
+
+def _run_real(args, fast: bool) -> None:
+    dem_dir = args.dem_dir if os.path.isabs(args.dem_dir) else os.path.join(ROOT, args.dem_dir)
+    print(f"== Real DEM: {dem_dir} ==", flush=True)
+    demr = RealDEM(dem_dir)
+    stats = demr.elevation_stats()
+    print(
+        f"[dem_real] coverage {tuple(demr.coverage_bbox())} "
+        f"elevation min {stats['min_m']:.1f} / mean {stats['mean_m']:.1f} / max {stats['max_m']:.1f} m; "
+        f"void pixels filled: {demr.void_pixels_filled}",
+        flush=True,
+    )
+
+    print("== DEM + hypsometric tiles (real, pyramid-filtered) ==", flush=True)
+    dem_tiles, hypso_tiles = build_dem_tiles_real(demr, fast)
+    zmax_dem = DEM_ZOOMS[1] if not fast else 11
+    print("== Contour vector tiles (real) ==", flush=True)
+    contour_tiles = build_contour_tiles_real(demr, fast)
+    _write_archives(dem_tiles, hypso_tiles, contour_tiles, COVERAGE_BBOX, zmax_dem,
+                    CONTOUR_ZOOMS[1] if not fast else 11)
+
+    print("== GeoJSON ==", flush=True)
+    sampler = lambda lon, lat: demr.sample_scalar(lon, lat)  # noqa: E731
+    _write_geojsons(build_roads_peaks(sampler=sampler, dem=demr), build_simulated_ran(sampler=sampler))
+
+    print("== Glyphs ==", flush=True)
+    _write_glyphs()
+
+    print("== metadata.json (real terrain) ==", flush=True)
+    _write_metadata_real(_real_metadata(demr, zmax_dem))
 
     total = sum(os.path.getsize(os.path.join(DATA_DIR, f)) for f in os.listdir(DATA_DIR))
     print(f"\nDONE. public/data total: {total / 1e6:.1f} MB")

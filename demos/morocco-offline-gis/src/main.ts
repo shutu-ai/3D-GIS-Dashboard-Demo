@@ -6,6 +6,7 @@
 // controls rendered unstyled.
 import "maplibre-gl/dist/maplibre-gl.css";
 import { loadMetadata } from "./config";
+import { setAnalysisCoverage } from "./map/elevation-query";
 import { MapApp } from "./map/map";
 import { TerrainControl } from "./map/terrain";
 import { ContourControl } from "./map/contours";
@@ -20,6 +21,9 @@ async function boot() {
   // still defaults to 'gis' until setMode runs)
   primeHashMode();
   const meta = await loadMetadata();
+  // analysis domain = declared coverage: margin tiles written beyond it are
+  // resampling headroom, never presentable as data (v1.2.0 UNKNOWN contract)
+  setAnalysisCoverage(meta.coverage);
   const app = await MapApp.create(meta);
   // debug/E2E handle: lets tests project known in-coverage points to screen
   (window as unknown as { __gisApp: MapApp }).__gisApp = app;

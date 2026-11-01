@@ -147,15 +147,25 @@ export class Controls {
     });
     const slider = document.getElementById("pitch-slider") as HTMLInputElement;
     const pv = document.getElementById("pitch-val")!;
+    // v1.2.1 user-feedback: slider reading + 2D/3D segment must show the
+    // ACTUAL camera state. Boot cameras are applied in MapApp.create BEFORE
+    // this wiring runs (e.g. overview boots at pitch 0), so click-only
+    // button state and the HTML-default "50°" went stale until the first
+    // user interaction. One sync point: map "pitch" event + one boot read.
+    const syncCameraUI = () => {
+      const p = Math.round(this.map.getPitch());
+      pv.textContent = `${p}°`;
+      slider.value = String(p);
+      const is2d = p === 0;
+      b2.classList.toggle("active", is2d);
+      b3.classList.toggle("active", !is2d);
+    };
     slider.addEventListener("input", () => {
       pv.textContent = `${slider.value}°`;
       this.terrainCtl.setPitch(+slider.value);
     });
-    this.map.on("pitch", () => {
-      const p = Math.round(this.map.getPitch());
-      pv.textContent = `${p}°`;
-      slider.value = String(p);
-    });
+    this.map.on("pitch", syncCameraUI);
+    syncCameraUI();
     document.querySelectorAll<HTMLButtonElement>(".seg.ex").forEach((b) => {
       b.addEventListener("click", () => {
         document.querySelectorAll(".seg.ex").forEach((x) => x.classList.remove("active"));

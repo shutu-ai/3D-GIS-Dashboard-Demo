@@ -47,7 +47,8 @@ Copy-Item (Join-Path $root 'README.md') (Join-Path $root 'dist\README.md') -Forc
 $docsDir = Join-Path $root 'dist\Docs'
 New-Item -ItemType Directory -Path $docsDir -Force | Out-Null
 foreach ($doc in @('V1_2_1_Geographic_Context_Plan.md', 'V1_2_1_Data_Sources_and_Boundaries.md',
-                   'V1_2_0_Interaction_and_Data_Contract.md', 'V1_2_1_Disconnected_Cold_Start.md')) {
+                   'V1_2_0_Interaction_and_Data_Contract.md', 'V1_2_1_Disconnected_Cold_Start.md',
+                   'V1_2_1_DEM_Buffer_Expansion.md', 'V1_2_1_Admin_Font_20_Layer_Expansion.md')) {
     Copy-Item (Join-Path $root "Docs\$doc") (Join-Path $docsDir $doc) -Force
 }
 # QA evidence is included when available; acceptance JSON and ZIP checksum stay

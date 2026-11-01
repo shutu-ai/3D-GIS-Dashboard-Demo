@@ -1,8 +1,12 @@
 /** Map instance, style construction, view-state hash, fly-to, reset. */
 
-import maplibregl, { type Map as MLMap, type StyleSpecification } from "maplibre-gl";
+import maplibregl, {
+  type Map as MLMap,
+  type StyleSpecification,
+  type LayerSpecification,
+} from "maplibre-gl";
 import { PMTiles, Protocol } from "pmtiles";
-import { FONT_STACK, LAYER_IDS, type AppMetadata } from "../config";
+import { LAYER_IDS, type AppMetadata } from "../config";
 import { currentViewMode, readHashMode } from "./view-mode";
 import {
   ADMIN_FONT_STACK,
@@ -72,6 +76,40 @@ const ATLAS_ONLY_LAYERS: Array<[string, string | null]> = [
 export const OVERVIEW_CENTER: [number, number] = [-9.0, 28.9];
 export const OVERVIEW_ZOOM = 5.55;
 
+/**
+ * Nationwide camera that FITS the overview bbox at the current viewport size
+ * (local 5.24 `cameraForBounds`, whose options type carries `padding` —
+ * unlike `FitBoundsOptions`). The fixed legacy zoom 5.55 cropped Morocco
+ * north-south (whole-country fit needs ~z5.2 at common viewports). Falls
+ * back to the legacy fixed camera when the transform cannot resolve (never
+ * blocks boot).
+ */
+export function overviewCamera(
+  map: MLMap,
+  meta: AppMetadata,
+): { center: [number, number]; zoom: number; bearing: number } {
+  const legacy = { center: OVERVIEW_CENTER, zoom: OVERVIEW_ZOOM, bearing: 0 };
+  // v1.2.1 user-feedback fit padding (acceptance contract): a tight fit lands
+  // the bbox north/south corners exactly on the canvas edge, under the topbar
+  // and the attribution/hint strip (measured: corner y = 0 and y = 900). The
+  // padding lifts the corners clear of the header (top), the footer + overview
+  // hint banner (bottom); the side insets grow naturally with the lower fit
+  // zoom (bbox is height-bound), clearing the left panel and analysis drawer.
+  const cam = map.cameraForBounds(overviewBounds(meta), {
+    bearing: 0,
+    pitch: 0,
+    padding: { top: 60, bottom: 110, left: 0, right: 0 },
+  });
+  if (!cam || !cam.center || cam.zoom === undefined) return legacy;
+  const c = cam.center;
+  const center: [number, number] = Array.isArray(c)
+    ? [c[0]!, c[1]!]
+    : "lng" in c
+      ? [c.lng, c.lat]
+      : [c.lon, c.lat];
+  return { center, zoom: cam.zoom, bearing: 0 };
+}
+
 /** v1.2.1 camera coverage domain (task §5): real-DEM High Atlas vs 2D nationwide. */
 export type MapExtent = "atlas" | "overview";
 
@@ -96,6 +134,26 @@ function overviewBounds(meta: AppMetadata): [[number, number], [number, number]]
 }
 
 /**
+ * v1.2.1 user-feedback: maxBounds for the overview extent are the archive
+ * bbox WIDENED (lng ±14°, lat +8°, latitude clamped to ±85°). Reason:
+ * MapLibre derives a zoom FLOOR from maxBounds (the zoom at which the bounds
+ * span the viewport width) — bounds as tight as the archive bbox would floor
+ * the camera above the padded whole-country fit (~z4.8) and silently clamp
+ * it back up, pushing the padded north/south corners off-canvas; the widened
+ * bounds drop that floor below the fit zoom. Trade-off, deliberate: the user
+ * may over-pan onto the honest empty background beyond the archive edge —
+ * the fitted camera itself stays on the archive, the persistent overview
+ * hint remains, and no fake data is ever drawn outside the archive.
+ */
+function overviewMaxBounds(meta: AppMetadata): [[number, number], [number, number]] {
+  const b = meta.geo_context?.files?.["morocco-overview.pmtiles"]?.bbox ?? OVERVIEW_BBOX_FALLBACK;
+  return [
+    [b[0] - 14, Math.max(b[1] - 8, -85)],
+    [b[2] + 14, Math.min(b[3] + 8, 85)],
+  ];
+}
+
+/**
  * Shrink a bbox by a margin (degrees) on every side so free-flight camera
  * centres stay over real terrain tiles instead of the archive edge.
  */
@@ -115,9 +173,24 @@ export interface ViewState {
   ex: number;
 }
 
+/** Sources backed by local PMTiles archives (the only ones the tile status
+ *  chip tracks — geojson/inline sources load through a different path). */
+const TILE_STATUS_SOURCES = [
+  "dem",
+  "demHillshade",
+  "hypso",
+  "contours",
+  GEO_SOURCES.overview,
+  GEO_SOURCES.detail,
+] as const;
+
 export class MapApp {
   map: MLMap;
   meta: AppMetadata;
+  /** Offline PMTiles archives whose load state feeds the map status chip. */
+  private failedPmtilesSources = new Set<string>();
+  private tileStatusEl: HTMLElement | null = null;
+  private tileStatusState = "";
   private terrainRestoreTimer: number | null = null;
   private terrainRestore: ReturnType<MLMap["getTerrain"]> = null;
   private atlasSyncTimer: number | null = null;
@@ -131,7 +204,8 @@ export class MapApp {
 
   static async create(meta: AppMetadata): Promise<MapApp> {
     const style = buildStyle(meta);
-    const initial = readHash() ?? fitBoundsView(meta);
+    const hashView = readHash();
+    const initial = hashView ?? fitBoundsView(meta);
     // RAN mode needs the real-DEM area — it always boots in the atlas extent,
     // even if a hand-edited link combines `&m=ran` with `&e=ov`.
     const bootExtent: MapExtent = readHashMode() === "ran" ? "atlas" : readHashExtent();
@@ -149,7 +223,9 @@ export class MapApp {
       // hovers past the "floating rectangle" data edge (C1); the nationwide
       // overview extent swaps in its own (larger) bounds via setExtent
       maxBounds:
-        bootExtent === "overview" ? overviewBounds(meta) : shrinkBounds(meta.coverage, 0.05),
+        bootExtent === "overview"
+          ? overviewMaxBounds(meta)
+          : shrinkBounds(meta.navigation_coverage ?? meta.coverage, 0.05),
       // Deterministic rendering: MapLibre's symbol crossfade (default 300 ms)
       // composites previous placement quads while a placement re-commits;
       // zeroing it drops old quads immediately (symbolFadeChange() == 1),
@@ -162,6 +238,14 @@ export class MapApp {
     });
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "bottom-right");
     map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: "metric" }), "bottom-left");
+    // v1.2.1 user-feedback overview boot WITHOUT an explicit shared view: fit
+    // the whole country at the current viewport instead of the old fixed zoom
+    // (which cropped north-south and fought the maxBounds fit clamp). Explicit
+    // `#v=` links stay honored byte-for-byte (only clamped by maxBounds).
+    if (bootExtent === "overview" && !hashView) {
+      const cam = overviewCamera(map, meta);
+      map.jumpTo({ center: cam.center, zoom: cam.zoom, pitch: 0, bearing: 0 });
+    }
     const app = new MapApp(map, meta);
     app.extent = bootExtent;
     // overview boots: DEM-coverage layers (hypso/contours/curated OSM) are
@@ -173,6 +257,7 @@ export class MapApp {
     // overview honesty hint carries that role instead
     app.wireBoundaryHint(bootExtent === "overview" ? null : initial);
     if (bootExtent === "overview") app.showOverviewHint();
+    app.wireTileStatus();
     return app;
   }
 
@@ -222,7 +307,14 @@ export class MapApp {
     if (extent === this.extent) return;
     this.extent = extent;
     this.syncAtlasOnlyLayers();
-    this.map.setMaxBounds(extent === "overview" ? overviewBounds(this.meta) : shrinkBounds(this.meta.coverage, 0.05));
+    // atlas clamps to the navigation core (inside the real buffered
+    // coverage) so free flight never reaches the new data-edge cut; the
+    // boundary hint still judges against the actual coverage
+    this.map.setMaxBounds(
+      extent === "overview"
+        ? overviewMaxBounds(this.meta)
+        : shrinkBounds(this.meta.navigation_coverage ?? this.meta.coverage, 0.05),
+    );
     if (extent === "overview") {
       this.hideBoundaryHint();
       this.showOverviewHint();
@@ -239,9 +331,12 @@ export class MapApp {
   /** Nationwide 2D overview: no terrain, pitch 0, honest extent note. */
   flyToOverview() {
     this.setExtent("overview");
+    // v1.2.1 user-feedback: fitted nationwide camera (whole outline, current
+    // viewport)
+    const cam = overviewCamera(this.map, this.meta);
     this.map.flyTo({
-      center: OVERVIEW_CENTER,
-      zoom: OVERVIEW_ZOOM,
+      center: cam.center,
+      zoom: cam.zoom,
       pitch: 0,
       bearing: 0,
       duration: 2600,
@@ -343,6 +438,108 @@ export class MapApp {
   private boundaryShown = false;
   private boundarySticky = false;
 
+  // -------------------------------- offline tile status chip (v1.2.1)
+  /**
+   * Small non-occluding status pill for the OFFLINE PMTiles archives.
+   * Event lifecycle — zero timers, zero rAF:
+   *  - "sourcedataloading" (load start) → the chip appears at the actual
+   *    beginning of a load, not only at completion events;
+   *  - "sourcedata" (per source / tile batch) → clears that source's error
+   *    flag when isSourceLoaded flips true, then re-evaluates;
+   *  - "styledata" (layer visibility toggles) → relevance re-evaluation
+   *    (hiding a source's layers fires no sourcedata);
+   *  - "moveend" re-evaluates after camera changes (relevance is
+   *    zoom/extent-dependent);
+   *  - "error" latches the failing source id (MapLibre reports sourceId).
+   * A source counts only while a currently-visible layer whose zoom range
+   * covers the camera references it — hidden atlas-only archives in the
+   * overview and geo-detail below its layer floor can never pin the chip
+   * to "loading" forever. isSourceLoaded is a tile-cache signal, not
+   * pixel-level proof: the copy only ever says "loading", never claims the
+   * render was verified. The map stays fully interactive (no overlay).
+   */
+  private wireTileStatus() {
+    const relevantSources = (): Set<string> => {
+      const relevant = new Set<string>();
+      const z = this.map.getZoom();
+      // terrain consumes the dem source directly, without a style layer
+      if (this.map.getTerrain()) relevant.add("dem");
+      for (const layer of this.map.getStyle()?.layers ?? []) {
+        const spec = layer as LayerSpecification;
+        if (!("source" in spec) || typeof spec.source !== "string") continue;
+        if (!(TILE_STATUS_SOURCES as readonly string[]).includes(spec.source)) continue;
+        const registered = this.map.getLayer(spec.id);
+        if (!registered) continue; // style not committed yet
+        if (this.map.getLayoutProperty(spec.id, "visibility") === "none") continue;
+        const minzoom = registered.minzoom ?? 0;
+        const maxzoom = registered.maxzoom ?? Infinity;
+        if (z < minzoom - 0.01 || z >= maxzoom) continue;
+        relevant.add(spec.source);
+      }
+      return relevant;
+    };
+
+    const update = () => {
+      const relevant = relevantSources();
+      const pending = [...relevant].filter((id) => this.map.isSourceLoaded(id) === false);
+      const failed = [...relevant].filter((id) => this.failedPmtilesSources.has(id));
+      const state = failed.length > 0 ? "error" : pending.length > 0 ? "loading" : "idle";
+      if (state === this.tileStatusState) return; // no DOM churn on repeat fires
+      this.tileStatusState = state;
+      if (state === "idle") {
+        // hidden AND emptied: a live region must not keep a stale
+        // "loading" announcement after everything settled
+        if (this.tileStatusEl) {
+          this.tileStatusEl.ariaHidden = "true";
+          this.tileStatusEl.textContent = "";
+          this.tileStatusEl.classList.remove("visible");
+        }
+        return;
+      }
+      let el = this.tileStatusEl;
+      if (!el) {
+        el = document.createElement("div");
+        el.id = "tile-status";
+        el.className = "tile-status";
+        el.setAttribute("role", "status");
+        el.setAttribute("aria-live", "polite");
+        el.ariaHidden = "true";
+        document.getElementById("app")!.appendChild(el);
+        this.tileStatusEl = el;
+      }
+      el.classList.toggle("error", state === "error");
+      el.ariaHidden = "false";
+      el.textContent =
+        state === "error"
+          ? "离线地图数据加载失败，请检查数据包或复位重试。"
+          : "地图图层加载中…";
+      el.classList.add("visible");
+    };
+
+    this.map.on("sourcedataloading", () => update());
+    this.map.on("sourcedata", (e) => {
+      const d = e as { sourceId?: string; isSourceLoaded?: boolean };
+      if (d.sourceId && d.isSourceLoaded) this.failedPmtilesSources.delete(d.sourceId);
+      update();
+    });
+    // styledata: layer visibility/toggle changes alter source relevance but
+    // fire no sourcedata — update() only touches this chip's DOM, never the
+    // map style, so it cannot recurse
+    this.map.on("styledata", () => update());
+    this.map.on("moveend", () => update());
+    this.map.on("error", (e) => {
+      const id = (e as { sourceId?: string }).sourceId;
+      if (id && (TILE_STATUS_SOURCES as readonly string[]).includes(id)) {
+        this.failedPmtilesSources.add(id);
+        update();
+      }
+    });
+    // boot evaluation: safe before style commit — relevantSources() sees no
+    // registered layers yet, so this resolves to idle (chip stays hidden)
+    // without throwing
+    update();
+  }
+
   /**
    * On moveend (debounced), warn when the camera centre sits outside the DEM
    * coverage bbox or below the first terrain zoom — the point where rendered
@@ -401,7 +598,13 @@ export class MapApp {
       toast.className = "boundary-hint";
       toast.innerHTML =
         `<span>Outside offline terrain coverage — data ends here</span>` +
+        `<button id="boundary-overview" type="button">查看全国 2D</button>` +
         `<button id="boundary-reset" type="button">Reset</button>`;
+      toast.querySelector("#boundary-overview")?.addEventListener("click", () => {
+        this.boundarySticky = false;
+        this.hideBoundaryHint();
+        this.flyToOverview();
+      });
       toast.querySelector("#boundary-reset")?.addEventListener("click", () => {
         this.boundarySticky = false;
         this.hideBoundaryHint();
@@ -594,6 +797,19 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         paint: { "background-color": "#1c2822" },
       },
       {
+        // v1.2.1 user-feedback nationwide LAND BASE (overview archive `earth`
+        // polygons — sampled: kind=earth covers the full bbox at z4/z5).
+        // Nationwide 2D and the atlas void around the DEM rectangle now read
+        // as honest land instead of flat background; ocean fill + coast
+        // outline sit on top of it.
+        id: LAYER_IDS.geoEarth,
+        type: "fill",
+        source: GEO_SOURCES.overview,
+        "source-layer": "earth",
+        filter: ["==", ["get", "kind"], "earth"],
+        paint: { "fill-color": "#26362e", "fill-opacity": 1 },
+      },
+      {
         id: LAYER_IDS.hypso,
         type: "raster",
         source: "hypso",
@@ -620,6 +836,10 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         },
       },
       // --- contours (minor under major) ---
+      // v1.2.1 user-feedback hierarchy ladder: the old 0.5-alpha 0.7-1.1px
+      // hairlines were invisible on hypso+hillshade at z11.8 (measured live).
+      // Minor keeps a quieter tone but real width; major is near-opaque warm
+      // cream.
       {
         id: LAYER_IDS.contoursLine,
         type: "line",
@@ -627,8 +847,8 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         "source-layer": "contour",
         filter: ["!", ["get", "major"]],
         paint: {
-          "line-color": "rgba(235, 215, 170, 0.5)",
-          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 0.7, 13, 1.1],
+          "line-color": "rgba(226, 205, 160, 0.62)",
+          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 0.9, 13, 1.5],
         },
       },
       {
@@ -638,8 +858,8 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         "source-layer": "contour",
         filter: ["==", ["get", "major"], true],
         paint: {
-          "line-color": "rgba(240, 220, 175, 0.85)",
-          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 1.2, 13, 2.0],
+          "line-color": "rgba(244, 227, 182, 0.9)",
+          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 1.5, 13, 2.4],
         },
       },
       {
@@ -654,12 +874,17 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
           "symbol-spacing": 300,
           "text-padding": 4,
           "text-field": ["concat", ["to-string", ["get", "ele"]], " m"],
-          "text-font": [FONT_STACK],
+          // v1.2.1 feedback revision: corrected-SDF admin stack, part of the
+          // 20-layer contract extension (data lane owns metadata/manifest).
+          // Elevation strings are ASCII digits — latin-safe by policy.
+          "text-font": [ADMIN_FONT_STACK],
           "text-size": ["interpolate", ["linear"], ["zoom"], 9, 9.5, 13, 12],
         },
         paint: {
-          "text-color": "#f2e3bd",
-          "text-halo-color": "rgba(14, 20, 28, 0.8)",
+          // white + dark halo, same recipe as the 16-layer white-label spec;
+          // the black digits seen on F2-S9 came from the base-font path
+          "text-color": "#ffffff",
+          "text-halo-color": "rgba(16, 22, 30, 0.85)",
           "text-halo-width": 1.4,
         },
       },
@@ -677,12 +902,15 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
           "symbol-spacing": 280,
           "text-padding": 4,
           "text-field": ["concat", ["to-string", ["get", "ele"]], " m"],
-          "text-font": [FONT_STACK],
+          // corrected-SDF admin stack (20-layer contract); ASCII digits
+          "text-font": [ADMIN_FONT_STACK],
           "text-size": ["interpolate", ["linear"], ["zoom"], 11.5, 9.5, 13, 11],
         },
         paint: {
-          "text-color": "rgba(233, 214, 172, 0.85)",
-          "text-halo-color": "rgba(14, 20, 28, 0.8)",
+          // minor tier reads the same white+halo recipe; hierarchy vs the
+          // major tier is carried by size and minzoom, not by darker fill
+          "text-color": "#ffffff",
+          "text-halo-color": "rgba(16, 22, 30, 0.85)",
           "text-halo-width": 1.4,
         },
       },
@@ -968,35 +1196,39 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
         minzoom: 10,
         layout: {
           "text-field": ["get", "id"],
-          "text-font": [FONT_STACK],
+          // corrected-SDF admin stack (20-layer contract); seeded ASCII ids
+          "text-font": [ADMIN_FONT_STACK],
           "text-size": ["interpolate", ["linear"], ["zoom"], 10, 10.5, 13, 12],
           "text-offset": [0, 1.4],
           "text-anchor": "top",
         },
         paint: {
-          "text-color": "#a8d0f5",
+          // white + dark halo per the white-label spec; unselected vs
+          // selected hierarchy stays on size + the dimmed opacity ladder
+          "text-color": "#ffffff",
           "text-opacity": ["match", ["get", "sel"], "dimmed", 0.35, 1],
-          "text-halo-color": "rgba(10, 16, 24, 0.9)",
+          "text-halo-color": "rgba(16, 22, 30, 0.85)",
           "text-halo-width": 1.2,
         },
       },
       {
-        // selected site label: larger + warm, wins the collision priority by
-        // being drawn last
+        // selected site label: hierarchy carried by size (13.5 fixed vs the
+        // base tier's 10.5-12) and draw order (last, wins collision); fill
+        // stays white like every label tier — no warm/black divergence
         id: LAYER_IDS.ranSiteLabelsSel,
         type: "symbol",
         source: "ran",
         filter: ["all", ["==", ["get", "sel"], "selected"], ["==", ["geometry-type"], "Point"]],
         layout: {
           "text-field": ["get", "id"],
-          "text-font": [FONT_STACK],
+          "text-font": [ADMIN_FONT_STACK],
           "text-size": 13.5,
           "text-offset": [0, 1.4],
           "text-anchor": "top",
         },
         paint: {
-          "text-color": "#ffd98a",
-          "text-halo-color": "rgba(10, 16, 24, 0.95)",
+          "text-color": "#ffffff",
+          "text-halo-color": "rgba(16, 22, 30, 0.85)",
           "text-halo-width": 1.4,
         },
       },
@@ -1012,5 +1244,47 @@ export function buildStyle(meta: AppMetadata): StyleSpecification {
   layers.splice(hillIdx + 1, 0, ...geo.base.map((d) => d.layer));
   const contourLabelIdx = layers.findIndex((l) => l.id === LAYER_IDS.contoursLabelMinor);
   layers.splice(contourLabelIdx + 1, 0, ...geo.label.map((d) => d.layer));
+  // v1.2.1 user-feedback honest DEM-coverage frame: a soft glowing ring on
+  // the exact data edge. Nationwide it MARKS where real 3D terrain lives
+  // (pairs with the overview hint); in the atlas extent it turns the hard
+  // hypso/background cut into a deliberate frame instead of a data accident.
+  // Always visible in both extents — the edge is a fact of the data, never
+  // hidden.
+  (style.sources as Record<string, unknown>).coverageEdge = {
+    type: "geojson",
+    data: {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: coverageRing(meta.coverage),
+      },
+    },
+  };
+  const skirtIdx = layers.findIndex((l) => l.id === LAYER_IDS.geoEarth);
+  layers.splice(skirtIdx + 1, 0, {
+    id: LAYER_IDS.coverageEdge,
+    type: "line",
+    source: "coverageEdge",
+    minzoom: 4,
+    layout: { "line-join": "round", "line-cap": "round" },
+    paint: {
+      "line-color": "rgba(240, 214, 140, 0.32)",
+      "line-width": 6,
+      "line-blur": 6,
+    },
+  } as LayerSpecification);
   return style;
+}
+
+/** Closed ring following the DEM coverage bbox (for the coverage frame). */
+function coverageRing(coverage: [number, number, number, number]): Array<[number, number]> {
+  const [minLon, minLat, maxLon, maxLat] = coverage;
+  return [
+    [minLon, minLat],
+    [maxLon, minLat],
+    [maxLon, maxLat],
+    [minLon, maxLat],
+    [minLon, minLat],
+  ];
 }

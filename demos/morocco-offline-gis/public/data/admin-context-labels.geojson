@@ -107,8 +107,8 @@
     {
       "geometry": {
         "coordinates": [
-          -7.060304250000003,
-          31.175936749999998
+          -6.916860574999999,
+          30.8967637
         ],
         "type": "Point"
       },
@@ -159,8 +159,8 @@
     {
       "geometry": {
         "coordinates": [
-          -7.828497597711737,
-          30.986385300000002
+          -8.19618295,
+          30.62072595
         ],
         "type": "Point"
       },
@@ -263,8 +263,8 @@
     {
       "geometry": {
         "coordinates": [
-          -8.167859225,
-          31.23724945
+          -8.0366889,
+          31.3618019
         ],
         "type": "Point"
       },
@@ -393,8 +393,8 @@
     {
       "geometry": {
         "coordinates": [
-          -6.864233710581274,
-          31.49519205
+          -6.784417925183445,
+          31.61423685
         ],
         "type": "Point"
       },
@@ -471,8 +471,8 @@
     {
       "geometry": {
         "coordinates": [
-          -7.601422151510306,
-          31.635712599999998
+          -7.756938866040828,
+          31.75908575
         ],
         "type": "Point"
       },
@@ -575,8 +575,8 @@
     {
       "geometry": {
         "coordinates": [
-          -7.828497597711737,
-          30.986385300000002
+          -8.19618295,
+          30.62072595
         ],
         "type": "Point"
       },
@@ -639,6 +639,32 @@
         "level": "ADM2",
         "name": "Tata Province",
         "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B26550498921337",
+        "shapeISO": "",
+        "shapeName": "Tata Province",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -6.889945358503718,
+          30.275010899999998
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B26550498921337:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Tata Province",
+        "level": "ADM2",
+        "name": "Tata Province",
+        "scope": "atlas",
         "shapeGroup": "MAR",
         "shapeID": "96644757B26550498921337",
         "shapeISO": "",
@@ -743,6 +769,32 @@
         "level": "ADM2",
         "name": "Province de Youssoufia \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u064a\u0648\u0633\u0641\u064a\u0629",
         "scope": "overview",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B54259280648674",
+        "shapeISO": "",
+        "shapeName": "Province de Youssoufia \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u064a\u0648\u0633\u0641\u064a\u0629",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -8.6265125,
+          31.821199999999997
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B54259280648674:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Youssoufia",
+        "level": "ADM2",
+        "name": "Province de Youssoufia \u0625\u0642\u0644\u064a\u0645 \u0627\u0644\u064a\u0648\u0633\u0641\u064a\u0629",
+        "scope": "atlas",
         "shapeGroup": "MAR",
         "shapeID": "96644757B54259280648674",
         "shapeISO": "",
@@ -1303,8 +1355,8 @@
     {
       "geometry": {
         "coordinates": [
-          -8.580660575,
-          31.23726155
+          -8.6185148,
+          31.2665647
         ],
         "type": "Point"
       },
@@ -1433,8 +1485,8 @@
     {
       "geometry": {
         "coordinates": [
-          -7.947559097115754,
-          31.2605828
+          -7.924565118975571,
+          31.2806715
         ],
         "type": "Point"
       },
@@ -1563,8 +1615,8 @@
     {
       "geometry": {
         "coordinates": [
-          -7.060304250000003,
-          31.175936749999998
+          -7.240046117038478,
+          30.82785015
         ],
         "type": "Point"
       },
@@ -1641,8 +1693,8 @@
     {
       "geometry": {
         "coordinates": [
-          -8.25248240970857,
-          31.5070328
+          -8.076958054106722,
+          31.6301816
         ],
         "type": "Point"
       },
@@ -1771,8 +1823,8 @@
     {
       "geometry": {
         "coordinates": [
-          -6.864233710581274,
-          31.49519205
+          -6.784417925183445,
+          31.61423685
         ],
         "type": "Point"
       },
@@ -2031,8 +2083,8 @@
     {
       "geometry": {
         "coordinates": [
-          -7.5459004645246734,
-          31.634063949999998
+          -7.4163577345248,
+          31.75904835
         ],
         "type": "Point"
       },
@@ -2187,6 +2239,32 @@
     {
       "geometry": {
         "coordinates": [
+          -6.195475174999999,
+          31.328774799999998
+        ],
+        "type": "Point"
+      },
+      "id": "96644757B39685617616684:atlas",
+      "properties": {
+        "admin_level": 2,
+        "label": "Province de Tinghir",
+        "level": "ADM2",
+        "name": "Province de Tinghir \u0625\u0642\u0644\u064a\u0645 \u062a\u0646\u063a\u064a\u0631",
+        "scope": "atlas",
+        "shapeGroup": "MAR",
+        "shapeID": "96644757B39685617616684",
+        "shapeISO": "",
+        "shapeName": "Province de Tinghir \u0625\u0642\u0644\u064a\u0645 \u062a\u0646\u063a\u064a\u0631",
+        "shapeType": "ADM2",
+        "source": "geoBoundaries gbOpen",
+        "source_version": "9469f09",
+        "source_year": 2017
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
           -5.251608826599604,
           33.353001750000004
         ],
@@ -2265,8 +2343,8 @@
     {
       "geometry": {
         "coordinates": [
-          -6.715618246394621,
-          30.8337874
+          -6.521411,
+          30.55068395
         ],
         "type": "Point"
       },
@@ -2605,10 +2683,10 @@
     "anchor_method": "deterministic shapely representative_point (interior point) of the SAME source polygon; overview = full polygon, atlas = polygon INTERSECT real DEM coverage bbox",
     "cartographic_note": "Label points are cartographic positions inside their own source polygon; they are never attributed to OSM segments.",
     "dem_coverage_bbox": [
-      -8.75,
-      30.8,
-      -6.45,
-      31.65
+      -8.83,
+      30.1,
+      -6.1,
+      31.9
     ],
     "license": "ODbL 1.0",
     "scopes": {
