@@ -29,16 +29,16 @@ DATA_VALIDATION=99/99 (geo-context 10/10; admin-context 9/9 incl. idempotence; i
 PLAYWRIGHT_BASELINE=42/42
 PLAYWRIGHT_NEW=4/4 strict 02/07 (rev6b ordered-candidate ADM1 boundary gate, unchanged Pillow thresholds) + 66/66 full regression (16.4m; Docs/v1_2_1_full66_rev6b_results.json)
 SCREENSHOTS=42 canonical (21/viewport, dual-viewport) + 16 ordered-candidate trail (58 png); independent AI review 27/27 PASS, 0 FAIL (Docs/V1_2_1_Visual_Acceptance.md)
-OFFLINE_COLD_START=PENDING (prior user-attested PASS 2026-10-31 binds ZIP 0e57c689, superseded; re-acceptance required on final ZIP 3db540bd)
+OFFLINE_COLD_START=PASS (user-attested 2026-11-01 on FINAL ZIP 3db540bd: new extraction + SHA check, physical disconnect, fresh profile/empty cache, five-item visual check; Docs/V1_2_1_Manual_Reacceptance.md; prior 0e57c689 attestation historical)
 EXTERNAL_REQUESTS=0
 PMTILES_RANGE_206=PASS
 JS_WEBGL_ERRORS=0
 ZIP_PATH=releases/Morocco-High-Atlas-Offline-GeoContext-v1.2.1.zip
 ZIP_SIZE_BYTES=819542637
 ZIP_SHA256=3db540bdd5601c448c9d927d9d9fe074404734c5c9ae1e8a50f82a34730a3cbf
-RELEASE_READY=NO
+RELEASE_READY=YES
 PUBLISHED=NO
-BLOCKERS=User physical-disconnect / empty-cache cold-start re-acceptance of final ZIP 3db540bd (G0-G5 all PASS; prior manual PASS bound to ZIP 0e57c689, historical).
+BLOCKERS=none (all gates G0-G5 PASS, manual re-acceptance of final ZIP 3db540bd passed 2026-11-01; publishing remains explicitly out of scope per task constraints - no push/merge/tag/Release)
 
 Implemented: real offline geographic context, honest extent/DEM policy, separate simulated data, source/license records and candidate ZIP.
 Tested: build; 99/99 terrain + 10/10 geographic validation; rev6b strict 02/07 4/4 (unchanged Pillow gate, ordered-candidate ADM1 detector) and a full 66/66 regression (16.4m, Docs/v1_2_1_full66_rev6b_results.json) reproducing the strict-run winners exactly; baseline 42 spec files byte-untouched (git diff exit 0). Historical failed runs retained unchanged (Docs/v1_2_1_test_results.json 65/66 pre-correction; failure-chain archives under .data/).
